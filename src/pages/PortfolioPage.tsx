@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import type { PortfolioItem } from "../types";
 import PortfolioPopup from "../components/PortfolioPopup/PortfolioPopup";
+import { publicUrl } from "../utils/publicUrl";
 import styles from "./PortfolioPage.module.css";
 
 interface PortfolioPageProps {
@@ -38,7 +39,7 @@ export default function PortfolioPage({ items, onBack }: PortfolioPageProps) {
           >
             <div className={styles.cardImage}>
               {item.imageUrl ? (
-                <img src={item.imageUrl} alt={item.title} />
+                <img src={publicUrl(item.imageUrl)} alt={item.title} />
               ) : (
                 <div className={styles.placeholder}>
                   <span className={styles.placeholderIcon}>◆</span>

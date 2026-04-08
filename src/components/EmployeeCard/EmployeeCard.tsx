@@ -1,5 +1,6 @@
 import { useRef, useState, useCallback } from "react";
 import type { Employee } from "../../types";
+import { publicUrl } from "../../utils/publicUrl";
 import EmployeeCard3D from "./EmployeeCard3D";
 import styles from "./EmployeeCard.module.css";
 
@@ -47,7 +48,7 @@ export default function EmployeeCard({ employee, onClick }: EmployeeCardProps) {
           {employee.imageUrl ? (
             <img
               className={styles.photo}
-              src={employee.imageUrl}
+              src={publicUrl(employee.imageUrl)}
               alt={employee.name}
             />
           ) : (

@@ -8,6 +8,7 @@ import PostList from "../components/PostList/PostList";
 import Playlist from "../components/Playlist/Playlist";
 import Timeline from "../components/Timeline/Timeline";
 import styles from "./MainPage.module.css";
+import { publicUrl } from "../utils/publicUrl";
 
 interface MainPageProps {
   activeLabel: string;
@@ -42,7 +43,7 @@ export default function MainPage({
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/data/notice.md")
+    fetch(publicUrl("data/notice.md"))
       .then((r) => (r.ok ? r.text() : ""))
       .then((text) => { if (!cancelled) setNoticeContent(text); })
       .catch(() => {});

@@ -12,6 +12,7 @@ import type {
   SidebarItem,
   DisciplinaryRecord,
 } from "../types";
+import { publicUrl } from "../utils/publicUrl";
 
 const EMPTY: AppData = {
   sidebarItems: [],
@@ -25,8 +26,6 @@ const EMPTY: AppData = {
   disciplinary: [],
 };
 
-const withBase = (path: string) => new URL(path, import.meta.env.BASE_URL).toString();
-
 export function useAppData() {
   const [data, setData] = useState<AppData>(EMPTY);
   const [loading, setLoading] = useState(true);
@@ -36,16 +35,16 @@ export function useAppData() {
     let cancelled = false;
 
     Promise.all([
-      fetch(withBase("data/db.json")).then((r) => {
-        if (!r.ok) throw new Error(`db.json: HTTP ${r.status}`);
+      fetch(publicUrl("data/db.json")).then((r) => {
+        if (!r.ok) throw new Error(`db.json: HTTP ${r.status} (${publicUrl("data/db.json")})`);
         return r.json();
       }),
-      fetch(withBase("data/playlist.json")).then((r) => {
-        if (!r.ok) throw new Error(`playlist.json: HTTP ${r.status}`);
+      fetch(publicUrl("data/playlist.json")).then((r) => {
+        if (!r.ok) throw new Error(`playlist.json: HTTP ${r.status} (${publicUrl("data/playlist.json")})`);
         return r.json() as Promise<PlaylistItem[]>;
       }),
-      fetch(withBase("data/timeline.json")).then((r) => {
-        if (!r.ok) throw new Error(`timeline.json: HTTP ${r.status}`);
+      fetch(publicUrl("data/timeline.json")).then((r) => {
+        if (!r.ok) throw new Error(`timeline.json: HTTP ${r.status} (${publicUrl("data/timeline.json")})`);
         return r.json() as Promise<TimelineEvent[]>;
       }),
     ])
@@ -119,7 +118,7 @@ export function useFetchPostContent() {
     async (post: Post): Promise<PostWithContent> => {
       setLoadingPostId(post.id);
       try {
-        const res = await fetch(withBase(`data/posts/${post.id}.md`));
+        const res = await fetch(publicUrl(`data/posts/${post.id}.md`));
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const content = await res.text();
         return { ...post, content };
