@@ -1,0 +1,436 @@
+.window {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #1a1a2e;
+  border: 1px solid #2a2a4a;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 32px;
+  font-family: "JetBrains Mono", "Fira Code", "SF Mono", "Consolas", monospace;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* scanline overlay — slow steady scroll like CRT */
+.window::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: inherit;
+  background-size: 100% 6px;
+  background-image: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.04) 12%,
+    transparent 12%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0.04) 62%,
+    transparent 62%,
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+/* noise texture */
+.window::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+  transition: opacity 0.25s ease;
+}
+
+.glitchLayer {
+  position: relative;
+  z-index: 1;
+}
+
+/* === hover: glitch (dark mode only) === */
+
+/*
+  Shake: mostly still. Tiny random jitter throughout,
+  with 2 dramatic spikes (~1-2% and ~51-53%) like the reference.
+*/
+@keyframes termShake {
+  0%   { transform: translate3d(0, 0, 0); }
+  1%   { transform: translate3d(0, 0, 0) skewX(0deg); }
+  1.5% { transform: translate3d(4px, -2px, 0) skewX(-8deg) scaleY(1.06); }
+  2%   { transform: translate3d(-3px, 1px, 0) skewX(4deg) scaleY(0.98); }
+  2.5% { transform: translate3d(0, 0, 0) skewX(0deg) scaleY(1); }
+  6%   { transform: translate3d(1px, 0, 0); }
+  12%  { transform: translate3d(-1px, 1px, 0); }
+  18%  { transform: translate3d(0, -1px, 0); }
+  24%  { transform: translate3d(1px, 1px, 0); }
+  30%  { transform: translate3d(-1px, 0, 0); }
+  36%  { transform: translate3d(0, 1px, 0); }
+  42%  { transform: translate3d(1px, -1px, 0); }
+  48%  { transform: translate3d(0, 0, 0); }
+  51%  { transform: translate3d(0, 0, 0) skewX(0deg) scaleX(1); }
+  51.5% { transform: translate3d(-3px, 2px, 0) skewX(10deg) scaleX(1.04); }
+  52%  { transform: translate3d(5px, -1px, 0) skewX(-6deg) scaleX(0.96); }
+  52.5% { transform: translate3d(0, 0, 0) skewX(0deg) scaleX(1); }
+  56%  { transform: translate3d(0, 1px, 0); }
+  62%  { transform: translate3d(-1px, 0, 0); }
+  68%  { transform: translate3d(1px, -1px, 0); }
+  74%  { transform: translate3d(0, 1px, 0); }
+  80%  { transform: translate3d(-1px, 0, 0); }
+  86%  { transform: translate3d(1px, 0, 0); }
+  92%  { transform: translate3d(0, -1px, 0); }
+  98%  { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+/*
+  Warp (inner): follows same spike timing.
+  Mostly very subtle, spikes add skew + blur + contrast.
+*/
+@keyframes termWarp {
+  0%    { transform: none; filter: none; }
+  1%    { transform: none; filter: none; }
+  1.5%  { transform: translate3d(2px, 0, 0) skewX(-6deg); filter: blur(0.6px) contrast(1.12); }
+  2%    { transform: translate3d(-3px, 0, 0) skewX(4deg); filter: blur(0.4px) contrast(1.08); }
+  2.5%  { transform: none; filter: none; }
+  51%   { transform: none; filter: none; }
+  51.5% { transform: translate3d(-2px, 0, 0) skewX(8deg); filter: blur(0.7px) contrast(1.15); }
+  52%   { transform: translate3d(4px, 0, 0) skewX(-5deg); filter: blur(0.5px) contrast(1.1); }
+  52.5% { transform: none; filter: none; }
+  100%  { transform: none; filter: none; }
+}
+
+/* Scanlines: slow steady downward scroll (like bg-move in reference) */
+@keyframes termScanScroll {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 -24px; }
+}
+
+/* Noise: subtle position jitter for static texture */
+@keyframes termNoise {
+  0%   { transform: translate3d(0, 0, 0); }
+  50%  { transform: translate3d(-1px, 1px, 0); }
+  100% { transform: translate3d(1px, -1px, 0); }
+}
+
+.titleBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: linear-gradient(180deg, #2a2a4e, #1e1e3a);
+  border-bottom: 1px solid #2a2a4a;
+  user-select: none;
+}
+
+.titleIcon {
+  color: #4caf50;
+  font-size: 10px;
+}
+
+.titleText {
+  flex: 1;
+  font-size: 11px;
+  color: #8888aa;
+  letter-spacing: 0.5px;
+}
+
+.titleButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  font-size: 10px;
+  color: #5a5a7a;
+  cursor: default;
+  line-height: 1;
+}
+
+.body {
+  padding: 14px 16px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.body::-webkit-scrollbar-thumb {
+  background: #2a2a4a;
+  border-radius: 2px;
+}
+
+.prompt {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.promptUser {
+  color: #4caf50;
+}
+
+.promptSep {
+  color: #666;
+}
+
+.promptPath {
+  color: #5b9bd5;
+}
+
+.promptChar {
+  color: #eee;
+  margin-left: 1px;
+}
+
+.promptCmd {
+  color: #ccccdd;
+}
+
+.cursor {
+  color: #4caf50;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.output {
+  margin: 4px 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.record {
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.record:last-child {
+  border-bottom: none;
+}
+
+.recordHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+.level {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.critical {
+  color: #ff4d4f;
+}
+
+.warning {
+  color: #faad14;
+}
+
+.notice {
+  color: #5b9bd5;
+}
+
+.recordDate {
+  font-size: 10px;
+  color: #555570;
+}
+
+.recordBody {
+  padding-left: 2px;
+}
+
+.recordSubject {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ccccdd;
+  margin-right: 8px;
+}
+
+.recordSubject::before {
+  content: "► ";
+  font-size: 8px;
+  color: #4caf50;
+}
+
+.recordReason {
+  font-size: 11px;
+  color: #8888aa;
+  line-height: 1.5;
+}
+
+/* === Light mode overrides === */
+:global(:root) .window {
+  background: #1a1a2e;
+  border-color: #2a2a4a;
+}
+
+/* === Dark mode overrides === */
+:global([data-theme="dark"]) .window {
+  background: #050510;
+  border-color: rgba(0, 170, 255, 0.15);
+  box-shadow: 0 0 20px rgba(0, 170, 255, 0.06), inset 0 0 30px rgba(0, 170, 255, 0.02);
+}
+
+:global([data-theme="dark"]) .window::before {
+  background-image: linear-gradient(
+    0deg,
+    rgba(0, 170, 255, 0.06) 12%,
+    transparent 12%,
+    transparent 50%,
+    rgba(0, 170, 255, 0.06) 50%,
+    rgba(0, 170, 255, 0.06) 62%,
+    transparent 62%,
+    transparent
+  );
+}
+
+:global([data-theme="dark"]) .window:hover {
+  border-color: rgba(0, 220, 255, 0.45);
+  box-shadow:
+    0 0 20px rgba(0, 170, 255, 0.08),
+    inset 0 0 30px rgba(0, 170, 255, 0.02),
+    0 0 0 1px rgba(255, 0, 140, 0.14),
+    0 0 28px rgba(0, 220, 255, 0.16);
+  animation: termShake 4s steps(1, end) infinite;
+}
+
+:global([data-theme="dark"]) .window:hover::before {
+  opacity: 0.5;
+  animation: termScanScroll 2s linear infinite;
+}
+
+:global([data-theme="dark"]) .window:hover::after {
+  opacity: 0.14;
+  mix-blend-mode: soft-light;
+  animation: termNoise 0.12s steps(2, end) infinite;
+}
+
+:global([data-theme="dark"]) .window:hover .glitchLayer {
+  animation: termWarp 4s steps(1, end) infinite;
+}
+
+:global([data-theme="dark"]) .titleBar {
+  background: linear-gradient(180deg, #0a0a1c, #060614);
+  border-bottom-color: rgba(0, 170, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .titleIcon {
+  color: var(--color-neon);
+  text-shadow: 0 0 6px rgba(0, 170, 255, 0.5);
+}
+
+:global([data-theme="dark"]) .titleText {
+  color: rgba(0, 170, 255, 0.5);
+}
+
+:global([data-theme="dark"]) .btn {
+  color: rgba(0, 170, 255, 0.3);
+}
+
+:global([data-theme="dark"]) .promptUser {
+  color: var(--color-neon);
+  text-shadow: 0 0 4px rgba(0, 170, 255, 0.4);
+}
+
+:global([data-theme="dark"]) .promptPath {
+  color: rgba(0, 170, 255, 0.7);
+}
+
+:global([data-theme="dark"]) .promptCmd {
+  color: rgba(200, 218, 240, 0.8);
+}
+
+:global([data-theme="dark"]) .cursor {
+  color: var(--color-neon);
+  text-shadow: 0 0 8px rgba(0, 170, 255, 0.6);
+}
+
+:global([data-theme="dark"]) .critical {
+  color: #ff6b6b;
+  text-shadow: 0 0 6px rgba(255, 75, 75, 0.4);
+}
+
+:global([data-theme="dark"]) .warning {
+  color: #ffc53d;
+  text-shadow: 0 0 6px rgba(255, 197, 61, 0.3);
+}
+
+:global([data-theme="dark"]) .notice {
+  color: var(--color-neon);
+  text-shadow: 0 0 4px rgba(0, 170, 255, 0.4);
+}
+
+:global([data-theme="dark"]) .recordSubject {
+  color: rgba(200, 218, 240, 0.9);
+}
+
+:global([data-theme="dark"]) .recordSubject::before {
+  color: var(--color-neon);
+  text-shadow: 0 0 4px rgba(0, 170, 255, 0.5);
+}
+
+:global([data-theme="dark"]) .recordReason {
+  color: rgba(200, 218, 240, 0.5);
+}
+
+:global([data-theme="dark"]) .recordDate {
+  color: rgba(0, 170, 255, 0.3);
+}
+
+:global([data-theme="dark"]) .record {
+  border-bottom-color: rgba(0, 170, 255, 0.05);
+}
+
+:global([data-theme="dark"]) .body::-webkit-scrollbar-thumb {
+  background: rgba(0, 170, 255, 0.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .window:hover,
+  .window:hover .glitchLayer {
+    animation: none !important;
+  }
+
+  .window:hover::before,
+  .window:hover::after {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
+
+/* === Mobile === */
+@media (max-width: 768px) {
+  .body {
+    padding: 10px 12px;
+    max-height: 200px;
+  }
+
+  .recordSubject {
+    font-size: 11px;
+  }
+
+  .recordReason {
+    font-size: 10px;
+  }
+}

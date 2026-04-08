@@ -1,0 +1,60 @@
+.toggle {
+  position: fixed;
+  top: 14px;
+  right: 60px;
+  z-index: 150;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.toggle:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.toggle:active {
+  transform: scale(0.95);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+  transition: color var(--transition-fast);
+}
+
+/* Dark mode: cyber glow effects */
+:global([data-theme="dark"]) .toggle {
+  border-color: var(--color-neon-dim);
+  box-shadow: 0 0 12px rgba(0, 170, 255, 0.2);
+}
+
+:global([data-theme="dark"]) .toggle:hover {
+  border-color: var(--color-neon);
+  box-shadow: 0 0 20px rgba(0, 170, 255, 0.35);
+}
+
+:global([data-theme="dark"]) .icon {
+  color: var(--color-neon);
+  filter: drop-shadow(0 0 4px rgba(0, 170, 255, 0.6));
+}
+
+@media (max-width: 768px) {
+  .toggle {
+    top: auto;
+    bottom: 16px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+  }
+}

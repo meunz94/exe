@@ -1,0 +1,201 @@
+/* Sidebar container: collapsed by default, expands on hover */
+.sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0 10px;
+  gap: 6px;
+  z-index: 100;
+  width: 48px;
+  transition: width var(--transition-normal), padding var(--transition-normal),
+    opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.sidebar:hover {
+  width: 160px;
+  padding: 0 14px;
+}
+
+/* Shared base for items */
+.item,
+.itemActive {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Active item */
+.itemActive {
+  padding: 4px 7px;
+  box-shadow: var(--shadow-md);
+}
+
+.sidebar:hover .itemActive {
+  padding: 4px 10px;
+}
+
+.itemActive:hover {
+  transform: scale(1.06);
+}
+
+/* Inactive item: very compact by default */
+.item {
+  padding: 3px 7px;
+  box-shadow: var(--shadow-sm);
+  opacity: 0.6;
+  transform: scale(0.8);
+}
+
+.sidebar:hover .item {
+  padding: 3px 10px;
+  opacity: 0.8;
+  transform: scale(0.9);
+}
+
+.item:hover {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  box-shadow: var(--shadow-md);
+}
+
+/* Dot indicator */
+.dot {
+  width: 6px;
+  height: 6px;
+  min-width: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.dotVisible {
+  composes: dot;
+  opacity: 1;
+}
+
+/* Labels: hidden when collapsed, shown on hover */
+.label {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: max-width var(--transition-normal), opacity var(--transition-normal);
+}
+
+.sidebar:hover .label {
+  max-width: 120px;
+  opacity: 1;
+}
+
+.labelMuted {
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: max-width var(--transition-normal), opacity var(--transition-normal), color var(--transition-normal);
+}
+
+.sidebar:hover .labelMuted {
+  max-width: 120px;
+  opacity: 1;
+}
+
+.item:hover .labelMuted {
+  color: var(--color-text-secondary);
+}
+
+/* Dark mode: cyber glow effects */
+:global([data-theme="dark"]) .item,
+:global([data-theme="dark"]) .itemActive {
+  border: 1px solid var(--color-neon-dim);
+}
+
+:global([data-theme="dark"]) .itemActive {
+  border-color: var(--color-neon);
+  box-shadow: 0 0 12px rgba(0, 170, 255, 0.25), inset 0 0 8px rgba(0, 170, 255, 0.08);
+}
+
+:global([data-theme="dark"]) .item:hover {
+  border-color: var(--color-neon-glow);
+  box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
+}
+
+:global([data-theme="dark"]) .dotVisible {
+  background: var(--color-neon);
+  box-shadow: 0 0 8px rgba(0, 170, 255, 0.8);
+}
+
+:global([data-theme="dark"]) .label {
+  text-shadow: 0 0 6px rgba(0, 170, 255, 0.3);
+}
+
+/* Mobile: horizontal scrollable tab bar */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+    height: auto;
+    width: auto !important;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px 12px;
+    gap: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    -webkit-overflow-scrolling: touch;
+    transform: none !important;
+  }
+
+  .sidebar:hover {
+    width: auto !important;
+    padding: 8px 12px;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .item,
+  .itemActive {
+    flex-shrink: 0;
+    transform: none;
+    opacity: 1;
+    padding: 4px 10px;
+  }
+
+  .item:hover,
+  .itemActive:hover {
+    transform: none;
+  }
+
+  .label,
+  .labelMuted {
+    max-width: none;
+    opacity: 1;
+    font-size: 10px;
+  }
+}

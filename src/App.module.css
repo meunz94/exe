@@ -1,0 +1,18 @@
+.snapContainer {
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+}
+
+.snapContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.normalContainer {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.normalContainer::-webkit-scrollbar {
+  width: 6px;
+}

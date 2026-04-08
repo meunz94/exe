@@ -1,0 +1,205 @@
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: 24px;
+}
+
+.backBtn:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Gallery grid */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.cardImage {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-surface-tertiary);
+}
+
+.cardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-surface-tertiary), var(--color-divider));
+}
+
+.placeholderIcon {
+  font-size: 32px;
+  color: var(--color-text-muted);
+  opacity: 0.4;
+}
+
+.cardBody {
+  padding: 14px 16px 16px;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 6px;
+}
+
+.cardDesc {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0 0 10px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 100px;
+  background: var(--color-tag-bg);
+  color: var(--color-text-secondary);
+}
+
+.empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+/* Dark mode */
+:global([data-theme="dark"]) .backBtn {
+  border-color: var(--color-neon-dim);
+  color: var(--color-neon);
+}
+
+:global([data-theme="dark"]) .backBtn:hover {
+  background: rgba(0, 170, 255, 0.08);
+  border-color: var(--color-neon);
+  box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
+}
+
+:global([data-theme="dark"]) .title {
+  text-shadow: 0 0 20px rgba(0, 170, 255, 0.6), 0 0 60px rgba(0, 170, 255, 0.2);
+}
+
+:global([data-theme="dark"]) .subtitle {
+  color: rgba(0, 170, 255, 0.5);
+}
+
+:global([data-theme="dark"]) .card {
+  border-color: var(--color-neon-dim);
+  box-shadow: 0 0 12px rgba(0, 170, 255, 0.06);
+}
+
+:global([data-theme="dark"]) .card:hover {
+  border-color: var(--color-neon-glow);
+  box-shadow: 0 0 24px rgba(0, 170, 255, 0.15), 0 0 60px rgba(0, 170, 255, 0.05);
+}
+
+:global([data-theme="dark"]) .placeholder {
+  background: linear-gradient(135deg, rgba(0, 170, 255, 0.05), rgba(0, 170, 255, 0.02));
+}
+
+:global([data-theme="dark"]) .placeholderIcon {
+  color: var(--color-neon);
+  opacity: 0.3;
+  text-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+}
+
+:global([data-theme="dark"]) .tag {
+  border: 1px solid var(--color-neon-dim);
+  background: transparent;
+  color: var(--color-neon);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .page {
+    padding: 40px 16px 60px;
+  }
+
+  .title {
+    font-size: 24px;
+    letter-spacing: 4px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+}
