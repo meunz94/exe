@@ -52,6 +52,7 @@ export interface Post {
   author: string;
   category: string;
   boardId: string;
+  imageUrl?: string;
 }
 
 export interface PostWithContent extends Post {

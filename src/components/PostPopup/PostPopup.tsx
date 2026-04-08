@@ -2,6 +2,7 @@ import { useEffect, useCallback } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import type { PostWithContent } from "../../types";
+import { publicUrl } from "../../utils/publicUrl";
 import styles from "./PostPopup.module.css";
 
 interface PostPopupProps {
@@ -40,10 +41,18 @@ export default function PostPopup({ post, onClose }: PostPopupProps) {
     [onClose]
   );
 
+  const heroSrc = post.imageUrl ? publicUrl(post.imageUrl) : null;
+
   return (
     <div className={styles.overlay} data-dark-bg onClick={handleOverlayClick}>
       <div className={styles.scrollArea} onClick={handleScrollClick}>
         <div className={styles.popup} data-light-bg>
+          {heroSrc && (
+            <div className={styles.heroImage}>
+              <img src={heroSrc} alt="" />
+            </div>
+          )}
+
           <div className={styles.header}>
             <button className={styles.closeButton} onClick={onClose}>
               ✕

@@ -109,7 +109,7 @@
 @media (max-width: 768px) {
   .container {
     max-width: 100%;
-    margin: 16px 16px 0;
+    margin: 16px 0 0;
     border-radius: var(--radius-md);
   }
 }

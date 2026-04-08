@@ -14,7 +14,7 @@
       "imageUrl": "/images/employees/vance.jpeg",
       "category": "1-A",
       "detail": { 
-        "heroImageUrl": "",
+        "heroImageUrl": "/images/heroes/vance-bg.jpeg",
         "subtitle": "S-Class Guide",
         "title": "Dr. Vance",
         "descriptions": [
@@ -26,83 +26,7 @@
           "codename": "Dr. Vance",
           "classification": "S-Class Guide",
           "attribute": "풀 (Verde)",
-          "age & nationality": "35 / 한국",
-          "evaluation": "[아크의 이성] 의무실 소속의 닥터이자, 하모니 부서의 총책임자(Head). 아크의 모든 센티넬과 가이드를 분류·관리하며, 인사권을 포함한 모든 생명 관리 권한을 쥐고 있다. 냉철한 데이터 분석과 정밀한 파장 조율을 통해 센티넬을 인격체가 아닌 '효율적인 전략 자산'으로 관리하는 데 특화됨. '아크의 이성(Reason)'이라 불리며, 아크프리마의 신임을 받는 유일무이한 관리자."
-        },
-        "ability": {
-          "overview": "정원 개방 (Open the Garden)",
-          "skills": ["생명 데이터화: 접촉 시 센티넬의 생체 조건을 '라이프 인덱스'라는 데이터로 변환하여 파악.", "정화의 영역: 생체 리듬을 동기화하여 특정 구역 내에 강력한 치유 필드를 생성."],
-          "berserkSign": ""
-        },
-        "appearance": {
-          "height & build": "186cm의 마르고 팔 다리가 긴, 탄탄한 체형. 하얀 피부.",
-          "hair & eyes": "다크 카키색의 깔끔한 가르마 헤어. 은색 테 안경 뒤 피곤함이 묻어나는 예민한 회색 눈동자.",
-          "outfit": "검은 터틀넥 위에 흰색 의사 가운, 단정한 흰 바지와 구두."
-        },
-        "relations": [
-          { "name": "Blanc", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 아내. 현재 결혼식 준비 중이다." },
-          { "name": "Zaian", "relation": "동료", "description": "같은 S급 풀속성 가이드라는 공통점을 가진 동료. 친구라고 부를 수 있을 만한 유일한 인물." },
-          { "name": "Pure", "relation": "부하", "description": "의무실 소속의 메딕이자, 신뢰할 수 있는 부하 직원." }
-        ]
-      }
-    },
-    {
-      "id": "blanc-1",
-      "name": "Blanc",
-      "description": ["S-Class Sentinel", "Vanguard"],
-      "imageUrl": "/images/employees/blanc.png",
-      "category": "1-A",
-      "detail": {
-        "heroImageUrl": "",
-        "subtitle": "S-Class Sentinel",
-        "title": "Blanc",
-        "descriptions": [
-          "가장 불안정한 파동이, 가장 고요한 설경을 완성한다. 코드네임 '블랑'.",
-          "흩날리는 눈보라 속에서도, 그녀의 의지는 언제나 길을 찾아 나아간다."
-        ],
-        "profile": {
-          "codename": "Blanc",
-          "classification": "S-Class Vanguard (Team 4)",
-          "attribute": "얼음 (Glacies)",
-          "age & nationality": "25 / 한국",
-          "evaluation": "[설경의 주인] 얼음속성 센티넬 중에서도 독보적일 만큼 광범위한 영역에 대한 장악력과 압도적인 파괴력을 보유한 실력자로, 빠른 상황 판단 능력 덕분에 대규모 괴수 군집을 상대해야 할 때 가장 먼저 언급되곤 한다. 특유의 독특한 파장 형태로 인해 싱크로율이 높은 가이드가 희소해 파트너 매칭에 어려움을 겪어왔다. 밝고 붙임성 좋은 성격 덕분에 대인 관계와 내부 평판 모두 긍정적인 편이지만, 간혹 돌발적인 행동을 하는 모습을 보인다."
-        },
-        "ability": {
-          "overview": "설경 (Snowscape)",
-          "skills": ["블리자드 (Blizzard): 주변 지역 일대에 날카로운 서리 폭풍을 일으켜 무력화.", "화이트 아웃 (White Out): 오버클럭(Overclock)을 활용해 반경 1km 범위를 통째로 빙결시켜 모든 행동을 봉쇄.", "아이시클 재블린 (Icicle Javelin): 얼기설기 뭉쳐진 고드름 형태의 창을 던져 적을 관통."],
-          "berserkSign": "통각을 비롯한 오감이 점차 둔해지며, 신체의 근육이 굳기 시작한다. 상태가 지속될 경우 극심한 저체온증 현상이 발생한다."
-        },
-        "appearance": {
-          "height & build": "162cm의 마르고 균형 잡힌 체형.",
-          "hair & eyes": "새카맣고 부드러운 흑단발. 심해를 연상시키는 짙은 푸른색 눈동자. ",
-          "outfit": "흰색 셔츠와 검은색 멜빵 바지에 포멀한 흰색 자켓. 흰 양말과 검은색 플랫폼 슈즈."
-        },
-        "relations": [
-          { "name": "Dr. Vance", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 남편. 현재 결혼식 준비 중이다." },
-          { "name": "Pure", "relation": "친구", "description": "파트너가 없을 적 의무실에 자주 들르다보니 친해진 사이." }
-        ]
-      }
-    },
-    {
-      "id": "vance-2",
-      "name": "Dr. Vance",
-      "description": ["Harmony Div.", "Head of Harmony"],
-      "imageUrl": "/images/employees/vance.jpeg",
-      "category": "1-B",
-      "detail": { 
-        "heroImageUrl": "",
-        "subtitle": "S-Class Guide",
-        "title": "Dr. Vance",
-        "descriptions": [
-          "기록되지 않은 진실은 없다.",
-          "영웅들의 생명과 데이터를 관할하는 하모니 부서의 책임자, 코드네임 '닥터 밴스'.",
-          "당신의 과거와 미래는 오직 그의 손바닥 위에서 결정된다."
-        ],
-        "profile": {
-          "codename": "Dr. Vance",
-          "classification": "S-Class Guide",
-          "attribute": "풀 (Verde)",
-          "age & nationality": "35 / 한국",
+          "age & nationality": "35세 / 한국",
           "evaluation": "의무실 소속의 닥터이자, 하모니 부서의 총책임자(Head). 아크의 모든 센티넬과 가이드를 분류·관리하며, 인사권을 포함한 모든 생명 관리 권한을 쥐고 있다. 냉철한 데이터 분석과 정밀한 파장 조율을 통해 센티넬을 인격체가 아닌 '효율적인 전략 자산'으로 관리하는 데 특화됨. '아크의 이성(Reason)'이라 불리며, 아크프리마의 신임을 받는 유일무이한 관리자."
         },
         "ability": {
@@ -116,20 +40,20 @@
           "outfit": "검은 터틀넥 위에 흰색 의사 가운, 단정한 흰 바지와 구두."
         },
         "relations": [
-          { "name": "Blanc", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 아내. 현재 결혼식 준비 중이다." },
+          { "name": "Blanc", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 아내." },
           { "name": "Zaian", "relation": "동료", "description": "같은 S급 풀속성 가이드라는 공통점을 가진 동료. 친구라고 부를 수 있을 만한 유일한 인물." },
           { "name": "Pure", "relation": "부하", "description": "의무실 소속의 메딕이자, 신뢰할 수 있는 부하 직원." }
         ]
       }
     },
     {
-      "id": "blanc-2",
+      "id": "blanc-1",
       "name": "Blanc",
       "description": ["S-Class Sentinel", "Vanguard"],
       "imageUrl": "/images/employees/blanc.png",
-      "category": "1-B",
+      "category": "1-A",
       "detail": {
-        "heroImageUrl": "",
+        "heroImageUrl": "/images/heroes/blanc-bg.jpeg",
         "subtitle": "S-Class Sentinel",
         "title": "Blanc",
         "descriptions": [
@@ -140,7 +64,7 @@
           "codename": "Blanc",
           "classification": "S-Class Vanguard (Team 4)",
           "attribute": "얼음 (Glacies)",
-          "age & nationality": "25 / 한국",
+          "age & nationality": "25세 / 한국",
           "evaluation": "얼음속성 센티넬 중에서도 독보적일 만큼 광범위한 영역에 대한 장악력과 압도적인 파괴력을 보유한 실력자로, 빠른 상황 판단 능력 덕분에 대규모 괴수 군집을 상대해야 할 때 가장 먼저 언급되곤 한다. 특유의 독특한 파장 형태로 인해 싱크로율이 높은 가이드가 희소해 파트너 매칭에 어려움을 겪어왔다. 밝고 붙임성 좋은 성격 덕분에 대인 관계와 내부 평판 모두 긍정적인 편이지만, 간혹 돌발적인 행동을 하는 모습을 보인다."
         },
         "ability": {
@@ -154,19 +78,19 @@
           "outfit": "흰색 셔츠와 검은색 멜빵 바지에 포멀한 흰색 자켓. 흰 양말과 검은색 플랫폼 슈즈."
         },
         "relations": [
-          { "name": "Dr. Vance", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 남편. 현재 결혼식 준비 중이다." },
+          { "name": "Dr. Vance", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 남편." },
           { "name": "Pure", "relation": "친구", "description": "파트너가 없을 적 의무실에 자주 들르다보니 친해진 사이." }
         ]
       }
     },
     {
-      "id": "vance-3",
+      "id": "vance-2",
       "name": "Dr. Vance",
       "description": ["Harmony Div.", "Head of Harmony"],
       "imageUrl": "/images/employees/vance.jpeg",
-      "category": "2-A",
+      "category": "1-B",
       "detail": { 
-        "heroImageUrl": "",
+        "heroImageUrl": "/images/heroes/vance-bg.jpeg",
         "subtitle": "S-Class Guide",
         "title": "Dr. Vance",
         "descriptions": [
@@ -178,7 +102,7 @@
           "codename": "Dr. Vance",
           "classification": "S-Class Guide",
           "attribute": "풀 (Verde)",
-          "age & nationality": "35 / 한국",
+          "age & nationality": "35세 / 한국",
           "evaluation": "의무실 소속의 닥터이자, 하모니 부서의 총책임자(Head). 아크의 모든 센티넬과 가이드를 분류·관리하며, 인사권을 포함한 모든 생명 관리 권한을 쥐고 있다. 냉철한 데이터 분석과 정밀한 파장 조율을 통해 센티넬을 인격체가 아닌 '효율적인 전략 자산'으로 관리하는 데 특화됨. '아크의 이성(Reason)'이라 불리며, 아크프리마의 신임을 받는 유일무이한 관리자."
         },
         "ability": {
@@ -192,7 +116,83 @@
           "outfit": "검은 터틀넥 위에 흰색 의사 가운, 단정한 흰 바지와 구두."
         },
         "relations": [
-          { "name": "Blanc", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 아내. 현재 결혼식 준비 중이다." },
+          { "name": "Blanc", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 아내." },
+          { "name": "Zaian", "relation": "동료", "description": "같은 S급 풀속성 가이드라는 공통점을 가진 동료. 친구라고 부를 수 있을 만한 유일한 인물." },
+          { "name": "Pure", "relation": "부하", "description": "의무실 소속의 메딕이자, 신뢰할 수 있는 부하 직원." }
+        ]
+      }
+    },
+    {
+      "id": "blanc-2",
+      "name": "Blanc",
+      "description": ["S-Class Sentinel", "Vanguard"],
+      "imageUrl": "/images/employees/blanc.png",
+      "category": "1-B",
+      "detail": {
+        "heroImageUrl": "/images/heroes/blanc-bg.jpeg",
+        "subtitle": "S-Class Sentinel",
+        "title": "Blanc",
+        "descriptions": [
+          "가장 불안정한 파동이, 가장 고요한 설경을 완성한다. 코드네임 '블랑'.",
+          "흩날리는 눈보라 속에서도, 그녀의 의지는 언제나 길을 찾아 나아간다."
+        ],
+        "profile": {
+          "codename": "Blanc",
+          "classification": "S-Class Vanguard (Team 4)",
+          "attribute": "얼음 (Glacies)",
+          "age & nationality": "25세 / 한국",
+          "evaluation": "얼음속성 센티넬 중에서도 독보적일 만큼 광범위한 영역에 대한 장악력과 압도적인 파괴력을 보유한 실력자로, 빠른 상황 판단 능력 덕분에 대규모 괴수 군집을 상대해야 할 때 가장 먼저 언급되곤 한다. 특유의 독특한 파장 형태로 인해 싱크로율이 높은 가이드가 희소해 파트너 매칭에 어려움을 겪어왔다. 밝고 붙임성 좋은 성격 덕분에 대인 관계와 내부 평판 모두 긍정적인 편이지만, 간혹 돌발적인 행동을 하는 모습을 보인다."
+        },
+        "ability": {
+          "overview": "설경 (Snowscape)",
+          "skills": ["블리자드 (Blizzard): 주변 지역 일대에 날카로운 서리 폭풍을 일으켜 무력화.", "화이트 아웃 (White Out): 오버클럭(Overclock)을 활용해 반경 1km 범위를 통째로 빙결시켜 모든 행동을 봉쇄.", "아이시클 재블린 (Icicle Javelin): 얼기설기 뭉쳐진 고드름 형태의 창을 던져 적을 관통."],
+          "berserkSign": "통각을 비롯한 오감이 점차 둔해지며, 신체의 근육이 굳기 시작한다. 상태가 지속될 경우 극심한 저체온증 현상이 발생한다."
+        },
+        "appearance": {
+          "height & build": "162cm의 마르고 균형 잡힌 체형.",
+          "hair & eyes": "새카맣고 부드러운 흑단발. 심해를 연상시키는 짙은 푸른색 눈동자. ",
+          "outfit": "흰색 셔츠와 검은색 멜빵 바지에 포멀한 흰색 자켓. 흰 양말과 검은색 플랫폼 슈즈."
+        },
+        "relations": [
+          { "name": "Dr. Vance", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 남편." },
+          { "name": "Pure", "relation": "친구", "description": "파트너가 없을 적 의무실에 자주 들르다보니 친해진 사이." }
+        ]
+      }
+    },
+    {
+      "id": "vance-3",
+      "name": "Dr. Vance",
+      "description": ["Harmony Div.", "Head of Harmony"],
+      "imageUrl": "/images/employees/vance.jpeg",
+      "category": "2-A",
+      "detail": { 
+        "heroImageUrl": "/images/heroes/vance-bg.jpeg",
+        "subtitle": "S-Class Guide",
+        "title": "Dr. Vance",
+        "descriptions": [
+          "기록되지 않은 진실은 없다.",
+          "영웅들의 생명과 데이터를 관할하는 하모니 부서의 책임자, 코드네임 '닥터 밴스'.",
+          "당신의 과거와 미래는 오직 그의 손바닥 위에서 결정된다."
+        ],
+        "profile": {
+          "codename": "Dr. Vance",
+          "classification": "S-Class Guide",
+          "attribute": "풀 (Verde)",
+          "age & nationality": "35세 / 한국",
+          "evaluation": "의무실 소속의 닥터이자, 하모니 부서의 총책임자(Head). 아크의 모든 센티넬과 가이드를 분류·관리하며, 인사권을 포함한 모든 생명 관리 권한을 쥐고 있다. 냉철한 데이터 분석과 정밀한 파장 조율을 통해 센티넬을 인격체가 아닌 '효율적인 전략 자산'으로 관리하는 데 특화됨. '아크의 이성(Reason)'이라 불리며, 아크프리마의 신임을 받는 유일무이한 관리자."
+        },
+        "ability": {
+          "overview": "정원 개방 (Open the Garden)",
+          "skills": ["생명 데이터화: 접촉 시 센티넬의 생체 조건을 '라이프 인덱스'라는 데이터로 변환하여 파악.", "정화의 영역: 생체 리듬을 동기화하여 특정 구역 내에 강력한 치유 필드를 생성."],
+          "berserkSign": ""
+        },
+        "appearance": {
+          "height & build": "186cm의 마르고 팔 다리가 긴, 탄탄한 체형. 하얀 피부.",
+          "hair & eyes": "다크 카키색의 깔끔한 가르마 헤어. 은색 테 안경 뒤 피곤함이 묻어나는 예민한 회색 눈동자.",
+          "outfit": "검은 터틀넥 위에 흰색 의사 가운, 단정한 흰 바지와 구두."
+        },
+        "relations": [
+          { "name": "Blanc", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 아내." },
           { "name": "Zaian", "relation": "동료", "description": "같은 S급 풀속성 가이드라는 공통점을 가진 동료. 친구라고 부를 수 있을 만한 유일한 인물." },
           { "name": "Pure", "relation": "부하", "description": "의무실 소속의 메딕이자, 신뢰할 수 있는 부하 직원." }
         ]
@@ -202,7 +202,7 @@
       "id": "signal-3",
       "name": "Signal",
       "description": ["S-Class Guide", "Support"],
-      "imageUrl": "",
+      "imageUrl": "/images/employees/signal.png",
       "category": "2-A",
       "detail": {
         "heroImageUrl": "",
@@ -216,8 +216,8 @@
           "codename": "Signal",
           "classification": "S-Class Guide",
           "attribute": "번개 (Fulmen)",
-          "age & nationality": "25 / 한국",
-          "evaluation": "역대 최고 방어 수치 보유. 공격 능력은 평범하나, 아군 생존율을 극적으로 높이는 핵심 인력."
+          "age & nationality": "25세 / 한국",
+          "evaluation": "하모니 부서 소속 가이드. 성실하고 모범적인 태도 덕분에 동료들 사이에서의 평판이 긍정적이다. 가이딩에 대한 거부감이 적으며 공사 구분이 철저해 사적인 관계를 가이딩과 연관 짓거나, 반대로 가이딩으로 생긴 친밀도를 사적인 관계까지 끌고가는 일이 드물다. 단, 상담 시 '일상적인 삶'에 대한 미련이 남아 있는 것으로 보이므로 돌발 행동 및 우울증 발생 가능성 있음. 주의 관찰 필요."
         },
         "ability": {
           "overview": "신호 처리 (Signal Processing)",
@@ -242,7 +242,7 @@
       "imageUrl": "/images/employees/vance.jpeg",
       "category": "2-B",
       "detail": { 
-        "heroImageUrl": "",
+        "heroImageUrl": "/images/heroes/vance-bg.jpeg",
         "subtitle": "S-Class Guide",
         "title": "Dr. Vance",
         "descriptions": [
@@ -254,7 +254,7 @@
           "codename": "Dr. Vance",
           "classification": "S-Class Guide",
           "attribute": "풀 (Verde)",
-          "age & nationality": "35 / 한국",
+          "age & nationality": "35세 / 한국",
           "evaluation": "의무실 소속의 닥터이자, 하모니 부서의 총책임자(Head). 아크의 모든 센티넬과 가이드를 분류·관리하며, 인사권을 포함한 모든 생명 관리 권한을 쥐고 있다. 냉철한 데이터 분석과 정밀한 파장 조율을 통해 센티넬을 인격체가 아닌 '효율적인 전략 자산'으로 관리하는 데 특화됨. '아크의 이성(Reason)'이라 불리며, 아크프리마의 신임을 받는 유일무이한 관리자."
         },
         "ability": {
@@ -268,7 +268,7 @@
           "outfit": "검은 터틀넥 위에 흰색 의사 가운, 단정한 흰 바지와 구두."
         },
         "relations": [
-          { "name": "Blanc", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 아내. 현재 결혼식 준비 중이다." },
+          { "name": "Blanc", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 아내." },
           { "name": "Zaian", "relation": "동료", "description": "같은 S급 풀속성 가이드라는 공통점을 가진 동료. 친구라고 부를 수 있을 만한 유일한 인물." },
           { "name": "Pure", "relation": "부하", "description": "의무실 소속의 메딕이자, 신뢰할 수 있는 부하 직원." }
         ]
@@ -278,7 +278,7 @@
       "id": "signal-4",
       "name": "Signal",
       "description": ["S-Class Guide", "Support"],
-      "imageUrl": "",
+      "imageUrl": "/images/employees/signal.png",
       "category": "2-B",
       "detail": {
         "heroImageUrl": "",
@@ -292,8 +292,8 @@
           "codename": "Signal",
           "classification": "S-Class Guide",
           "attribute": "번개 (Fulmen)",
-          "age & nationality": "25 / 한국",
-          "evaluation": "역대 최고 방어 수치 보유. 공격 능력은 평범하나, 아군 생존율을 극적으로 높이는 핵심 인력."
+          "age & nationality": "25세 / 한국",
+          "evaluation": "하모니 부서 소속 가이드. 성실하고 모범적인 태도 덕분에 동료들 사이에서의 평판이 긍정적이다. 가이딩에 대한 거부감이 적으며 공사 구분이 철저해 사적인 관계를 가이딩과 연관 짓거나, 반대로 가이딩으로 생긴 친밀도를 사적인 관계까지 끌고가는 일이 드물다. 단, 상담 시 '일상적인 삶'에 대한 미련이 남아 있는 것으로 보이므로 돌발 행동 및 우울증 발생 가능성 있음. 주의 관찰 필요."
         },
         "ability": {
           "overview": "신호 처리 (Signal Processing)",
@@ -313,7 +313,7 @@
     }
   ],
   "posts": [
-    { "id": "post-1", "title": "얼마나 냉기를 넣어야 괴수가 어는지 관찰하다보니...", "date": "2025-12-18", "preview": "그 호기심이 언젠가 당신 목을 조를 겁니다.", "category": "1-A", "boardId": "board-1" }
+    { "id": "post-1", "title": "얼마나 냉기를 넣어야 괴수가 어는지 관찰하다보니...", "preview": "그 호기심이 언젠가 당신 목을 조를 겁니다.", "imageUrl": "/images/posts/post-1.jpeg", "date": "2025-12-18", "category": "1-A", "boardId": "board-1" }
   ],
   "boards": [
     { "id": "board-1", "name": "LOG", "category": "1-A" },

@@ -42,7 +42,11 @@ export default function PortfolioPage({ items, onBack }: PortfolioPageProps) {
                 <img src={publicUrl(item.imageUrl)} alt={item.title} />
               ) : (
                 <div className={styles.placeholder}>
-                  <span className={styles.placeholderIcon}>◆</span>
+                  <svg className={styles.placeholderIcon} viewBox="0 0 32 32" width="40" height="40" fill="none">
+                    <path d="M16 28V16" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                    <path d="M16 16c0-7 7-12 12-8-2 5-7 8-12 8z" fill="white" stroke="white" strokeWidth="1.5" strokeLinejoin="round" />
+                    <path d="M16 20c0-7-7-12-12-8 2 5 7 8 12 8z" fill="white" stroke="white" strokeWidth="1.5" strokeLinejoin="round" />
+                  </svg>
                 </div>
               )}
             </div>

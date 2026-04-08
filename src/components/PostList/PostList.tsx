@@ -58,7 +58,7 @@ export default function PostList({
           <span className={styles.dotYellow} />
           <span className={styles.dotGreen} />
         </div>
-        <span className={styles.titleBarText}>게시글</span>
+        <span className={styles.titleBarText}>Archive</span>
         <div className={styles.titleBarSpacer} />
       </div>
 

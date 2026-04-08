@@ -20,7 +20,7 @@ export default function Terminal({ records }: TerminalProps) {
   if (records.length === 0) return null;
 
   return (
-    <div className={styles.window}>
+    <div className={styles.window} data-dark-bg>
       <div className={styles.glitchLayer}>
         <div className={styles.titleBar}>
           <span className={styles.titleIcon}>▸</span>

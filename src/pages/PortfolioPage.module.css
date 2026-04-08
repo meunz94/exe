@@ -92,13 +92,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--color-surface-tertiary), var(--color-divider));
+  background: linear-gradient(145deg, #b6e2b6 0%, #7bc67b 40%, #4caf50 100%);
 }
 
 .placeholderIcon {
-  font-size: 32px;
-  color: var(--color-text-muted);
-  opacity: 0.4;
+  color: #ffffff;
+  opacity: 0.9;
 }
 
 .cardBody {
@@ -172,13 +171,12 @@
 }
 
 :global([data-theme="dark"]) .placeholder {
-  background: linear-gradient(135deg, rgba(0, 170, 255, 0.05), rgba(0, 170, 255, 0.02));
+  background: linear-gradient(145deg, #0a2a50 0%, #0d3a6a 40%, #1050a0 100%);
 }
 
 :global([data-theme="dark"]) .placeholderIcon {
-  color: var(--color-neon);
-  opacity: 0.3;
-  text-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+  color: #ffffff;
+  opacity: 0.8;
 }
 
 :global([data-theme="dark"]) .tag {

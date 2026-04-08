@@ -9,15 +9,15 @@
   justify-content: center;
   align-items: flex-end;
   padding: 0 10px;
-  gap: 6px;
+  gap: 7px;
   z-index: 100;
-  width: 48px;
+  width: 52px;
   transition: width var(--transition-normal), padding var(--transition-normal),
     opacity var(--transition-slow), transform var(--transition-slow);
 }
 
 .sidebar:hover {
-  width: 160px;
+  width: 180px;
   padding: 0 14px;
 }
 
@@ -26,7 +26,7 @@
 .itemActive {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   border-radius: var(--radius-md);
   background: var(--color-surface);
   cursor: pointer;
@@ -37,12 +37,12 @@
 
 /* Active item */
 .itemActive {
-  padding: 4px 7px;
+  padding: 6px 9px;
   box-shadow: var(--shadow-md);
 }
 
 .sidebar:hover .itemActive {
-  padding: 4px 10px;
+  padding: 6px 12px;
 }
 
 .itemActive:hover {
@@ -51,14 +51,14 @@
 
 /* Inactive item: very compact by default */
 .item {
-  padding: 3px 7px;
+  padding: 5px 9px;
   box-shadow: var(--shadow-sm);
   opacity: 0.6;
   transform: scale(0.8);
 }
 
 .sidebar:hover .item {
-  padding: 3px 10px;
+  padding: 5px 12px;
   opacity: 0.8;
   transform: scale(0.9);
 }
@@ -71,9 +71,9 @@
 
 /* Dot indicator */
 .dot {
-  width: 6px;
-  height: 6px;
-  min-width: 6px;
+  width: 7px;
+  height: 7px;
+  min-width: 7px;
   border-radius: 50%;
   background: var(--color-accent);
   opacity: 0;
@@ -87,7 +87,7 @@
 
 /* Labels: hidden when collapsed, shown on hover */
 .label {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--color-text-primary);
   max-width: 0;
@@ -98,12 +98,12 @@
 }
 
 .sidebar:hover .label {
-  max-width: 120px;
+  max-width: 140px;
   opacity: 1;
 }
 
 .labelMuted {
-  font-size: 8px;
+  font-size: 9px;
   font-weight: 500;
   color: var(--color-text-muted);
   max-width: 0;
@@ -114,7 +114,7 @@
 }
 
 .sidebar:hover .labelMuted {
-  max-width: 120px;
+  max-width: 140px;
   opacity: 1;
 }
 
@@ -184,7 +184,7 @@
     flex-shrink: 0;
     transform: none;
     opacity: 1;
-    padding: 4px 10px;
+    padding: 6px 12px;
   }
 
   .item:hover,
@@ -196,6 +196,6 @@
   .labelMuted {
     max-width: none;
     opacity: 1;
-    font-size: 10px;
+    font-size: 11px;
   }
 }

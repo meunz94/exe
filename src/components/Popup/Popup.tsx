@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from "react";
 import type { Employee } from "../../types";
+import { publicUrl } from "../../utils/publicUrl";
 import styles from "./Popup.module.css";
 
 interface PopupProps {
@@ -46,7 +47,14 @@ export default function Popup({ employee, onClose }: PopupProps) {
       <div className={styles.popupScroll} onClick={handleScrollAreaClick}>
         <div className={styles.popup}>
           <div className={styles.hero} data-dark-bg>
-            <div className={styles.heroBackground} />
+            <div
+              className={styles.heroBackground}
+              style={
+                detail.heroImageUrl
+                  ? { backgroundImage: `url(${publicUrl(detail.heroImageUrl)})`, backgroundSize: "cover", backgroundPosition: "center" }
+                  : undefined
+              }
+            />
             <div className={styles.heroGradient} />
             <button className={styles.closeButton} onClick={onClose}>✕</button>
             <div className={styles.heroContent}>
