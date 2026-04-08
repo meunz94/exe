@@ -275,11 +275,11 @@
       }
     },
     {
-      "id": "signal-3",
+      "id": "signal-4",
       "name": "Signal",
       "description": ["S-Class Guide", "Support"],
       "imageUrl": "",
-      "category": "2-A",
+      "category": "2-B",
       "detail": {
         "heroImageUrl": "",
         "subtitle": "S-Class Guide",
@@ -384,7 +384,7 @@
     {
       "id": "au-5",
       "title": "카메라를 멈추지 마!",
-      "description": "유명 배우 변정원 X 아이돌 출신 배우 김연수",
+      "description": "배우 변정원 X 아이돌 출신 배우 김연수",
       "imageUrl": "",
       "tags": ["현대", "연예계"],
       "members": [
