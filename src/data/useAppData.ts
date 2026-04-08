@@ -25,6 +25,8 @@ const EMPTY: AppData = {
   disciplinary: [],
 };
 
+const withBase = (path: string) => new URL(path, import.meta.env.BASE_URL).toString();
+
 export function useAppData() {
   const [data, setData] = useState<AppData>(EMPTY);
   const [loading, setLoading] = useState(true);
@@ -34,15 +36,15 @@ export function useAppData() {
     let cancelled = false;
 
     Promise.all([
-      fetch("/data/db.json").then((r) => {
+      fetch(withBase("data/db.json")).then((r) => {
         if (!r.ok) throw new Error(`db.json: HTTP ${r.status}`);
         return r.json();
       }),
-      fetch("/data/playlist.json").then((r) => {
+      fetch(withBase("data/playlist.json")).then((r) => {
         if (!r.ok) throw new Error(`playlist.json: HTTP ${r.status}`);
         return r.json() as Promise<PlaylistItem[]>;
       }),
-      fetch("/data/timeline.json").then((r) => {
+      fetch(withBase("data/timeline.json")).then((r) => {
         if (!r.ok) throw new Error(`timeline.json: HTTP ${r.status}`);
         return r.json() as Promise<TimelineEvent[]>;
       }),
@@ -117,7 +119,7 @@ export function useFetchPostContent() {
     async (post: Post): Promise<PostWithContent> => {
       setLoadingPostId(post.id);
       try {
-        const res = await fetch(`/data/posts/${post.id}.md`);
+        const res = await fetch(withBase(`data/posts/${post.id}.md`));
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const content = await res.text();
         return { ...post, content };
