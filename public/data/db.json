@@ -4,14 +4,14 @@
     { "id": "sb-2", "label": "ERROR: OS CONFLICT", "category": "1-B"},
     { "id": "sb-3", "label": "RPS WARNING!", "category": "2-A"},
     { "id": "sb-4", "label": "403 NOSTELGIA FORBIDDEN", "category": "2-B"},
-    { "id": "sb-5", "label": "ANOTHER UNIVERSE", "category": "3-A", "page": "portfolio"}
+    { "id": "sb-5", "label": "ANOTHER UNIVERSE", "category": "3-A", "page": "au"}
   ],
-  "employees": [
+  "agents": [
     {
       "id": "vance-1",
       "name": "Dr. Vance",
       "description": ["Harmony Div.", "Head of Harmony"],
-      "imageUrl": "/images/employees/vance.jpeg",
+      "imageUrl": "/images/agents/vance.jpeg",
       "category": "1-A",
       "detail": { 
         "heroImageUrl": "/images/heroes/vance-bg.jpeg",
@@ -50,7 +50,7 @@
       "id": "blanc-1",
       "name": "Blanc",
       "description": ["S-Class Sentinel", "Vanguard"],
-      "imageUrl": "/images/employees/blanc.png",
+      "imageUrl": "/images/agents/blanc.png",
       "category": "1-A",
       "detail": {
         "heroImageUrl": "/images/heroes/blanc-bg.jpeg",
@@ -87,7 +87,7 @@
       "id": "vance-2",
       "name": "Dr. Vance",
       "description": ["Harmony Div.", "Head of Harmony"],
-      "imageUrl": "/images/employees/vance.jpeg",
+      "imageUrl": "/images/agents/vance.jpeg",
       "category": "1-B",
       "detail": { 
         "heroImageUrl": "/images/heroes/vance-bg.jpeg",
@@ -126,7 +126,7 @@
       "id": "blanc-2",
       "name": "Blanc",
       "description": ["S-Class Sentinel", "Vanguard"],
-      "imageUrl": "/images/employees/blanc.png",
+      "imageUrl": "/images/agents/blanc.png",
       "category": "1-B",
       "detail": {
         "heroImageUrl": "/images/heroes/blanc-bg.jpeg",
@@ -163,7 +163,7 @@
       "id": "vance-3",
       "name": "Dr. Vance",
       "description": ["Harmony Div.", "Head of Harmony"],
-      "imageUrl": "/images/employees/vance.jpeg",
+      "imageUrl": "/images/agents/vance.jpeg",
       "category": "2-A",
       "detail": { 
         "heroImageUrl": "/images/heroes/vance-bg.jpeg",
@@ -202,7 +202,7 @@
       "id": "signal-3",
       "name": "Signal",
       "description": ["S-Class Guide", "Support"],
-      "imageUrl": "/images/employees/signal.png",
+      "imageUrl": "/images/agents/signal.png",
       "category": "2-A",
       "detail": {
         "heroImageUrl": "",
@@ -239,7 +239,7 @@
       "id": "vance-4",
       "name": "Dr. Vance",
       "description": ["Harmony Div.", "Head of Harmony"],
-      "imageUrl": "/images/employees/vance.jpeg",
+      "imageUrl": "/images/agents/vance.jpeg",
       "category": "2-B",
       "detail": { 
         "heroImageUrl": "/images/heroes/vance-bg.jpeg",
@@ -278,7 +278,7 @@
       "id": "signal-4",
       "name": "Signal",
       "description": ["S-Class Guide", "Support"],
-      "imageUrl": "/images/employees/signal.png",
+      "imageUrl": "/images/agents/signal.png",
       "category": "2-B",
       "detail": {
         "heroImageUrl": "",
@@ -312,19 +312,6 @@
       }
     }
   ],
-  "posts": [
-    { "id": "post-1", "title": "얼마나 냉기를 넣어야 괴수가 어는지 관찰하다보니...", "preview": "그 호기심이 언젠가 당신 목을 조를 겁니다.", "imageUrl": "/images/posts/post-1.jpeg", "date": "2025-12-18", "category": "1-A", "boardId": "board-1" }
-  ],
-  "boards": [
-    { "id": "board-1", "name": "LOG", "category": "1-A" },
-    { "id": "board-2", "name": "OOC", "category": "1-A" },
-    { "id": "board-4", "name": "LOG", "category": "1-B" },
-    { "id": "board-5", "name": "OOC", "category": "1-B" },
-    { "id": "board-7", "name": "LOG", "category": "2-A" },
-    { "id": "board-8", "name": "OOC", "category": "2-A" },
-    { "id": "board-10", "name": "LOG", "category": "2-B" },
-    { "id": "board-11", "name": "OOC", "category": "2-B" }
-  ],
   "notices": [],
   "disciplinary": [
     { "id": "disc-1", "subject": "BLANC", "reason": "개인 훈련 중 훈련실 전체를 얼려 시설 및 장비 파손.", "date": "2025-12-22", "level": "CRITICAL", "category": "1-A" },
@@ -332,7 +319,7 @@
     { "id": "disc-3", "subject": "SIGNAL", "reason": "아크 익명 커뮤니티에서 요원 RPS 팬픽을 작성하다가 적발.", "date": "2026-03-30", "level": "WARNING", "category": "2-A" },
     { "id": "disc-4", "subject": "SIGNAL", "reason": "센티넬(전 남자친구)의 얼굴에 주먹을 날리는 폭력 행위 적발.", "date": "2026-04-08", "level": "WARNING", "category": "2-B" }
   ],
-  "portfolio": [
+  "au": [
     {
       "id": "au-1",
       "title": "방과후 과학실에서는",

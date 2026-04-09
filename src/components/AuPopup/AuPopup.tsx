@@ -1,13 +1,13 @@
 import { useEffect, useCallback } from "react";
-import type { PortfolioItem } from "../../types";
-import styles from "./PortfolioPopup.module.css";
+import type { AuItem } from "../../types";
+import styles from "./AuPopup.module.css";
 
-interface PortfolioPopupProps {
-  item: PortfolioItem;
+interface AuPopupProps {
+  item: AuItem;
   onClose: () => void;
 }
 
-export default function PortfolioPopup({ item, onClose }: PortfolioPopupProps) {
+export default function AuPopup({ item, onClose }: AuPopupProps) {
   useEffect(() => {
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";

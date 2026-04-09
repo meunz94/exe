@@ -1,12 +1,13 @@
-import { useState, useCallback, useEffect } from "react";
-import type { Employee, Post, PostWithContent } from "./types";
+import { useState, useCallback, useEffect, useRef } from "react";
+import type { Agent, Post, PostWithContent } from "./types";
 import { useAppData, useFilteredData, useFetchPostContent } from "./data/useAppData";
+import { useHashRoute } from "./utils/hashRouter";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Popup from "./components/Popup/Popup";
 import PostPopup from "./components/PostPopup/PostPopup";
 import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
 import MainPage from "./pages/MainPage";
-import PortfolioPage from "./pages/PortfolioPage";
+import AuPage from "./pages/AuPage";
 import appStyles from "./App.module.css";
 import "./index.css";
 
@@ -29,19 +30,72 @@ export default function App() {
   const isMobile = useIsMobile();
   const { data, loading, error } = useAppData();
   const { fetchContent, loadingPostId } = useFetchPostContent();
-  const [activeCategory, setActiveCategory] = useState("");
-  const [currentPage, setCurrentPage] = useState<"main" | "portfolio">("main");
-  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+  const [route, navigate] = useHashRoute();
+
+  const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   const [selectedPost, setSelectedPost] = useState<PostWithContent | null>(null);
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
-  useEffect(() => {
-    if (data.sidebarItems.length > 0 && !activeCategory) {
-      setActiveCategory(data.sidebarItems[0].category);
-    }
-  }, [data.sidebarItems, activeCategory]);
+  const lastCategoryRef = useRef("");
 
-  const { sidebarItems, employees, posts, boards, playlist, timeline, disciplinary, portfolio } =
+  const activeCategory = (() => {
+    if (route.page === "main" && route.category) {
+      return route.category;
+    }
+    if (route.page === "au") {
+      const item = data.sidebarItems.find((si) => si.page === "au");
+      return item?.category ?? "";
+    }
+    if (route.page === "item") {
+      return route.category;
+    }
+    return data.sidebarItems[0]?.category ?? "";
+  })();
+
+  const currentPage = route.page === "au" ? "au" as const : "main" as const;
+
+  useEffect(() => {
+    if (route.page === "main" && activeCategory) {
+      lastCategoryRef.current = activeCategory;
+    }
+  }, [route.page, activeCategory]);
+
+  useEffect(() => {
+    if (!loading && data.sidebarItems.length > 0 && route.page === "main" && !route.category) {
+      navigate({ page: "main", category: data.sidebarItems[0].category }, true);
+    }
+  }, [loading, data.sidebarItems, route, navigate]);
+
+  useEffect(() => {
+    if (loading) return;
+    let ignore = false;
+
+    if (route.page === "item") {
+      const post = data.posts.find((p) => p.id === route.itemId);
+      const agent = data.agents.find((a) => a.id === route.itemId);
+
+      if (post) {
+        setSelectedAgent(null);
+        fetchContent(post).then((withContent) => {
+          if (!ignore) setSelectedPost(withContent);
+        });
+      } else if (agent) {
+        setSelectedPost(null);
+        setSelectedAgent(agent);
+      } else {
+        setSelectedAgent(null);
+        setSelectedPost(null);
+        navigate({ page: "main", category: route.category }, true);
+      }
+    } else {
+      setSelectedAgent(null);
+      setSelectedPost(null);
+    }
+
+    return () => { ignore = true; };
+  }, [route, data, loading, fetchContent, navigate]);
+
+  const { sidebarItems, agents, posts, boards, playlist, timeline, disciplinary, au } =
     useFilteredData(data, activeCategory);
 
   const activeLabel = data.sidebarItems.find((si) => si.category === activeCategory)?.label ?? "";
@@ -49,43 +103,38 @@ export default function App() {
   const handleCategoryChange = useCallback(
     (category: string) => {
       const item = data.sidebarItems.find((si) => si.category === category);
-      if (item?.page === "portfolio") {
-        setCurrentPage("portfolio");
+      if (item?.page === "au") {
+        navigate({ page: "au" });
       } else {
-        setCurrentPage("main");
+        navigate({ page: "main", category });
       }
-      setActiveCategory(category);
     },
-    [data.sidebarItems]
+    [data.sidebarItems, navigate]
   );
 
   const handleBackToMain = useCallback(() => {
-    const firstNonPortfolio = data.sidebarItems.find((si) => !si.page);
-    if (firstNonPortfolio) {
-      setActiveCategory(firstNonPortfolio.category);
-    }
-    setCurrentPage("main");
-  }, [data.sidebarItems]);
+    const firstNonAu = data.sidebarItems.find((si) => !si.page);
+    navigate({ page: "main", category: firstNonAu?.category });
+  }, [data.sidebarItems, navigate]);
 
-  const handleCardClick = useCallback((employee: Employee) => {
-    setSelectedEmployee(employee);
-  }, []);
+  const handleCardClick = useCallback((agent: Agent) => {
+    navigate({ page: "item", category: agent.category, itemId: agent.id });
+  }, [navigate]);
 
   const handlePopupClose = useCallback(() => {
-    setSelectedEmployee(null);
-  }, []);
+    navigate({ page: "main", category: lastCategoryRef.current || activeCategory }, true);
+  }, [navigate, activeCategory]);
 
   const handlePostClick = useCallback(
-    async (post: Post) => {
-      const withContent = await fetchContent(post);
-      setSelectedPost(withContent);
+    (post: Post) => {
+      navigate({ page: "item", category: post.category, itemId: post.id });
     },
-    [fetchContent]
+    [navigate]
   );
 
   const handlePostPopupClose = useCallback(() => {
-    setSelectedPost(null);
-  }, []);
+    navigate({ page: "main", category: lastCategoryRef.current || activeCategory }, true);
+  }, [navigate, activeCategory]);
 
   const handleContentVisible = useCallback((visible: boolean) => {
     setSidebarVisible(visible);
@@ -115,7 +164,7 @@ export default function App() {
           items={sidebarItems}
           activeCategory={activeCategory}
           onCategoryChange={handleCategoryChange}
-          visible={currentPage === "portfolio" || sidebarVisible}
+          visible={currentPage === "au" || sidebarVisible}
         />
       )}
 
@@ -127,7 +176,7 @@ export default function App() {
         {currentPage === "main" ? (
           <MainPage
             activeLabel={activeLabel}
-            employees={employees}
+            agents={agents}
             posts={posts}
             boards={boards}
             playlist={playlist}
@@ -139,7 +188,7 @@ export default function App() {
             onContentVisible={handleContentVisible}
           />
         ) : (
-          <PortfolioPage items={portfolio} onBack={handleBackToMain} />
+          <AuPage items={au} onBack={handleBackToMain} />
         )}
       </div>
 
@@ -148,12 +197,12 @@ export default function App() {
           items={sidebarItems}
           activeCategory={activeCategory}
           onCategoryChange={handleCategoryChange}
-          visible={currentPage === "portfolio" || sidebarVisible}
+          visible={currentPage === "au" || sidebarVisible}
         />
       )}
 
-      {selectedEmployee && (
-        <Popup employee={selectedEmployee} onClose={handlePopupClose} />
+      {selectedAgent && (
+        <Popup agent={selectedAgent} onClose={handlePopupClose} />
       )}
 
       {selectedPost && (

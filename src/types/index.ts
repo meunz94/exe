@@ -1,13 +1,13 @@
-export interface Employee {
+export interface Agent {
   id: string;
   name: string;
   description: string[];
   imageUrl: string;
   category: string;
-  detail: EmployeeDetail;
+  detail: AgentDetail;
 }
 
-export interface EmployeeProfile {
+export interface AgentProfile {
   codename: string;
   classification: string;
   attribute: string;
@@ -15,33 +15,33 @@ export interface EmployeeProfile {
   evaluation: string;
 }
 
-export interface EmployeeAbility {
+export interface AgentAbility {
   overview: string;
   skills: string[];
   berserkSign?: string;
 }
 
-export interface EmployeeAppearance {
+export interface AgentAppearance {
   "height & build": string;
   "hair & eyes": string;
   outfit: string;
 }
 
-export interface EmployeeRelation {
+export interface AgentRelation {
   name: string;
   relation: string;
   description: string;
 }
 
-export interface EmployeeDetail {
+export interface AgentDetail {
   heroImageUrl: string;
   subtitle: string;
   title: string;
   descriptions: string[];
-  profile: EmployeeProfile;
-  ability: EmployeeAbility;
-  appearance: EmployeeAppearance;
-  relations: EmployeeRelation[];
+  profile: AgentProfile;
+  ability: AgentAbility;
+  appearance: AgentAppearance;
+  relations: AgentRelation[];
 }
 
 export interface Post {
@@ -53,6 +53,7 @@ export interface Post {
   category: string;
   boardId: string;
   imageUrl?: string;
+  contentPath?: string;
 }
 
 export interface PostWithContent extends Post {
@@ -89,7 +90,7 @@ export interface TimelineEvent {
   category: string;
 }
 
-export interface PortfolioMember {
+export interface AuMember {
   name: string;
   role: string;
   imageUrl: string;
@@ -97,13 +98,13 @@ export interface PortfolioMember {
   note?: string;
 }
 
-export interface PortfolioItem {
+export interface AuItem {
   id: string;
   title: string;
   description: string;
   imageUrl: string;
   tags: string[];
-  members: PortfolioMember[];
+  members: AuMember[];
   content: string;
 }
 
@@ -125,11 +126,11 @@ export interface SidebarItem {
 
 export interface AppData {
   sidebarItems: SidebarItem[];
-  employees: Employee[];
+  agents: Agent[];
   posts: Post[];
   boards: Board[];
   notices: Notice[];
-  portfolio: PortfolioItem[];
+  au: AuItem[];
   playlist: PlaylistItem[];
   timeline: TimelineEvent[];
   disciplinary: DisciplinaryRecord[];

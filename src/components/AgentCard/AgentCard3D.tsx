@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { RoundedBox } from "@react-three/drei";
 
-interface EmployeeCard3DProps {
+interface AgentCard3DProps {
   rotationX: number;
   rotationY: number;
 }
@@ -21,10 +21,10 @@ function PhotoFrame() {
   );
 }
 
-export default function EmployeeCard3D({
+export default function AgentCard3D({
   rotationX,
   rotationY,
-}: EmployeeCard3DProps) {
+}: AgentCard3DProps) {
   return (
     <Canvas
       camera={{ position: [0, 0, 4.5], fov: 35 }}

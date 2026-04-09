@@ -1,18 +1,18 @@
 import { useState, useCallback } from "react";
-import type { PortfolioItem } from "../types";
-import PortfolioPopup from "../components/PortfolioPopup/PortfolioPopup";
+import type { AuItem } from "../types";
+import AuPopup from "../components/AuPopup/AuPopup";
 import { publicUrl } from "../utils/publicUrl";
-import styles from "./PortfolioPage.module.css";
+import styles from "./AuPage.module.css";
 
-interface PortfolioPageProps {
-  items: PortfolioItem[];
+interface AuPageProps {
+  items: AuItem[];
   onBack: () => void;
 }
 
-export default function PortfolioPage({ items, onBack }: PortfolioPageProps) {
-  const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
+export default function AuPage({ items, onBack }: AuPageProps) {
+  const [selectedItem, setSelectedItem] = useState<AuItem | null>(null);
 
-  const handleCardClick = useCallback((item: PortfolioItem) => {
+  const handleCardClick = useCallback((item: AuItem) => {
     setSelectedItem(item);
   }, []);
 
@@ -67,12 +67,12 @@ export default function PortfolioPage({ items, onBack }: PortfolioPageProps) {
 
       {items.length === 0 && (
         <div className={styles.empty}>
-          아직 등록된 포트폴리오가 없습니다.
+          아직 등록된 항목이 없습니다.
         </div>
       )}
 
       {selectedItem && (
-        <PortfolioPopup item={selectedItem} onClose={handlePopupClose} />
+        <AuPopup item={selectedItem} onClose={handlePopupClose} />
       )}
     </div>
   );

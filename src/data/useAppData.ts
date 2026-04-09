@@ -1,14 +1,14 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import type {
   AppData,
-  Employee,
+  Agent,
   Post,
   PostWithContent,
   Board,
   Notice,
   PlaylistItem,
   TimelineEvent,
-  PortfolioItem,
+  AuItem,
   SidebarItem,
   DisciplinaryRecord,
 } from "../types";
@@ -16,11 +16,11 @@ import { publicUrl } from "../utils/publicUrl";
 
 const EMPTY: AppData = {
   sidebarItems: [],
-  employees: [],
+  agents: [],
   posts: [],
   boards: [],
   notices: [],
-  portfolio: [],
+  au: [],
   playlist: [],
   timeline: [],
   disciplinary: [],
@@ -47,10 +47,20 @@ export function useAppData() {
         if (!r.ok) throw new Error(`timeline.json: HTTP ${r.status} (${publicUrl("data/timeline.json")})`);
         return r.json() as Promise<TimelineEvent[]>;
       }),
+      fetch(publicUrl("data/posts.json")).then((r) => {
+        if (!r.ok) throw new Error(`posts.json: HTTP ${r.status} (${publicUrl("data/posts.json")})`);
+        return r.json() as Promise<{ posts: Post[]; boards: Board[] }>;
+      }),
     ])
-      .then(([db, playlist, timeline]) => {
+      .then(([db, playlist, timeline, postsData]) => {
         if (!cancelled) {
-          setData({ ...db, playlist, timeline });
+          setData({
+            ...db,
+            playlist,
+            timeline,
+            posts: postsData.posts,
+            boards: postsData.boards,
+          });
           setLoading(false);
         }
       })
@@ -77,9 +87,9 @@ export function filterByCategory<T extends { category?: string }>(
 }
 
 export function useFilteredData(data: AppData, activeCategory: string) {
-  const employees = useMemo(
-    () => filterByCategory<Employee>(data.employees, activeCategory),
-    [data.employees, activeCategory]
+  const agents = useMemo(
+    () => filterByCategory<Agent>(data.agents, activeCategory),
+    [data.agents, activeCategory]
   );
   const posts = useMemo(
     () => filterByCategory<Post>(data.posts, activeCategory),
@@ -105,10 +115,10 @@ export function useFilteredData(data: AppData, activeCategory: string) {
     () => filterByCategory<DisciplinaryRecord>(data.disciplinary, activeCategory),
     [data.disciplinary, activeCategory]
   );
-  const portfolio: PortfolioItem[] = data.portfolio;
+  const au: AuItem[] = data.au;
   const sidebarItems: SidebarItem[] = data.sidebarItems;
 
-  return { sidebarItems, employees, posts, boards, notices, playlist, timeline, disciplinary, portfolio };
+  return { sidebarItems, agents, posts, boards, notices, playlist, timeline, disciplinary, au };
 }
 
 export function useFetchPostContent() {
@@ -118,9 +128,13 @@ export function useFetchPostContent() {
     async (post: Post): Promise<PostWithContent> => {
       setLoadingPostId(post.id);
       try {
-        const res = await fetch(publicUrl(`data/posts/${post.id}.md`));
+        const url = post.contentPath
+          ? publicUrl(`data/${post.contentPath}`)
+          : publicUrl(`data/posts/${post.id}.md`);
+        const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const content = await res.text();
+        let content = await res.text();
+        content = content.replace(/^---\n[\s\S]*?\n---\n?/, "");
         return { ...post, content };
       } catch {
         return { ...post, content: "(본문을 불러올 수 없습니다.)" };

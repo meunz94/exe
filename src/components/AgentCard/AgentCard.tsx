@@ -1,15 +1,15 @@
 import { useRef, useState, useCallback } from "react";
-import type { Employee } from "../../types";
+import type { Agent } from "../../types";
 import { publicUrl } from "../../utils/publicUrl";
-import EmployeeCard3D from "./EmployeeCard3D";
-import styles from "./EmployeeCard.module.css";
+import AgentCard3D from "./AgentCard3D";
+import styles from "./AgentCard.module.css";
 
-interface EmployeeCardProps {
-  employee: Employee;
-  onClick: (employee: Employee) => void;
+interface AgentCardProps {
+  agent: Agent;
+  onClick: (agent: Agent) => void;
 }
 
-export default function EmployeeCard({ employee, onClick }: EmployeeCardProps) {
+export default function AgentCard({ agent, onClick }: AgentCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -38,26 +38,26 @@ export default function EmployeeCard({ employee, onClick }: EmployeeCardProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
-      onClick={() => onClick(employee)}
+      onClick={() => onClick(agent)}
       style={{
         transform: `perspective(800px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(${isHovered ? 1.02 : 1})`,
       }}
     >
       <div className={styles.card}>
         <div className={styles.canvasArea}>
-          {employee.imageUrl ? (
+          {agent.imageUrl ? (
             <img
               className={styles.photo}
-              src={publicUrl(employee.imageUrl)}
-              alt={employee.name}
+              src={publicUrl(agent.imageUrl)}
+              alt={agent.name}
             />
           ) : (
-            <EmployeeCard3D rotationX={rotation.x} rotationY={rotation.y} />
+            <AgentCard3D rotationX={rotation.x} rotationY={rotation.y} />
           )}
         </div>
         <div className={styles.info}>
-          <h3 className={styles.name}>{employee.name}</h3>
-          {employee.description.map((desc, i) => (
+          <h3 className={styles.name}>{agent.name}</h3>
+          {agent.description.map((desc, i) => (
             <p key={i} className={styles.description}>
               {desc}
             </p>

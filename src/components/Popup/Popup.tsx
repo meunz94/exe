@@ -1,15 +1,15 @@
 import { useEffect, useCallback } from "react";
-import type { Employee } from "../../types";
+import type { Agent } from "../../types";
 import { publicUrl } from "../../utils/publicUrl";
 import styles from "./Popup.module.css";
 
 interface PopupProps {
-  employee: Employee;
+  agent: Agent;
   onClose: () => void;
 }
 
-export default function Popup({ employee, onClose }: PopupProps) {
-  const { detail } = employee;
+export default function Popup({ agent, onClose }: PopupProps) {
+  const { detail } = agent;
   const { profile, ability, appearance, relations } = detail;
 
   useEffect(() => {

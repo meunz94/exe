@@ -1,0 +1,56 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "얼마나 냉기를 넣어야 괴수가 어는지 관찰하다보니...",
+      "date": "2025-12-18",
+      "preview": "그 호기심이 언젠가 당신 목을 조를 겁니다.",
+      "imageUrl": "/images/posts/1-A/LOG/1.jpeg",
+      "category": "1-A",
+      "boardId": "1-A-LOG",
+      "contentPath": "posts/1-A/LOG/1.md"
+    }
+  ],
+  "boards": [
+    {
+      "id": "1-A-LOG",
+      "name": "LOG",
+      "category": "1-A"
+    },
+    {
+      "id": "1-A-OOC",
+      "name": "OOC",
+      "category": "1-A"
+    },
+    {
+      "id": "1-B-LOG",
+      "name": "LOG",
+      "category": "1-B"
+    },
+    {
+      "id": "1-B-OOC",
+      "name": "OOC",
+      "category": "1-B"
+    },
+    {
+      "id": "2-A-LOG",
+      "name": "LOG",
+      "category": "2-A"
+    },
+    {
+      "id": "2-A-OOC",
+      "name": "OOC",
+      "category": "2-A"
+    },
+    {
+      "id": "2-B-LOG",
+      "name": "LOG",
+      "category": "2-B"
+    },
+    {
+      "id": "2-B-OOC",
+      "name": "OOC",
+      "category": "2-B"
+    }
+  ]
+}

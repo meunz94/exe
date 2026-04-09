@@ -1,8 +1,8 @@
 import { useRef, useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import type { Employee, Post, Board, PlaylistItem, TimelineEvent, DisciplinaryRecord } from "../types";
-import EmployeeCard from "../components/EmployeeCard/EmployeeCard";
+import type { Agent, Post, Board, PlaylistItem, TimelineEvent, DisciplinaryRecord } from "../types";
+import AgentCard from "../components/AgentCard/AgentCard";
 import Terminal from "../components/Terminal/Terminal";
 import PostList from "../components/PostList/PostList";
 import Playlist from "../components/Playlist/Playlist";
@@ -12,13 +12,13 @@ import { publicUrl } from "../utils/publicUrl";
 
 interface MainPageProps {
   activeLabel: string;
-  employees: Employee[];
+  agents: Agent[];
   posts: Post[];
   boards: Board[];
   playlist: PlaylistItem[];
   timeline: TimelineEvent[];
   disciplinary: DisciplinaryRecord[];
-  onCardClick: (employee: Employee) => void;
+  onCardClick: (agent: Agent) => void;
   onPostClick: (post: Post) => void;
   loadingPostId: string | null;
   onContentVisible?: (visible: boolean) => void;
@@ -26,7 +26,7 @@ interface MainPageProps {
 
 export default function MainPage({
   activeLabel,
-  employees,
+  agents,
   posts,
   boards,
   playlist,
@@ -95,8 +95,8 @@ export default function MainPage({
               <span className={styles.cardsLabelLine} />
             </div>
             <div className={styles.cardsSection}>
-              {employees.map((emp) => (
-                <EmployeeCard key={emp.id} employee={emp} onClick={onCardClick} />
+              {agents.map((a) => (
+                <AgentCard key={a.id} agent={a} onClick={onCardClick} />
               ))}
             </div>
             <div className={styles.cardsLabelBottom}>
