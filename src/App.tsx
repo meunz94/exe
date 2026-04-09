@@ -8,6 +8,9 @@ import PostPopup from "./components/PostPopup/PostPopup";
 import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
 import MainPage from "./pages/MainPage";
 import AuPage from "./pages/AuPage";
+import WaveBackground from "./components/BackgroundEffect/WaveBackground";
+import DarkBackground from "./components/BackgroundEffect/DarkBackground";
+import AuBackground from "./components/BackgroundEffect/AuBackground";
 import appStyles from "./App.module.css";
 import "./index.css";
 
@@ -158,6 +161,14 @@ export default function App() {
 
   return (
     <div className={currentPage === "main" ? appStyles.snapContainer : appStyles.normalContainer}>
+      {currentPage === "au" ? (
+        <AuBackground />
+      ) : (
+        <>
+          <WaveBackground />
+          <DarkBackground />
+        </>
+      )}
       <ThemeToggle />
       {!isMobile && (
         <Sidebar

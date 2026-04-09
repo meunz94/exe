@@ -24,16 +24,16 @@
   margin-bottom: 32px;
   text-align: center;
   line-height: 1.2;
-  text-shadow: 0 0 12px rgba(76, 175, 80, 0.4), 0 0 40px rgba(76, 175, 80, 0.15);
+  text-shadow: 0 0 12px rgba(100, 201, 73, 0.4), 0 0 40px rgba(100, 201, 73, 0.15);
   animation: noticePulseLight 3s ease-in-out infinite;
 }
 
 @keyframes noticePulseLight {
   0%, 100% {
-    text-shadow: 0 0 12px rgba(76, 175, 80, 0.4), 0 0 40px rgba(76, 175, 80, 0.15);
+    text-shadow: 0 0 12px rgba(100, 201, 73, 0.4), 0 0 40px rgba(100, 201, 73, 0.15);
   }
   50% {
-    text-shadow: 0 0 24px rgba(76, 175, 80, 0.6), 0 0 60px rgba(76, 175, 80, 0.25);
+    text-shadow: 0 0 24px rgba(100, 201, 73, 0.6), 0 0 60px rgba(100, 201, 73, 0.25);
   }
 }
 
@@ -42,9 +42,11 @@
   max-width: 520px;
   padding: 24px 28px;
   border-radius: var(--radius-lg);
-  background: var(--color-accent-light);
-  border: 1px solid var(--color-accent);
-  border-left: 4px solid var(--color-accent);
+  background: #ffffff;
+  border: none;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
 .noticeMarkdown {
@@ -261,9 +263,11 @@
 
 :global([data-theme="dark"]) .noticeBox {
   background: rgba(0, 170, 255, 0.04);
-  border-color: rgba(0, 170, 255, 0.2);
-  border-left: 4px solid var(--color-neon);
-  box-shadow: 0 0 20px rgba(0, 170, 255, 0.06), inset 0 0 30px rgba(0, 170, 255, 0.02);
+  border: 2px solid rgba(0, 170, 255, 0.25);
+  box-shadow:
+    0 0 20px rgba(0, 170, 255, 0.06),
+    0 0 40px rgba(0, 170, 255, 0.03),
+    inset 0 0 30px rgba(0, 170, 255, 0.02);
 }
 
 :global([data-theme="dark"]) .noticeMarkdown {

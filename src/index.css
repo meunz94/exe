@@ -7,7 +7,7 @@
 }
 
 :root {
-  --color-bg: #f0f0f0;
+  --color-bg: #f5f5f5;
   --color-surface: #ffffff;
   --color-surface-secondary: #f6f6f6;
   --color-surface-tertiary: #fafafa;
@@ -15,7 +15,7 @@
   --color-text-primary: #1a1a1a;
   --color-text-secondary: #666666;
   --color-text-muted: #999999;
-  --color-accent: #4caf50;
+  --color-accent: #64c949;
   --color-accent-light: #e8f5e9;
   --color-border: #e0e0e0;
   --color-divider: #f0f0f0;
