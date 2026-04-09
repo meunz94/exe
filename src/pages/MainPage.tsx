@@ -40,12 +40,18 @@ export default function MainPage({
   const contentRef = useRef<HTMLDivElement>(null);
   const [noticeContent, setNoticeContent] = useState("");
   const [contentVisible, setContentVisible] = useState(false);
+  const [memoOpen, setMemoOpen] = useState(false);
+  const [memoContent, setMemoContent] = useState("");
 
   useEffect(() => {
     let cancelled = false;
     fetch(publicUrl("data/notice.md"))
       .then((r) => (r.ok ? r.text() : ""))
       .then((text) => { if (!cancelled) setNoticeContent(text); })
+      .catch(() => {});
+    fetch(publicUrl("data/memo.md"))
+      .then((r) => (r.ok ? r.text() : ""))
+      .then((text) => { if (!cancelled) setMemoContent(text); })
       .catch(() => {});
     return () => { cancelled = true; };
   }, []);
@@ -78,6 +84,30 @@ export default function MainPage({
           ) : (
             <p className={styles.noticeEmpty}>등록된 공지사항이 없습니다.</p>
           )}
+        </div>
+
+        <div className={styles.memoToggle}>
+          <button
+            className={`${styles.memoToggleBtn} ${memoOpen ? styles.memoToggleBtnOpen : ""}`}
+            onClick={() => setMemoOpen((v) => !v)}
+          >
+            <span className={styles.memoToggleIcon}>{memoOpen ? "▲" : "▼"}</span>
+            <span>{memoOpen ? "닫기" : "프롬프트"}</span>
+          </button>
+        </div>
+
+        <div className={`${styles.memoPanel} ${memoOpen ? styles.memoPanelOpen : ""}`}>
+          <div className={styles.memoContent}>
+            {memoContent ? (
+              <div className={styles.noticeMarkdown}>
+                <Markdown rehypePlugins={[rehypeRaw]}>
+                  {memoContent.replace(/\n---(\n|$)/g, "\n\n---\n\n")}
+                </Markdown>
+              </div>
+            ) : (
+              <p className={styles.noticeEmpty}>등록된 메모가 없습니다.</p>
+            )}
+          </div>
         </div>
       </section>
 

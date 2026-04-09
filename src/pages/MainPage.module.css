@@ -5,13 +5,13 @@
 
 /* === SNAP SECTION 1: Notice === */
 .noticeSection {
-  min-height: 130vh;
+  min-height: 160vh;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 80px 20px 120px;
+  padding: 80px 20px 240px;
   position: relative;
 }
 
@@ -109,6 +109,26 @@
   background: rgba(0, 0, 0, 0.06);
 }
 
+.noticeMarkdown pre {
+  margin: 8px 0;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+}
+
+.noticeMarkdown pre code {
+  display: block;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  font-size: 12px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .noticeMarkdown blockquote {
   margin: 4px 0;
   padding: 4px 12px;
@@ -127,6 +147,77 @@
   font-size: 14px;
   color: var(--color-text-muted);
   text-align: center;
+}
+
+/* === Memo Toggle & Panel === */
+.memoToggle {
+  width: 100%;
+  max-width: 520px;
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.memoToggleBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.memoToggleBtn:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text-primary);
+  border-color: var(--color-accent);
+}
+
+.memoToggleBtnOpen {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.memoToggleIcon {
+  font-size: 10px;
+  transition: transform 0.3s ease;
+}
+
+.memoPanel {
+  width: 100%;
+  max-width: 520px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease,
+              margin-top 0.3s ease;
+  margin-top: 0;
+}
+
+.memoPanelOpen {
+  max-height: 2000px;
+  opacity: 1;
+  margin-top: 12px;
+}
+
+.memoContent {
+  width: 100%;
+  padding: 24px 28px;
+  border-radius: var(--radius-lg);
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 4px 16px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
 }
 
 .scrollHint {
@@ -288,6 +379,16 @@
   color: var(--color-neon);
 }
 
+:global([data-theme="dark"]) .noticeMarkdown pre {
+  background: rgba(0, 10, 30, 0.5);
+  border-color: rgba(0, 170, 255, 0.15);
+  box-shadow: inset 0 0 20px rgba(0, 170, 255, 0.03);
+}
+
+:global([data-theme="dark"]) .noticeMarkdown pre code {
+  color: rgba(200, 218, 240, 0.8);
+}
+
 :global([data-theme="dark"]) .noticeMarkdown blockquote {
   border-left-color: var(--color-neon);
   color: rgba(200, 218, 240, 0.7);
@@ -296,6 +397,34 @@
 :global([data-theme="dark"]) .noticeMarkdown hr {
   border-top-color: var(--color-neon);
   opacity: 0.25;
+}
+
+:global([data-theme="dark"]) .memoToggleBtn {
+  border-color: rgba(0, 170, 255, 0.2);
+  color: rgba(200, 218, 240, 0.6);
+  background: rgba(0, 170, 255, 0.04);
+}
+
+:global([data-theme="dark"]) .memoToggleBtn:hover {
+  border-color: var(--color-neon);
+  color: var(--color-neon);
+  background: rgba(0, 170, 255, 0.08);
+  box-shadow: 0 0 10px rgba(0, 170, 255, 0.15);
+}
+
+:global([data-theme="dark"]) .memoToggleBtnOpen {
+  border-color: var(--color-neon);
+  color: var(--color-neon);
+  text-shadow: 0 0 6px rgba(0, 170, 255, 0.4);
+}
+
+:global([data-theme="dark"]) .memoContent {
+  background: rgba(0, 170, 255, 0.04);
+  border: 2px solid rgba(0, 170, 255, 0.25);
+  box-shadow:
+    0 0 20px rgba(0, 170, 255, 0.06),
+    0 0 40px rgba(0, 170, 255, 0.03),
+    inset 0 0 30px rgba(0, 170, 255, 0.02);
 }
 
 :global([data-theme="dark"]) .scrollHint {
@@ -333,8 +462,8 @@
 /* === Mobile === */
 @media (max-width: 768px) {
   .noticeSection {
-    min-height: 120vh;
-    padding: 72px 16px 100px;
+    min-height: 150vh;
+    padding: 72px 16px 200px;
   }
 
   .noticeTitle {

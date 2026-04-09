@@ -25,7 +25,7 @@ function parseColor(color: string): [number, number, number] | null {
   return null;
 }
 
-function invertColorLightness(color: string): string {
+function boostColorLightness(color: string): string {
   const rgb = parseColor(color);
   if (!rgb) return color;
   const [r, g, b] = rgb.map((v) => v / 255);
@@ -40,7 +40,7 @@ function invertColorLightness(color: string): string {
     else h = ((r - g) / d + 4) / 6;
   }
 
-  l = 1 - l;
+  l = l + (1 - l) * 0.5;
 
   const hue2rgb = (p: number, q: number, t: number) => {
     if (t < 0) t += 1;
@@ -104,7 +104,7 @@ export default function PostPopup({ post, onClose }: PostPopupProps) {
       if (!inlineColor) return;
       if (isDark) {
         if (!el.dataset.originalColor) el.dataset.originalColor = inlineColor;
-        el.style.color = invertColorLightness(el.dataset.originalColor);
+        el.style.color = boostColorLightness(el.dataset.originalColor);
       } else if (el.dataset.originalColor) {
         el.style.color = el.dataset.originalColor;
         delete el.dataset.originalColor;
