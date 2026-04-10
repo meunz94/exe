@@ -13,7 +13,7 @@
   overflow: hidden;
   box-shadow: var(--shadow-md);
   transition: box-shadow 0.25s ease, border-color 0.25s ease;
-  padding: 25px 25px 0;
+  padding: 0;
 }
 
 /* scanline overlay */
@@ -92,6 +92,79 @@
   100% { transform: translate3d(1px, -1px, 0); }
 }
 
+/* ─── Badge header ─── */
+.badgeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px 6px;
+}
+
+.orgBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.orgLabel {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: var(--color-text-primary);
+  font-family: "Orbitron", sans-serif;
+  line-height: 1;
+}
+
+.orgSlogan {
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  line-height: 1;
+  opacity: 0.7;
+}
+
+.clearance {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--color-placeholder);
+  padding: 2px 6px;
+  border-radius: 6px;
+  line-height: 1.4;
+}
+
+.attrGrass {
+  background: #3a9a4f;
+}
+
+.attrIce {
+  background: #4aa8d8;
+}
+
+.attrElectric {
+  background: #c9a020;
+}
+
+/* ─── Badge body: photo + barcode ─── */
+.badgeBody {
+  display: flex;
+  align-items: stretch;
+  padding: 0 14px;
+  gap: 8px;
+}
+
+.photoColumn {
+  flex: 1;
+  min-width: 0;
+}
+
 .canvasArea {
   width: 100%;
   height: 200px;
@@ -108,28 +181,161 @@
   display: block;
 }
 
+/* ─── Barcode ─── */
+.barcode {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  width: 16px;
+  flex-shrink: 0;
+  padding: 12px 0;
+}
+
+.bar {
+  display: block;
+  width: 100%;
+  background: var(--color-text-primary);
+  border-radius: 0.5px;
+  opacity: 0.55;
+}
+
+/* ─── Chip + ID row ─── */
+.chipRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 0;
+}
+
+.chip {
+  width: 22px;
+  height: 16px;
+  border-radius: 2px;
+  background: linear-gradient(135deg, #d4af37 0%, #f5d76e 40%, #d4af37 60%, #b8962e 100%);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.chipLines {
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 1px;
+}
+
+.chipLines::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.chipLines::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.idNumber {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--color-text-secondary);
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* ─── Divider ─── */
+.dividerLine {
+  height: 1px;
+  margin: 8px 14px 0;
+  background: var(--color-text-primary);
+  opacity: 0.1;
+}
+
+/* ─── Info ─── */
 .info {
-  padding: 16px;
-  text-align: center;
+  padding: 10px 14px 16px;
+  text-align: left;
 }
 
 .name {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   color: var(--color-text-primary);
 }
 
 .description {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-/* Dark mode: cyber glow effects */
+/* ─── Dark mode: cyber glow effects ─── */
 :global([data-theme="dark"]) .card {
   border: 1px solid var(--color-neon-dim);
   box-shadow: 0 0 16px rgba(0, 170, 255, 0.1), inset 0 0 20px rgba(0, 170, 255, 0.03);
+}
+
+:global([data-theme="dark"]) .orgLabel {
+  color: #66d9ff;
+  text-shadow: 0 0 12px rgba(0, 200, 255, 0.6), 0 0 4px rgba(0, 170, 255, 0.4);
+}
+
+:global([data-theme="dark"]) .orgSlogan {
+  color: #8ee4ff;
+  opacity: 0.5;
+}
+
+:global([data-theme="dark"]) .clearance {
+  color: #fff;
+  border: none;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+:global([data-theme="dark"]) .attrGrass {
+  background: rgba(60, 180, 90, 0.55);
+  box-shadow: 0 0 6px rgba(60, 200, 90, 0.3);
+}
+
+:global([data-theme="dark"]) .attrIce {
+  background: rgba(70, 180, 230, 0.5);
+  box-shadow: 0 0 6px rgba(70, 200, 255, 0.3);
+}
+
+:global([data-theme="dark"]) .attrElectric {
+  background: rgba(210, 170, 40, 0.5);
+  box-shadow: 0 0 6px rgba(230, 200, 50, 0.3);
+}
+
+:global([data-theme="dark"]) .bar {
+  background: #66d9ff;
+  opacity: 0.7;
+}
+
+:global([data-theme="dark"]) .chip {
+  background: linear-gradient(135deg, #4da8e8 0%, #8ed6ff 40%, #4da8e8 60%, #3a8fd4 100%);
+  box-shadow: 0 0 8px rgba(0, 200, 255, 0.4);
+}
+
+:global([data-theme="dark"]) .dividerLine {
+  background: #66d9ff;
+  opacity: 0.35;
+}
+
+:global([data-theme="dark"]) .idNumber {
+  color: #8ee4ff;
+  text-shadow: 0 0 6px rgba(0, 200, 255, 0.3);
 }
 
 :global([data-theme="dark"]) .card::before {
@@ -187,15 +393,11 @@
 
 @media (max-width: 768px) {
   .cardWrapper {
-    width: 100%;
-    max-width: 280px;
+    width: 220px;
+    flex-shrink: 0;
   }
 
   .card {
-    width: 100%;
-  }
-
-  .canvasArea {
-    height: 180px;
+    width: 220px;
   }
 }

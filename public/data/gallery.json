@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1-A-sample1",
+    "url": "/images/gallery/1-A/sample1.svg",
+    "category": "1-A"
+  },
+  {
+    "id": "1-A-sample2",
+    "url": "/images/gallery/1-A/sample2.svg",
+    "category": "1-A"
+  },
+  {
+    "id": "1-A-sample3",
+    "url": "/images/gallery/1-A/sample3.svg",
+    "category": "1-A"
+  },
+  {
+    "id": "1-A-sample4",
+    "url": "/images/gallery/1-A/sample4.svg",
+    "category": "1-A"
+  },
+  {
+    "id": "1-A-sample5",
+    "url": "/images/gallery/1-A/sample5.svg",
+    "category": "1-A"
+  },
+  {
+    "id": "1-A-sample6",
+    "url": "/images/gallery/1-A/sample6.svg",
+    "category": "1-A"
+  }
+]

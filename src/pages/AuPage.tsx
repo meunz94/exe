@@ -1,24 +1,61 @@
-import { useState, useCallback } from "react";
-import type { AuItem } from "../types";
+import { useCallback, useMemo } from "react";
+import type { AuItem, AuPost } from "../types";
+import type { Route } from "../utils/hashRouter";
 import AuPopup from "../components/AuPopup/AuPopup";
 import { publicUrl } from "../utils/publicUrl";
 import styles from "./AuPage.module.css";
 
 interface AuPageProps {
   items: AuItem[];
+  auPosts: AuPost[];
+  selectedAuId: string | null;
+  loadingAuPostId: string | null;
+  navigate: (route: Route, replace?: boolean) => void;
   onBack: () => void;
 }
 
-export default function AuPage({ items, onBack }: AuPageProps) {
-  const [selectedItem, setSelectedItem] = useState<AuItem | null>(null);
+export default function AuPage({
+  items,
+  auPosts,
+  selectedAuId,
+  loadingAuPostId,
+  navigate,
+  onBack,
+}: AuPageProps) {
+  const selectedItem = useMemo(
+    () => (selectedAuId ? items.find((i) => i.id === selectedAuId) ?? null : null),
+    [items, selectedAuId]
+  );
 
-  const handleCardClick = useCallback((item: AuItem) => {
-    setSelectedItem(item);
-  }, []);
+  const selectedPosts = useMemo(
+    () =>
+      selectedItem
+        ? auPosts
+            .filter((p) => p.auId === selectedItem.id)
+            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        : [],
+    [auPosts, selectedItem]
+  );
+
+  const handleCardClick = useCallback(
+    (item: AuItem) => {
+      navigate({ page: "au-item", auId: item.id });
+    },
+    [navigate]
+  );
 
   const handlePopupClose = useCallback(() => {
-    setSelectedItem(null);
-  }, []);
+    navigate({ page: "au" }, true);
+  }, [navigate]);
+
+  const handlePostClick = useCallback(
+    (post: AuPost) => {
+      if (selectedAuId) {
+        navigate({ page: "au-post", auId: selectedAuId, postId: post.id });
+      }
+    },
+    [navigate, selectedAuId]
+  );
 
   return (
     <div className={styles.page}>
@@ -72,7 +109,13 @@ export default function AuPage({ items, onBack }: AuPageProps) {
       )}
 
       {selectedItem && (
-        <AuPopup item={selectedItem} onClose={handlePopupClose} />
+        <AuPopup
+          item={selectedItem}
+          posts={selectedPosts}
+          loadingAuPostId={loadingAuPostId}
+          onPostClick={handlePostClick}
+          onClose={handlePopupClose}
+        />
       )}
     </div>
   );

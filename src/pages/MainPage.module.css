@@ -5,13 +5,12 @@
 
 /* === SNAP SECTION 1: Notice === */
 .noticeSection {
-  min-height: 160vh;
-  scroll-snap-align: start;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 80px 20px 240px;
+  padding: 80px 20px 200px;
   position: relative;
 }
 
@@ -258,8 +257,7 @@
 /* === SNAP SECTION 2: Content (cards + posts) === */
 .contentSection {
   min-height: 100vh;
-  scroll-snap-align: start;
-  padding: 100px 20px 80px;
+  padding: 60px 20px 80px;
 }
 
 .contentInner {
@@ -337,6 +335,10 @@
 }
 
 .timelineSection {
+  width: 100%;
+}
+
+.gallerySection {
   width: 100%;
   padding-bottom: 40px;
 }
@@ -462,8 +464,8 @@
 /* === Mobile === */
 @media (max-width: 768px) {
   .noticeSection {
-    min-height: 150vh;
-    padding: 72px 16px 200px;
+    min-height: 100vh;
+    padding: 60px 16px 160px;
   }
 
   .noticeTitle {

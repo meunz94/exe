@@ -2,6 +2,16 @@
   "posts": [
     {
       "id": "1",
+      "title": "처음부터 다시 시작해도 괜찮을까",
+      "date": "2026-03-29",
+      "preview": "OOC: NPC가 PC를 처음 만났던 날로 돌아가게 된다면?",
+      "imageUrl": "",
+      "category": "1-A",
+      "boardId": "1-A-OOC",
+      "contentPath": "posts/1-A/OOC/1.md"
+    },
+    {
+      "id": "1",
       "title": "얼마나 냉기를 넣어야 괴수가 어는지 관찰하다보니...",
       "date": "2025-12-18",
       "preview": "그 호기심이 언젠가 당신 목을 조를 겁니다.",

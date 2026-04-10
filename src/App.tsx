@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
-import type { Agent, Post, PostWithContent } from "./types";
-import { useAppData, useFilteredData, useFetchPostContent } from "./data/useAppData";
+import type { Agent, Post, PostWithContent, AuPostWithContent } from "./types";
+import { useAppData, useFilteredData, useFetchPostContent, useFetchAuPostContent } from "./data/useAppData";
 import { useHashRoute } from "./utils/hashRouter";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Popup from "./components/Popup/Popup";
@@ -33,19 +33,23 @@ export default function App() {
   const isMobile = useIsMobile();
   const { data, loading, error } = useAppData();
   const { fetchContent, loadingPostId } = useFetchPostContent();
+  const { fetchAuContent, loadingAuPostId } = useFetchAuPostContent();
   const [route, navigate] = useHashRoute();
 
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   const [selectedPost, setSelectedPost] = useState<PostWithContent | null>(null);
+  const [selectedAuPost, setSelectedAuPost] = useState<AuPostWithContent | null>(null);
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
   const lastCategoryRef = useRef("");
+
+  const isAuPage = route.page === "au" || route.page === "au-item" || route.page === "au-post";
 
   const activeCategory = (() => {
     if (route.page === "main" && route.category) {
       return route.category;
     }
-    if (route.page === "au") {
+    if (isAuPage) {
       const item = data.sidebarItems.find((si) => si.page === "au");
       return item?.category ?? "";
     }
@@ -55,7 +59,9 @@ export default function App() {
     return data.sidebarItems[0]?.category ?? "";
   })();
 
-  const currentPage = route.page === "au" ? "au" as const : "main" as const;
+  const currentPage = isAuPage ? "au" as const : "main" as const;
+
+  const selectedAuId = (route.page === "au-item" || route.page === "au-post") ? route.auId : null;
 
   useEffect(() => {
     if (route.page === "main" && activeCategory) {
@@ -95,10 +101,24 @@ export default function App() {
       setSelectedPost(null);
     }
 
-    return () => { ignore = true; };
-  }, [route, data, loading, fetchContent, navigate]);
+    if (route.page === "au-post") {
+      const auPost = data.auPosts.find((p) => p.id === route.postId);
+      if (auPost) {
+        fetchAuContent(auPost).then((withContent) => {
+          if (!ignore) setSelectedAuPost(withContent);
+        });
+      } else {
+        setSelectedAuPost(null);
+        navigate({ page: "au-item", auId: route.auId }, true);
+      }
+    } else {
+      setSelectedAuPost(null);
+    }
 
-  const { sidebarItems, agents, posts, boards, playlist, timeline, disciplinary, au } =
+    return () => { ignore = true; };
+  }, [route, data, loading, fetchContent, fetchAuContent, navigate]);
+
+  const { sidebarItems, agents, posts, boards, playlist, timeline, disciplinary, gallery, au } =
     useFilteredData(data, activeCategory);
 
   const activeLabel = data.sidebarItems.find((si) => si.category === activeCategory)?.label ?? "";
@@ -138,6 +158,12 @@ export default function App() {
   const handlePostPopupClose = useCallback(() => {
     navigate({ page: "main", category: lastCategoryRef.current || activeCategory }, true);
   }, [navigate, activeCategory]);
+
+  const handleAuPostPopupClose = useCallback(() => {
+    if (route.page === "au-post") {
+      navigate({ page: "au-item", auId: route.auId }, true);
+    }
+  }, [route, navigate]);
 
   const handleContentVisible = useCallback((visible: boolean) => {
     setSidebarVisible(visible);
@@ -193,13 +219,21 @@ export default function App() {
             playlist={playlist}
             timeline={timeline}
             disciplinary={disciplinary}
+            gallery={gallery}
             onCardClick={handleCardClick}
             onPostClick={handlePostClick}
             loadingPostId={loadingPostId}
             onContentVisible={handleContentVisible}
           />
         ) : (
-          <AuPage items={au} onBack={handleBackToMain} />
+          <AuPage
+            items={au}
+            auPosts={data.auPosts}
+            selectedAuId={selectedAuId}
+            loadingAuPostId={loadingAuPostId}
+            navigate={navigate}
+            onBack={handleBackToMain}
+          />
         )}
       </div>
 
@@ -218,6 +252,18 @@ export default function App() {
 
       {selectedPost && (
         <PostPopup post={selectedPost} onClose={handlePostPopupClose} />
+      )}
+
+      {selectedAuPost && (
+        <PostPopup
+          post={{
+            ...selectedAuPost,
+            author: "",
+            category: "",
+            boardId: "",
+          }}
+          onClose={handleAuPostPopupClose}
+        />
       )}
     </div>
   );

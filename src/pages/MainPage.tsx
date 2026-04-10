@@ -1,14 +1,25 @@
 import { useRef, useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import type { Agent, Post, Board, PlaylistItem, TimelineEvent, DisciplinaryRecord } from "../types";
+import type { Agent, Post, Board, PlaylistItem, TimelineEvent, DisciplinaryRecord, GalleryImage } from "../types";
 import AgentCard from "../components/AgentCard/AgentCard";
 import Terminal from "../components/Terminal/Terminal";
 import PostList from "../components/PostList/PostList";
 import Playlist from "../components/Playlist/Playlist";
 import Timeline from "../components/Timeline/Timeline";
+import Gallery from "../components/Gallery/Gallery";
 import styles from "./MainPage.module.css";
 import { publicUrl } from "../utils/publicUrl";
+
+function getScrollParent(el: HTMLElement): HTMLElement {
+  let parent = el.parentElement;
+  while (parent) {
+    const { overflowY } = getComputedStyle(parent);
+    if (overflowY === "auto" || overflowY === "scroll") return parent;
+    parent = parent.parentElement;
+  }
+  return document.documentElement;
+}
 
 interface MainPageProps {
   activeLabel: string;
@@ -18,6 +29,7 @@ interface MainPageProps {
   playlist: PlaylistItem[];
   timeline: TimelineEvent[];
   disciplinary: DisciplinaryRecord[];
+  gallery: GalleryImage[];
   onCardClick: (agent: Agent) => void;
   onPostClick: (post: Post) => void;
   loadingPostId: string | null;
@@ -32,6 +44,7 @@ export default function MainPage({
   playlist,
   timeline,
   disciplinary,
+  gallery,
   onCardClick,
   onPostClick,
   loadingPostId,
@@ -69,6 +82,40 @@ export default function MainPage({
     observer.observe(contentRef.current);
     return () => observer.disconnect();
   }, [onContentVisible]);
+
+  useEffect(() => {
+    const contentEl = contentRef.current;
+    if (!contentEl) return;
+
+    const scrollEl = getScrollParent(contentEl);
+    let lastY = scrollEl.scrollTop;
+    let locked = false;
+    let snapped = false;
+
+    const onScroll = () => {
+      if (locked) return;
+      const y = scrollEl.scrollTop;
+      const down = y > lastY;
+      lastY = y;
+
+      const { top } = contentEl.getBoundingClientRect();
+
+      if (down && !snapped && top < window.innerHeight - 60) {
+        locked = true;
+        snapped = true;
+        contentEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        setTimeout(() => { locked = false; }, 800);
+        return;
+      }
+
+      if (!down && snapped && top > window.innerHeight + 50) {
+        snapped = false;
+      }
+    };
+
+    scrollEl.addEventListener("scroll", onScroll, { passive: true });
+    return () => scrollEl.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <div className={styles.main}>
@@ -155,6 +202,10 @@ export default function MainPage({
 
           <div className={styles.timelineSection}>
             <Timeline events={timeline} />
+          </div>
+
+          <div className={styles.gallerySection}>
+            <Gallery images={gallery} />
           </div>
         </div>
       </section>

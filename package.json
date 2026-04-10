@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "posts": "node scripts/generate-posts.mjs",
-    "dev": "npm run posts && vite",
-    "build": "npm run posts && tsc -b && vite build",
+    "gallery": "node scripts/generate-gallery.mjs",
+    "dev": "npm run posts && npm run gallery && vite",
+    "build": "npm run posts && npm run gallery && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

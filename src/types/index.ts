@@ -98,6 +98,11 @@ export interface AuMember {
   note?: string;
 }
 
+export interface AuGalleryImage {
+  url: string;
+  caption?: string;
+}
+
 export interface AuItem {
   id: string;
   title: string;
@@ -106,6 +111,27 @@ export interface AuItem {
   tags: string[];
   members: AuMember[];
   content: string;
+  gallery?: AuGalleryImage[];
+}
+
+export interface AuPost {
+  id: string;
+  auId: string;
+  title: string;
+  date: string;
+  preview: string;
+  contentPath?: string;
+}
+
+export interface AuPostWithContent extends AuPost {
+  content: string;
+}
+
+export interface GalleryImage {
+  id: string;
+  url: string;
+  caption?: string;
+  category: string;
 }
 
 export interface DisciplinaryRecord {
@@ -131,7 +157,9 @@ export interface AppData {
   boards: Board[];
   notices: Notice[];
   au: AuItem[];
+  auPosts: AuPost[];
   playlist: PlaylistItem[];
   timeline: TimelineEvent[];
   disciplinary: DisciplinaryRecord[];
+  gallery: GalleryImage[];
 }

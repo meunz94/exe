@@ -1,0 +1,12 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "auId": "au-1",
+      "title": "방과 후 과학실",
+      "date": "2026-04-10",
+      "preview": "선생님, 질문 있는데요.",
+      "contentPath": "au-posts/au-1/1.md"
+    }
+  ]
+}

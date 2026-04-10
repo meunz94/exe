@@ -28,13 +28,14 @@ export default function PostList({
     return counts;
   }, [posts]);
 
-  const filteredPosts = useMemo(
-    () =>
-      activeBoardId
-        ? posts.filter((p) => p.boardId === activeBoardId)
-        : posts,
-    [posts, activeBoardId]
-  );
+  const filteredPosts = useMemo(() => {
+    const list = activeBoardId
+      ? posts.filter((p) => p.boardId === activeBoardId)
+      : posts;
+    return [...list].sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+  }, [posts, activeBoardId]);
 
   const totalPages = Math.max(1, Math.ceil(filteredPosts.length / PAGE_SIZE));
   const pagedPosts = useMemo(
