@@ -1,5 +1,5 @@
 .page {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 60px 24px 80px;
   min-height: 100vh;
@@ -53,10 +53,10 @@
   text-shadow: 0 0 12px rgba(100, 201, 73, 0.15);
 }
 
-/* Gallery grid */
+/* Gallery grid (max 3 columns on wide viewports) */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(max(220px, calc((100% - 40px) / 3)), 1fr));
   gap: 20px;
 }
 
@@ -202,7 +202,7 @@
   }
 
   .gallery {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: 1fr;
     gap: 12px;
   }
 }
