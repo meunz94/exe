@@ -31,36 +31,6 @@
       "id": "1-A-OOC",
       "name": "OOC",
       "category": "1-A"
-    },
-    {
-      "id": "1-B-LOG",
-      "name": "LOG",
-      "category": "1-B"
-    },
-    {
-      "id": "1-B-OOC",
-      "name": "OOC",
-      "category": "1-B"
-    },
-    {
-      "id": "2-A-LOG",
-      "name": "LOG",
-      "category": "2-A"
-    },
-    {
-      "id": "2-A-OOC",
-      "name": "OOC",
-      "category": "2-A"
-    },
-    {
-      "id": "2-B-LOG",
-      "name": "LOG",
-      "category": "2-B"
-    },
-    {
-      "id": "2-B-OOC",
-      "name": "OOC",
-      "category": "2-B"
     }
   ]
 }

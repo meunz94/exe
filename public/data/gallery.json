@@ -1,32 +1,52 @@
 [
   {
-    "id": "1-A-sample1",
-    "url": "/images/gallery/1-A/sample1.svg",
+    "id": "1-A-KakaoTalk_20260330_202459857",
+    "url": "/images/gallery/1-A/KakaoTalk_20260330_202459857.png",
     "category": "1-A"
   },
   {
-    "id": "1-A-sample2",
-    "url": "/images/gallery/1-A/sample2.svg",
+    "id": "1-A-KakaoTalk_20260404_142243884_11",
+    "url": "/images/gallery/1-A/KakaoTalk_20260404_142243884_11.png",
     "category": "1-A"
   },
   {
-    "id": "1-A-sample3",
-    "url": "/images/gallery/1-A/sample3.svg",
+    "id": "1-A-KakaoTalk_20260410_211038972_01",
+    "url": "/images/gallery/1-A/KakaoTalk_20260410_211038972_01.png",
     "category": "1-A"
   },
   {
-    "id": "1-A-sample4",
-    "url": "/images/gallery/1-A/sample4.svg",
+    "id": "1-A-KakaoTalk_20260410_211038972_06",
+    "url": "/images/gallery/1-A/KakaoTalk_20260410_211038972_06.png",
     "category": "1-A"
   },
   {
-    "id": "1-A-sample5",
-    "url": "/images/gallery/1-A/sample5.svg",
+    "id": "1-A-KakaoTalk_20260410_211038972_07",
+    "url": "/images/gallery/1-A/KakaoTalk_20260410_211038972_07.png",
     "category": "1-A"
   },
   {
-    "id": "1-A-sample6",
-    "url": "/images/gallery/1-A/sample6.svg",
+    "id": "1-A-KakaoTalk_20260410_211420166_17",
+    "url": "/images/gallery/1-A/KakaoTalk_20260410_211420166_17.png",
     "category": "1-A"
+  },
+  {
+    "id": "1-A-KakaoTalk_20260410_211420166_22",
+    "url": "/images/gallery/1-A/KakaoTalk_20260410_211420166_22.png",
+    "category": "1-A"
+  },
+  {
+    "id": "1-B-KakaoTalk_20260404_142243884_15",
+    "url": "/images/gallery/1-B/KakaoTalk_20260404_142243884_15.png",
+    "category": "1-B"
+  },
+  {
+    "id": "1-B-KakaoTalk_20260410_211038972_08",
+    "url": "/images/gallery/1-B/KakaoTalk_20260410_211038972_08.png",
+    "category": "1-B"
+  },
+  {
+    "id": "1-B-KakaoTalk_20260410_211420166_20",
+    "url": "/images/gallery/1-B/KakaoTalk_20260410_211420166_20.png",
+    "category": "1-B"
   }
 ]

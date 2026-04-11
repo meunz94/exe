@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
-  <rect fill="#2a2a1a" width="400" height="600"/>
-  <line x1="50" y1="50" x2="350" y2="550" stroke="#6a6a3a" stroke-width="2" opacity="0.4"/>
-  <line x1="350" y1="50" x2="50" y2="550" stroke="#6a6a3a" stroke-width="2" opacity="0.4"/>
-  <circle cx="200" cy="300" r="100" fill="none" stroke="#8a8a4a" stroke-width="2" opacity="0.5"/>
-  <text x="200" y="308" text-anchor="middle" fill="#aaaa66" font-size="20" font-family="sans-serif">SAMPLE 06</text>
-</svg>
