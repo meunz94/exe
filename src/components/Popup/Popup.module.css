@@ -256,6 +256,33 @@
 
 /* Appearance — reuse fieldGrid */
 
+/* TMI */
+.tmiList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tmiItem {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tmiTitle {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--color-accent);
+}
+
+.tmiText {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
 /* Relations */
 .relationsList {
   display: flex;
@@ -365,6 +392,11 @@
 
 :global([data-theme="dark"]) .berserkText {
   color: #ffcc80;
+}
+
+:global([data-theme="dark"]) .tmiTitle {
+  color: var(--color-neon);
+  text-shadow: 0 0 6px rgba(0,170,255,0.3);
 }
 
 :global([data-theme="dark"]) .relationCard {

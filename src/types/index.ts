@@ -33,6 +33,11 @@ export interface AgentRelation {
   description: string;
 }
 
+export interface AgentTmi {
+  title: string;
+  text: string;
+}
+
 export interface AgentDetail {
   heroImageUrl: string;
   subtitle: string;
@@ -41,6 +46,7 @@ export interface AgentDetail {
   profile: AgentProfile;
   ability: AgentAbility;
   appearance: AgentAppearance;
+  tmi?: AgentTmi[];
   relations: AgentRelation[];
 }
 

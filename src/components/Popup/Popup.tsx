@@ -10,7 +10,7 @@ interface PopupProps {
 
 export default function Popup({ agent, onClose }: PopupProps) {
   const { detail } = agent;
-  const { profile, ability, appearance, relations } = detail;
+  const { profile, ability, appearance, tmi, relations } = detail;
 
   useEffect(() => {
     const prevOverflow = document.body.style.overflow;
@@ -135,7 +135,22 @@ export default function Popup({ agent, onClose }: PopupProps) {
               </div>
             </section>
 
-            {/* SECTION 4: RELATIONS */}
+            {/* SECTION 4: TMI */}
+            {tmi && tmi.length > 0 && (
+              <section className={styles.section}>
+                <h3 className={styles.sectionHeader}>TMI</h3>
+                <div className={styles.tmiList}>
+                  {tmi.map((item, i) => (
+                    <div key={i} className={styles.tmiItem}>
+                      <span className={styles.tmiTitle}>{item.title}</span>
+                      <p className={styles.tmiText}>{item.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* SECTION 5: RELATIONS */}
             <section className={styles.section}>
               <h3 className={styles.sectionHeader}>RELATIONSHIP</h3>
               <div className={styles.relationsList}>
