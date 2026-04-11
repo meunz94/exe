@@ -121,7 +121,9 @@ export default function App() {
   const { sidebarItems, agents, posts, boards, playlist, timeline, disciplinary, gallery, au } =
     useFilteredData(data, activeCategory);
 
-  const activeLabel = data.sidebarItems.find((si) => si.category === activeCategory)?.label ?? "";
+  const activeSidebarItem = data.sidebarItems.find((si) => si.category === activeCategory);
+  const activeLabel = activeSidebarItem?.label ?? "";
+  const activeSynopsis = activeSidebarItem?.synopsis ?? "";
 
   const handleCategoryChange = useCallback(
     (category: string) => {
@@ -213,6 +215,7 @@ export default function App() {
         {currentPage === "main" ? (
           <MainPage
             activeLabel={activeLabel}
+            activeSynopsis={activeSynopsis}
             agents={agents}
             posts={posts}
             boards={boards}

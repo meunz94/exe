@@ -319,6 +319,19 @@
   opacity: 0.6;
 }
 
+.cardsSynopsis {
+  margin: 0 auto 28px;
+  padding: 0 8px;
+  max-width: 420px;
+  font-size: 12px;
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted);
+  text-align: center;
+  word-break: keep-all;
+  opacity: 0.85;
+}
+
 .cardsSection {
   display: flex;
   justify-content: center;
@@ -455,6 +468,10 @@
 :global([data-theme="dark"]) .cardsLabelText {
   color: var(--color-neon);
   text-shadow: 0 0 8px rgba(0, 170, 255, 0.4);
+}
+
+:global([data-theme="dark"]) .cardsSynopsis {
+  color: rgba(0, 170, 255, 0.55);
 }
 
 :global([data-theme="dark"]) .cardsBottomText {

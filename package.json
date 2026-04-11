@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "posts": "node scripts/generate-posts.mjs",
+    "au-posts": "node scripts/generate-au-posts.mjs",
     "gallery": "node scripts/generate-gallery.mjs",
-    "dev": "npm run posts && npm run gallery && vite",
-    "build": "npm run posts && npm run gallery && tsc -b && vite build",
+    "dev": "npm run posts && npm run au-posts && npm run gallery && vite",
+    "build": "npm run posts && npm run au-posts && npm run gallery && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

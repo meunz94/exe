@@ -61,7 +61,14 @@ export default function AuPopup({ item, posts, loadingAuPostId, onPostClick, onC
       <div className={styles.popupScroll} onClick={handleScrollAreaClick}>
         <div className={styles.popup} data-light-bg>
           <div className={styles.hero} data-dark-bg>
-            <div className={styles.heroBackground} />
+            <div
+              className={styles.heroBackground}
+              style={item.imageUrl ? {
+                backgroundImage: `url(${publicUrl(item.imageUrl)})`,
+                backgroundSize: "cover",
+                backgroundPosition: item.imagePosition ?? "center",
+              } : undefined}
+            />
             <div className={styles.heroGradient} />
             <button className={styles.closeButton} onClick={onClose}>
               ✕

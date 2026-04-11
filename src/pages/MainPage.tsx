@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import type { Agent, Post, Board, PlaylistItem, TimelineEvent, DisciplinaryRecord, GalleryImage } from "../types";
+import { fixCjkEmphasis } from "../utils/markdown";
 import AgentCard from "../components/AgentCard/AgentCard";
 import Terminal from "../components/Terminal/Terminal";
 import PostList from "../components/PostList/PostList";
@@ -23,6 +24,7 @@ function getScrollParent(el: HTMLElement): HTMLElement {
 
 interface MainPageProps {
   activeLabel: string;
+  activeSynopsis: string;
   agents: Agent[];
   posts: Post[];
   boards: Board[];
@@ -38,6 +40,7 @@ interface MainPageProps {
 
 export default function MainPage({
   activeLabel,
+  activeSynopsis,
   agents,
   posts,
   boards,
@@ -125,7 +128,7 @@ export default function MainPage({
           {noticeContent ? (
             <div className={styles.noticeMarkdown}>
               <Markdown rehypePlugins={[rehypeRaw]}>
-                {noticeContent.replace(/\n---(\n|$)/g, "\n\n---\n\n")}
+                {fixCjkEmphasis(noticeContent.replace(/\n---(\n|$)/g, "\n\n---\n\n"))}
               </Markdown>
             </div>
           ) : (
@@ -148,7 +151,7 @@ export default function MainPage({
             {memoContent ? (
               <div className={styles.noticeMarkdown}>
                 <Markdown rehypePlugins={[rehypeRaw]}>
-                  {memoContent.replace(/\n---(\n|$)/g, "\n\n---\n\n")}
+                  {fixCjkEmphasis(memoContent.replace(/\n---(\n|$)/g, "\n\n---\n\n"))}
                 </Markdown>
               </div>
             ) : (
@@ -171,6 +174,9 @@ export default function MainPage({
               <span className={styles.cardsLabelText}>{activeLabel}</span>
               <span className={styles.cardsLabelLine} />
             </div>
+            {activeSynopsis && (
+              <p className={styles.cardsSynopsis}>{activeSynopsis}</p>
+            )}
             <div className={styles.cardsSection}>
               {agents.map((a) => (
                 <AgentCard key={a.id} agent={a} onClick={onCardClick} />

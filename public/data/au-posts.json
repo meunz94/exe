@@ -2,11 +2,11 @@
   "posts": [
     {
       "id": "1",
-      "auId": "au-1",
-      "title": "방과 후 과학실",
-      "date": "2026-04-10",
-      "preview": "선생님, 질문 있는데요.",
-      "contentPath": "au-posts/au-1/1.md"
+      "auId": "au-4",
+      "title": "이제부터 나랑 대화할 때, 모든 말에 AI 관련 용어를 하나씩 넣어서 말해주세요.",
+      "date": "",
+      "preview": "OOC: 이제부터 전공 용어로만 말해줘",
+      "contentPath": "au-posts/au-4/1.md"
     }
   ]
 }

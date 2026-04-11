@@ -3,6 +3,7 @@ import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import type { PostWithContent } from "../../types";
 import { publicUrl } from "../../utils/publicUrl";
+import { fixCjkEmphasis } from "../../utils/markdown";
 import styles from "./PostPopup.module.css";
 
 interface PostPopupProps {
@@ -148,7 +149,7 @@ export default function PostPopup({ post, onClose }: PostPopupProps) {
 
           <div ref={bodyRef} className={styles.body}>
             <Markdown rehypePlugins={[rehypeRaw]}>
-              {post.content.replace(/\n---(\n|$)/g, "\n\n---\n\n")}
+              {fixCjkEmphasis(post.content.replace(/\n---(\n|$)/g, "\n\n---\n\n"))}
             </Markdown>
           </div>
         </div>

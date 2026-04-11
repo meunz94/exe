@@ -108,6 +108,7 @@ export interface AuItem {
   title: string;
   description: string;
   imageUrl: string;
+  imagePosition?: string;
   tags: string[];
   members: AuMember[];
   content: string;
@@ -148,6 +149,7 @@ export interface SidebarItem {
   label: string;
   category: string;
   page?: string;
+  synopsis?: string;
 }
 
 export interface AppData {

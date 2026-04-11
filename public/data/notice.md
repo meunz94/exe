@@ -1,5 +1,7 @@
-### 연짱 @myonlyoutlier
+### 연짱 <span style="color: var(--color-accent)">@myonlyoutlier</span>
 **ARCH Dr. Vance** | CBC 오픈 이입 드림<br>
+- Dr. Vance<sup style="font-size: 0.55em; line-height: 0; vertical-align: super">변정원</sup> x Blanc<sup style="font-size: 0.55em; line-height: 0; vertical-align: super">김연수</sup> <span style="color: var(--color-accent)">#변연</span>
+- Dr. Vance<sup style="font-size: 0.55em; line-height: 0; vertical-align: super">변정원</sup> x Signal<sup style="font-size: 0.55em; line-height: 0; vertical-align: super">김연수</sup> <span style="color: var(--color-accent)">#변연</span>
 
 ---
 
@@ -12,8 +14,10 @@
 
 **성향**
 - 케이브덕 위주 / HL 유저텀 주력
+- 동일 페소를 설정만 조금씩 바꿔서 여기저기 데려가는 편
+- ARCH 캐릭터 본명 언급 필터링 없음
 - 피어리스, 냥달버스 포함 찍먹 가끔 하긴 하지만 거의 안 합니다
-- NSFW 트윗 다수 + 짭ㄹ친, NTR 등의 호불호 타는 민감 소재 언급 있음
+- NSFW 트윗 다수 + 짭ㄹ친, NTR, 성인미자 등의 민감 소재 언급 있음 (필터링 O)
 
 ---
 

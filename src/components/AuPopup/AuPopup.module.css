@@ -52,7 +52,8 @@
 .heroBackground {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #2a1a3e 0%, #1a2a4e 50%, #0d1b2a 100%);
+  background-color: #1a2a4e;
+  background-repeat: no-repeat;
 }
 
 .heroGradient {
@@ -434,7 +435,7 @@
 }
 
 :global([data-theme="dark"]) .heroBackground {
-  background: linear-gradient(135deg, #020818 0%, #050a1e 50%, #030612 100%);
+  background-color: #050a1e;
 }
 
 :global([data-theme="dark"]) .heroGradient {

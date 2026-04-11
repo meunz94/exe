@@ -170,7 +170,7 @@ export function useFetchPostContent() {
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         let content = await res.text();
-        content = content.replace(/^---\n[\s\S]*?\n---\n?/, "");
+        content = content.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
         return { ...post, content };
       } catch {
         return { ...post, content: "(본문을 불러올 수 없습니다.)" };
@@ -197,7 +197,7 @@ export function useFetchAuPostContent() {
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         let content = await res.text();
-        content = content.replace(/^---\n[\s\S]*?\n---\n?/, "");
+        content = content.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
         return { ...post, content };
       } catch {
         return { ...post, content: "(본문을 불러올 수 없습니다.)" };
