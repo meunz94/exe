@@ -404,6 +404,13 @@
         { "name": "변정원", "role": "해성고등학교 과학 교사", "imageUrl": "", "descriptions": ["28세. 3년차 과학 교사.", "교내에서 학생들이 부르는 별명은 '독사'."], "note": "의대 졸업 후 트라우마로 인해 임용고시를 치른 뒤 교사가 되었다. 방과 후에도 매일 같이 찾아와 질문을 하는 연수를 귀찮아하면서도, 꼬박꼬박 질문에 대답해준다." },
         { "name": "김연수", "role": "해성고등학교 2학년", "imageUrl": "", "descriptions": ["18세. 2학년 4반.", "연극부 '희다' 소속. 학생회 총무부 부장."], "note": "좀처럼 곁을 내어주지 않는 교사 정원에게 호기심을 가지고 매일 같이 과학실을 찾아간다. 겸사겸사 질문도 할 수 있으니까." }
       ],
+      "quotes": [
+        { "memberIndex": 0, "text": "다시 해." },
+        { "memberIndex": 0, "text": "네가 끝낸 거, 다시 시작해. 줄리엣." },
+        { "memberIndex": 1, "text": "저랑 있는 게 죄책감만 들 것 같으시면, 그냥 여기까지만 해요." },
+        { "memberIndex": 0, "text": "아니. 여기까지가 아닌데. 어떻게, 여기가 끝이야." },
+        { "memberIndex": 0, "text": "죄책감? 평생 안고 갈게. 벌? 무슨 벌이든 받을게. 네가 내 옆에만 있어준다면. 그러니까… 버리지 마. 나." }
+      ],
       "content": "추가 예정"
     },
     {
@@ -416,6 +423,12 @@
       "members": [
         { "name": "변정원", "role": "ARCH 엔터테인먼트 이사", "imageUrl": "", "descriptions": ["35세. 소속사 이사 겸 프로듀서.", "프로듀서 활동명은 '닥터 밴스'."], "note": "소속사 이사로서 뿐만 아니라 프로듀서로서의 역량도 매우 뛰어난 것으로 유명하다. 연수의 축제 영상을 보고 러브콜을 보낸 뒤, 현재까지도 연수가 앨범을 낼 때 프로듀서로서 그녀를 돕고 있다." },
         { "name": "김연수", "role": "3년차 싱어송라이터", "imageUrl": "", "descriptions": ["25세. ARCH 엔터테인먼트 소속 싱어송라이터.", "변정원이 프로듀싱 하고 있음."], "note": "대학 축제에서 부른 자작곡이 알고리즘을 탄 것을 계기로 데뷔하게 되었다. 작사, 작곡, 노래 모두 본인이 하고 있으며 맑고 서늘한 음색이 특징." }
+      ],
+      "quotes": [
+        { "memberIndex": 0, "text": "12분 지났습니다. 이제 정말로 가봐야 합니다." },
+        { "memberIndex": 1, "text": "……가지 마세요, 이사님." },
+        { "memberIndex": 0, "text": "업무 시간입니다, 김연수 씨. 그리고 나는 당신의 상사야. 공과 사는 구분해야 한다는 걸, 내가 몇 번이나…" },
+        { "memberIndex": 0, "text": "…알겠습니다. 가지 않겠습니다." }
       ],
       "content": "추가 예정"
     },
@@ -442,6 +455,31 @@
       "members": [
         { "name": "변정원", "role": "총독부 의원", "imageUrl": "", "descriptions": ["35세. 경성의전 출신 총독부 의원.", "아버지가 친일파이나, 아버지를 매우 싫어함."], "note": "추가 예정" },
         { "name": "김연수", "role": "신흥 자산가의 딸", "imageUrl": "", "descriptions": ["25세. 경성 신흥 자산가 집안의 장녀.", "동경에 유학을 다녀왔으며, 자유로운 삶을 꿈꾼다."], "note": "추가 예정" }
+      ],
+      "content": "추가 예정"
+    },
+    {
+      "id": "au-8",
+      "title": "로페즈 백작 영애가 결혼식 전날 사라졌대!",
+      "description": "몰락 귀족 영애 블랑 X 외사촌 밴스",
+      "imageUrl": "",
+      "imagePosition": "center top",
+      "tags": ["NSFW", "시대극", "통속극"],
+      "members": [
+        { "name": "밴스 드 마르슈", "role": "마르슈 자작", "imageUrl": "", "descriptions": ["추가 예정"], "note": "추가 예정" },
+        { "name": "블랑쉐 드 로페즈", "role": "로페즈 백작 영애", "imageUrl": "", "descriptions": ["추가 예정"], "note": "추가 예정" }
+      ],
+      "content": "추가 예정"
+    },
+    {
+      "id": "au-9",
+      "title": "겨울의 마지막 날, 제국에 아침이 오리라",
+      "description": "혁명군 스파이 밴스 X 황녀 블랑",
+      "imageUrl": "",
+      "imagePosition": "center top",
+      "tags": ["시대극", "혁명군", "밀정"],
+      "members": [
+        { "name": "추가 예정", "role": "추가 예정", "imageUrl": "", "descriptions": ["추가 예정"], "note": "추가 예정" }
       ],
       "content": "추가 예정"
     },
@@ -483,5 +521,9 @@
       ],
       "content": "추가 예정"
     }
-  ]
+  ],
+  "youtube": [
+  { "id": "yt-1", "videoId": "JGmUQcjr3EI", "title": "BLANC THEME SONG - OVERCLOCK", "category": "1-A" },
+  { "id": "yt-2", "videoId": "MAIXamDVxLg", "title": "BLANC THEME SONG - OVERCLOCK (prototype)", "category": "1-A" }
+]
 }

@@ -109,6 +109,11 @@ export interface AuGalleryImage {
   caption?: string;
 }
 
+export interface AuQuote {
+  memberIndex: number;
+  text: string;
+}
+
 export interface AuItem {
   id: string;
   title: string;
@@ -119,6 +124,7 @@ export interface AuItem {
   members: AuMember[];
   content: string;
   gallery?: AuGalleryImage[];
+  quotes?: AuQuote[];
 }
 
 export interface AuPost {
@@ -138,6 +144,13 @@ export interface GalleryImage {
   id: string;
   url: string;
   caption?: string;
+  category: string;
+}
+
+export interface YoutubeVideo {
+  id: string;
+  videoId: string;
+  title: string;
   category: string;
 }
 
@@ -170,4 +183,5 @@ export interface AppData {
   timeline: TimelineEvent[];
   disciplinary: DisciplinaryRecord[];
   gallery: GalleryImage[];
+  youtube: YoutubeVideo[];
 }

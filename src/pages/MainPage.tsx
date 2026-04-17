@@ -1,13 +1,14 @@
 import { useRef, useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import type { Agent, Post, Board, PlaylistItem, TimelineEvent, DisciplinaryRecord, GalleryImage } from "../types";
+import type { Agent, Post, Board, PlaylistItem, TimelineEvent, DisciplinaryRecord, GalleryImage, YoutubeVideo } from "../types";
 import { fixCjkEmphasis } from "../utils/markdown";
 import AgentCard from "../components/AgentCard/AgentCard";
 import Terminal from "../components/Terminal/Terminal";
 import PostList from "../components/PostList/PostList";
 import Playlist from "../components/Playlist/Playlist";
 import Timeline from "../components/Timeline/Timeline";
+import YoutubePlayer from "../components/YoutubePlayer/YoutubePlayer";
 import Gallery from "../components/Gallery/Gallery";
 import styles from "./MainPage.module.css";
 import { publicUrl } from "../utils/publicUrl";
@@ -32,6 +33,7 @@ interface MainPageProps {
   timeline: TimelineEvent[];
   disciplinary: DisciplinaryRecord[];
   gallery: GalleryImage[];
+  youtube: YoutubeVideo[];
   onCardClick: (agent: Agent) => void;
   onPostClick: (post: Post) => void;
   loadingPostId: string | null;
@@ -48,6 +50,7 @@ export default function MainPage({
   timeline,
   disciplinary,
   gallery,
+  youtube,
   onCardClick,
   onPostClick,
   loadingPostId,
@@ -208,6 +211,10 @@ export default function MainPage({
 
           <div className={styles.timelineSection}>
             <Timeline events={timeline} />
+          </div>
+
+          <div className={styles.youtubeSection}>
+            <YoutubePlayer videos={youtube} />
           </div>
 
           <div className={styles.gallerySection}>

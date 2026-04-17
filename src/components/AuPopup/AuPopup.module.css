@@ -213,6 +213,63 @@
   margin: 0;
 }
 
+/* Quotes */
+.quotesSection {
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.quotesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quoteRowLeft,
+.quoteRowRight {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+}
+
+.quoteRowLeft {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.quoteRowRight {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.quoteName {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 4px;
+  padding: 0 4px;
+}
+
+.bubbleLeft,
+.bubbleRight {
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background: var(--color-surface-tertiary);
+  border: 1px solid var(--color-divider);
+  border-radius: 16px;
+  word-break: keep-all;
+}
+
+.bubbleLeft {
+  border-top-left-radius: 4px;
+}
+
+.bubbleRight {
+  border-top-right-radius: 4px;
+}
+
 /* Content */
 .contentSection {
   padding: 24px 32px;
@@ -481,12 +538,26 @@
   border-bottom-color: var(--color-neon-dim);
 }
 
+:global([data-theme="dark"]) .quotesSection {
+  border-bottom-color: var(--color-neon-dim);
+}
+
+:global([data-theme="dark"]) .bubbleLeft,
+:global([data-theme="dark"]) .bubbleRight {
+  background: rgba(0, 170, 255, 0.05);
+  border-color: var(--color-neon-dim);
+}
+
 :global([data-theme="dark"]) .memberCard {
   background: rgba(0, 170, 255, 0.03);
   border-color: var(--color-neon-dim);
 }
 
 :global([data-theme="dark"]) .memberRole {
+  color: var(--color-neon);
+}
+
+:global([data-theme="dark"]) .quoteName {
   color: var(--color-neon);
 }
 
@@ -557,6 +628,15 @@
 
   .contentSection {
     padding: 20px;
+  }
+
+  .quotesSection {
+    padding: 20px;
+  }
+
+  .quoteRowLeft,
+  .quoteRowRight {
+    max-width: 85%;
   }
 
   .archiveSection {

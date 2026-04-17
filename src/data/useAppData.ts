@@ -15,6 +15,7 @@ import type {
   GalleryImage,
   SidebarItem,
   DisciplinaryRecord,
+  YoutubeVideo,
 } from "../types";
 import { publicUrl } from "../utils/publicUrl";
 
@@ -30,6 +31,7 @@ const EMPTY: AppData = {
   timeline: [],
   disciplinary: [],
   gallery: [],
+  youtube: [],
 };
 
 export function useAppData() {
@@ -151,10 +153,14 @@ export function useFilteredData(data: AppData, activeCategory: string) {
     () => filterByCategory<GalleryImage>(data.gallery, activeCategory),
     [data.gallery, activeCategory]
   );
+  const youtube = useMemo(
+    () => filterByCategory<YoutubeVideo>(data.youtube, activeCategory),
+    [data.youtube, activeCategory]
+  );
   const au: AuItem[] = data.au;
   const sidebarItems: SidebarItem[] = data.sidebarItems;
 
-  return { sidebarItems, agents, posts, boards, notices, playlist, timeline, disciplinary, gallery, au };
+  return { sidebarItems, agents, posts, boards, notices, playlist, timeline, disciplinary, gallery, youtube, au };
 }
 
 export function useFetchPostContent() {

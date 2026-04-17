@@ -118,7 +118,7 @@ export default function App() {
     return () => { ignore = true; };
   }, [route, data, loading, fetchContent, fetchAuContent, navigate]);
 
-  const { sidebarItems, agents, posts, boards, playlist, timeline, disciplinary, gallery, au } =
+  const { sidebarItems, agents, posts, boards, playlist, timeline, disciplinary, gallery, youtube, au } =
     useFilteredData(data, activeCategory);
 
   const activeSidebarItem = data.sidebarItems.find((si) => si.category === activeCategory);
@@ -223,6 +223,7 @@ export default function App() {
             timeline={timeline}
             disciplinary={disciplinary}
             gallery={gallery}
+            youtube={youtube}
             onCardClick={handleCardClick}
             onPostClick={handlePostClick}
             loadingPostId={loadingPostId}

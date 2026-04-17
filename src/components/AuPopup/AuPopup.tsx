@@ -113,6 +113,31 @@ export default function AuPopup({ item, posts, loadingAuPostId, onPostClick, onC
             <p className={styles.content}>{item.content}</p>
           </div>
 
+          {item.quotes && item.quotes.length > 0 && (
+            <div className={styles.quotesSection}>
+              <h3 className={styles.sectionTitle}>QUOTES</h3>
+              <div className={styles.quotesList}>
+                {item.quotes.map((q, i, arr) => {
+                  const isRight = q.memberIndex === 1;
+                  const speaker = item.members[q.memberIndex]?.name;
+                  const prevSpeakerIndex = i > 0 ? arr[i - 1].memberIndex : null;
+                  const showName = speaker && prevSpeakerIndex !== q.memberIndex;
+                  return (
+                    <div
+                      key={i}
+                      className={isRight ? styles.quoteRowRight : styles.quoteRowLeft}
+                    >
+                      {showName && <span className={styles.quoteName}>{speaker}</span>}
+                      <div className={isRight ? styles.bubbleRight : styles.bubbleLeft}>
+                        {q.text}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           <div className={styles.archiveSection}>
             <h3 className={styles.sectionTitle}>ARCHIVE</h3>
             {posts.length === 0 ? (
