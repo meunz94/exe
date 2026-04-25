@@ -92,7 +92,7 @@
 
 .subtitleTag {
   display: inline-block;
-  background: var(--color-subtitle-bg);
+  background: var(--color-placeholder);
   color: white;
   font-size: 11px;
   font-weight: 700;
@@ -100,6 +100,18 @@
   border-radius: 3px;
   margin-bottom: 10px;
   letter-spacing: 1px;
+}
+
+.attrGrass {
+  background: #3a9a4f;
+}
+
+.attrIce {
+  background: #4aa8d8;
+}
+
+.attrElectric {
+  background: #c9a020;
 }
 
 .title {
@@ -342,7 +354,22 @@
 }
 
 :global([data-theme="dark"]) .subtitleTag {
-  box-shadow: 0 0 10px rgba(0,170,255,0.3);
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+:global([data-theme="dark"]) .attrGrass {
+  background: rgba(60, 180, 90, 0.55);
+  box-shadow: 0 0 6px rgba(60, 200, 90, 0.3);
+}
+
+:global([data-theme="dark"]) .attrIce {
+  background: rgba(70, 180, 230, 0.5);
+  box-shadow: 0 0 6px rgba(70, 200, 255, 0.3);
+}
+
+:global([data-theme="dark"]) .attrElectric {
+  background: rgba(210, 170, 40, 0.5);
+  box-shadow: 0 0 6px rgba(230, 200, 50, 0.3);
 }
 
 :global([data-theme="dark"]) .title {

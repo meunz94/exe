@@ -61,7 +61,7 @@
       "imageUrl": "/images/agents/blanc.png",
       "category": "1-A",
       "detail": {
-        "heroImageUrl": "/images/heroes/blanc-bg.jpeg",
+        "heroImageUrl": "/images/heroes/blanc-bg.png",
         "subtitle": "S-Class Sentinel",
         "title": "Blanc",
         "descriptions": [
@@ -152,7 +152,7 @@
       "imageUrl": "/images/agents/blanc.png",
       "category": "1-B",
       "detail": {
-        "heroImageUrl": "/images/heroes/blanc-bg.jpeg",
+        "heroImageUrl": "/images/heroes/blanc-bg.png",
         "subtitle": "S-Class Sentinel",
         "title": "Blanc",
         "descriptions": [
@@ -246,7 +246,7 @@
       "imageUrl": "/images/agents/signal.png",
       "category": "2-A",
       "detail": {
-        "heroImageUrl": "",
+        "heroImageUrl": "/images/heroes/signal-bg.png",
         "subtitle": "S-Class Guide",
         "title": "Signal",
         "descriptions": [
@@ -341,7 +341,7 @@
       "imageUrl": "/images/agents/signal.png",
       "category": "2-B",
       "detail": {
-        "heroImageUrl": "",
+        "heroImageUrl": "/images/heroes/signal-bg.png",
         "subtitle": "S-Class Guide",
         "title": "Signal",
         "descriptions": [

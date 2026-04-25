@@ -8,9 +8,23 @@ interface PopupProps {
   onClose: () => void;
 }
 
+const ATTR_MAP: Record<string, string> = {
+  "풀": styles.attrGrass,
+  "얼음": styles.attrIce,
+  "번개": styles.attrElectric,
+};
+
+function getAttrClass(attribute: string) {
+  for (const key of Object.keys(ATTR_MAP)) {
+    if (attribute.includes(key)) return ATTR_MAP[key];
+  }
+  return "";
+}
+
 export default function Popup({ agent, onClose }: PopupProps) {
   const { detail } = agent;
   const { profile, ability, appearance, tmi, relations } = detail;
+  const attrCls = getAttrClass(profile.attribute);
 
   useEffect(() => {
     const prevOverflow = document.body.style.overflow;
@@ -58,7 +72,7 @@ export default function Popup({ agent, onClose }: PopupProps) {
             <div className={styles.heroGradient} />
             <button className={styles.closeButton} onClick={onClose}>✕</button>
             <div className={styles.heroContent}>
-              <span className={styles.subtitleTag}>{detail.subtitle}</span>
+              <span className={`${styles.subtitleTag} ${attrCls}`}>{detail.subtitle}</span>
               <h2 className={styles.title}>{detail.title}</h2>
               <div className={styles.descriptions}>
                 {detail.descriptions.map((desc, i) => (
