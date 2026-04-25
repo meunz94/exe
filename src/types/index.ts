@@ -121,6 +121,7 @@ export interface AuItem {
   imageUrl: string;
   imagePosition?: string;
   tags: string[];
+  section?: "main" | "sub";
   members: AuMember[];
   content: string;
   gallery?: AuGalleryImage[];

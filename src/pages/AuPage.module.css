@@ -53,10 +53,70 @@
   text-shadow: 0 0 12px rgba(100, 201, 73, 0.15);
 }
 
+/* Tag filter bar */
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.filterBtn {
+  padding: 6px 14px;
+  border-radius: 100px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filterBtn:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.filterBtnActive {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(100, 201, 73, 0.35);
+}
+
+.filterBtnActive:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* "RECOMMEND" badge (top-left on card image) */
+.loveBadge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  line-height: 1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
 /* Gallery grid (max 3 columns on wide viewports) */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(max(220px, calc((100% - 40px) / 3)), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(max(220px, calc((100% - 40px) / 3)), 1fr));
   gap: 20px;
 }
 
@@ -79,6 +139,7 @@
 }
 
 .cardImage {
+  position: relative;
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
@@ -136,6 +197,13 @@
   border-radius: 100px;
   background: var(--color-tag-bg);
   color: var(--color-text-secondary);
+  transition: background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.tagHighlight {
+  background: var(--color-accent);
+  color: #fff;
+  box-shadow: 0 0 8px rgba(100, 201, 73, 0.3);
 }
 
 .empty {
@@ -190,6 +258,43 @@
   color: var(--color-neon);
 }
 
+:global([data-theme="dark"]) .tagHighlight {
+  background: var(--color-neon);
+  border-color: var(--color-neon);
+  color: #04121f;
+  box-shadow: 0 0 10px rgba(0, 170, 255, 0.4);
+}
+
+:global([data-theme="dark"]) .filterBtn {
+  border-color: var(--color-neon-dim);
+  background: transparent;
+  color: var(--color-neon);
+}
+
+:global([data-theme="dark"]) .filterBtn:hover {
+  background: rgba(0, 170, 255, 0.08);
+  border-color: var(--color-neon);
+  color: var(--color-neon);
+  box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
+}
+
+:global([data-theme="dark"]) .filterBtnActive {
+  background: var(--color-neon);
+  border-color: var(--color-neon);
+  color: #04121f;
+  box-shadow: 0 0 16px rgba(0, 170, 255, 0.45);
+}
+
+:global([data-theme="dark"]) .filterBtnActive:hover {
+  background: var(--color-neon);
+  color: #04121f;
+}
+
+:global([data-theme="dark"]) .loveBadge {
+  background: var(--color-neon);
+  color: #04121f;
+}
+
 /* Mobile */
 @media (max-width: 768px) {
   .page {
@@ -199,6 +304,15 @@
   .title {
     font-size: 24px;
     letter-spacing: 4px;
+  }
+
+  .filterBar {
+    margin-bottom: 24px;
+  }
+
+  .filterBtn {
+    padding: 5px 12px;
+    font-size: 11px;
   }
 
   .gallery {
