@@ -558,7 +558,7 @@
     },
     {
       "id": "au-12",
-      "title": "필수 교양은 원래 연애의 성지라서",
+      "title": "교양 수업은 원래 연애의 성지라서",
       "description": "의대생 변정원 X 공대생 김연수",
       "imageUrl": "",
       "tags": ["현대", "대학교"],
@@ -584,14 +584,14 @@
     },
     {
       "id": "au-14",
-      "title": "옆집 이웃이 밤만 되면 개가 된다",
+      "title": "옆집 이웃이 매일 밤마다 개가 된다",
       "description": "수의사 변정원 X 강아지 수인 김연수",
       "imageUrl": "",
       "tags": ["현대"],
       "section": "sub",
       "members": [
         { "name": "변정원", "role": "한빛 오피스텔 201호", "imageUrl": "", "descriptions": ["35세. 수의사"], "note": "추가 예정" },
-        { "name": "김연수", "role": "한빛 오피스텔 202호", "imageUrl": "", "descriptions": ["25세. 강아지 수인"], "note": "추가 예정" }
+        { "name": "김연수", "role": "한빛 오피스텔 202호", "imageUrl": "", "descriptions": ["25세. 강아지 수인(?)"], "note": "추가 예정" }
       ],
       "content": "추가 예정"
     }
