@@ -2,7 +2,7 @@ import { useEffect, useCallback, useRef, useLayoutEffect, useState } from "react
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import type { PostWithContent } from "../../types";
-import { publicUrl } from "../../utils/publicUrl";
+import { publicUrl, displayDate } from "../../utils/publicUrl";
 import { fixCjkEmphasis } from "../../utils/markdown";
 import styles from "./PostPopup.module.css";
 
@@ -143,7 +143,7 @@ export default function PostPopup({ post, onClose }: PostPopupProps) {
             <button className={styles.closeButton} onClick={onClose}>
               ✕
             </button>
-            <span className={styles.date}>{post.date}</span>
+            <span className={styles.date}>{displayDate(post.date)}</span>
             <h2 className={styles.title}>{post.title}</h2>
           </div>
 

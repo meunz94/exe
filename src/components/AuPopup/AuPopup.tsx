@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState } from "react";
 import type { AuItem, AuPost } from "../../types";
-import { publicUrl } from "../../utils/publicUrl";
+import { publicUrl, displayDate } from "../../utils/publicUrl";
 import styles from "./AuPopup.module.css";
 
 interface AuPopupProps {
@@ -156,7 +156,7 @@ export default function AuPopup({ item, posts, loadingAuPostId, onPostClick, onC
                   >
                     <div className={styles.archiveItemHeader}>
                       <span className={styles.archiveItemTitle}>{post.title}</span>
-                      <span className={styles.archiveItemDate}>{post.date}</span>
+                      <span className={styles.archiveItemDate}>{displayDate(post.date)}</span>
                     </div>
                     <p className={styles.archiveItemPreview}>{post.preview}</p>
                   </div>

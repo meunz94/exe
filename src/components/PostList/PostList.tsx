@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import type { Post, Board } from "../../types";
+import { displayDate } from "../../utils/publicUrl";
 import styles from "./PostList.module.css";
 
 const PAGE_SIZE = 5;
@@ -107,7 +108,7 @@ export default function PostList({
               >
                 <div className={styles.itemHeader}>
                   <span className={styles.itemTitle}>{post.title}</span>
-                  <span className={styles.itemDate}>{post.date}</span>
+                  <span className={styles.itemDate}>{displayDate(post.date)}</span>
                 </div>
                 <p className={styles.itemPreview}>{post.preview}</p>
               </div>

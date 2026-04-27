@@ -73,7 +73,7 @@
     {
       "id": "10",
       "title": "OOC: NPC와 PC의 발콕콕도 보고서",
-      "date": "2026-03-13",
+      "date": "2026-03-13T14:00",
       "preview": "※ 안 봐도 뻔한 결과이긴 함",
       "imageUrl": "",
       "category": "1-A",
@@ -83,7 +83,7 @@
     {
       "id": "4",
       "title": "OOC: PC를 만나기 전과 후, NPC의 유서",
-      "date": "2026-03-13",
+      "date": "2026-03-13T13:00",
       "preview": "내가 없는 세상에서도 당신은 여전히 내 가장 소중한 아내입니다.",
       "imageUrl": "",
       "category": "1-A",
@@ -93,7 +93,7 @@
     {
       "id": "9",
       "title": "OOC: 빌런의 공격으로 한 달간 어린이가 된 PC",
-      "date": "2026-03-13",
+      "date": "2026-03-13T12:00",
       "preview": "오늘부터 내 연구실은 임시 육아 시설로 전환된다.",
       "imageUrl": "",
       "category": "1-A",
@@ -103,7 +103,7 @@
     {
       "id": "2",
       "title": "OOC: 20년 전의 너를 만나면 해주고 싶은 말",
-      "date": "2026-03-11",
+      "date": "2026-03-11T13:00",
       "preview": "크리스마스 이브에, 놀이터에서 만난 아저씨를 기억할 것.",
       "imageUrl": "",
       "category": "1-A",
@@ -113,7 +113,7 @@
     {
       "id": "6",
       "title": "OOC: 동화 AU - 눈의 여왕",
-      "date": "2026-03-11",
+      "date": "2026-03-11T12:00",
       "preview": "겔다도 카이도 없는데 이걸 눈의 여왕 AU라고 해도 되는 건가",
       "imageUrl": "",
       "category": "1-A",
@@ -131,14 +131,34 @@
       "contentPath": "posts/1-A/OOC/7.md"
     },
     {
+      "id": "3",
+      "title": "전 연구원, 현 시간부로 모든 계측 장비의 기록 단위를 재설정한다. 코드명 ‘설경(雪景)’.",
+      "date": "2025-12-19",
+      "preview": "이해하고 싶다. 저 여자의 머릿속을, 저 능력의 구조를, 저 터무니없는 평온의 근원을 전부.",
+      "imageUrl": "",
+      "category": "1-A",
+      "boardId": "1-A-LOG",
+      "contentPath": "posts/1-A/LOG/3.md"
+    },
+    {
       "id": "1",
       "title": "얼마나 냉기를 넣어야 괴수가 어는지 관찰하다보니...",
-      "date": "2025-12-18",
+      "date": "2025-12-18T13:00",
       "preview": "그 호기심이 언젠가 당신 목을 조를 겁니다.",
       "imageUrl": "/images/posts/1-A/LOG/1.jpeg",
       "category": "1-A",
       "boardId": "1-A-LOG",
       "contentPath": "posts/1-A/LOG/1.md"
+    },
+    {
+      "id": "2",
+      "title": "10분 뒤에 도착합니다. 문 열어두세요.",
+      "date": "2025-12-18T12:00",
+      "preview": "여기까지 오실 줄은 몰랐는데...",
+      "imageUrl": "",
+      "category": "1-A",
+      "boardId": "1-A-LOG",
+      "contentPath": "posts/1-A/LOG/2.md"
     }
   ],
   "boards": [

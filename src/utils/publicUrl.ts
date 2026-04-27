@@ -1,3 +1,7 @@
+export function displayDate(date: string): string {
+  return date.split("T")[0];
+}
+
 export function publicUrl(path: string): string {
   const trimmed = path.trim();
   if (!trimmed) return path;
