@@ -44,5 +44,12 @@
     "name": "[54, 88]",
     "image": "data/neighbors/fweq.jpg",
     "url": "https://mtr7458.dothome.co.kr/"
+  },
+  {
+    "name": "unfrozen salvation",
+    "image": "data/neighbors/unfrozen.jpg",
+    "url": "https://koiu.luv3r.me",
+    "crop": 40,
+    "cropPosition": 25
   }
 ]
