@@ -15,8 +15,22 @@
     "url": "https://dearmysn1p3r.tistory.com/"
   },
   {
+    "name": "zero-day",
+    "image": "data/neighbors/wrench.jpg",
+    "url": "https://wrench.luv3r.me/"
+  },
+  {
     "name": "내가 이끌 것, 두 번째 별의 잔상",
     "image": "data/neighbors/u-must.jpg",
-    "url": "https://u-must.luv3r.me"
+    "url": "https://u-must.luv3r.me",
+    "crop": 35,
+    "cropPosition": 40
+  },
+  {
+    "name": "il mio amore",
+    "image": "data/neighbors/mio-amore.jpg",
+    "url": "https://amoremio.luv3r.me",
+    "crop": 35,
+    "cropPosition": 45
   }
 ]

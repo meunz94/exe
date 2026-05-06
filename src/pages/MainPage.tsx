@@ -64,7 +64,7 @@ export default function MainPage({
   const [memoContent, setMemoContent] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [neighborsOpen, setNeighborsOpen] = useState(false);
-  const [neighbors, setNeighbors] = useState<{ name: string; image: string; url: string }[]>([]);
+  const [neighbors, setNeighbors] = useState<{ name: string; image: string; url: string; crop?: number; cropPosition?: number }[]>([]);
 
   const handleCopySection = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     const btn = e.currentTarget;
@@ -225,11 +225,28 @@ export default function MainPage({
                     rel="noopener noreferrer"
                     className={styles.neighborItem}
                   >
-                    <img
-                      src={publicUrl(n.image)}
-                      alt={n.name}
-                      className={styles.neighborImg}
-                    />
+                    {n.crop != null ? (
+                      <div
+                        className={styles.neighborImgCrop}
+                        style={{ paddingBottom: `${n.crop}%` }}
+                      >
+                        <img
+                          src={publicUrl(n.image)}
+                          alt={n.name}
+                          className={styles.neighborImgCropped}
+                          style={{
+                            top: `${n.cropPosition ?? 50}%`,
+                            transform: `translateY(-${n.cropPosition ?? 50}%)`,
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <img
+                        src={publicUrl(n.image)}
+                        alt={n.name}
+                        className={styles.neighborImg}
+                      />
+                    )}
                     {n.name && <span className={styles.neighborName}>{n.name}</span>}
                   </a>
                 ))}
