@@ -1,7 +1,8 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import type { Agent, Post, Board, PlaylistItem, TimelineEvent, DisciplinaryRecord, GalleryImage, YoutubeVideo } from "../types";
+import type { Components } from "react-markdown";
 import { fixCjkEmphasis } from "../utils/markdown";
 import AgentCard from "../components/AgentCard/AgentCard";
 import Terminal from "../components/Terminal/Terminal";
@@ -61,6 +62,44 @@ export default function MainPage({
   const [contentVisible, setContentVisible] = useState(false);
   const [memoOpen, setMemoOpen] = useState(false);
   const [memoContent, setMemoContent] = useState("");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [neighborsOpen, setNeighborsOpen] = useState(false);
+  const [neighbors, setNeighbors] = useState<{ name: string; image: string; url: string }[]>([]);
+
+  const handleCopySection = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    const btn = e.currentTarget;
+    const h3 = btn.parentElement;
+    if (!h3) return;
+
+    let text = "";
+    let sibling = h3.nextElementSibling;
+    while (sibling && sibling.tagName !== "H3" && sibling.tagName !== "HR") {
+      text += (sibling.textContent || "") + "\n";
+      sibling = sibling.nextElementSibling;
+    }
+    text = text.trim();
+
+    navigator.clipboard.writeText(text).then(() => {
+      const span = h3.querySelector("span");
+      setCopiedId(span?.textContent || "");
+      setTimeout(() => setCopiedId(null), 1500);
+    });
+  }, []);
+
+  const memoComponents: Components = {
+    h3: ({ children, ...props }) => (
+      <h3 {...props} className={styles.memoH3}>
+        <span>{children}</span>
+        <button
+          className={`${styles.memoCopyBtn} ${copiedId === String(children) ? styles.memoCopyBtnDone : ""}`}
+          onClick={handleCopySection}
+          type="button"
+        >
+          {copiedId === String(children) ? "복사됨!" : "복사하기"}
+        </button>
+      </h3>
+    ),
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -71,6 +110,10 @@ export default function MainPage({
     fetch(publicUrl("data/memo.md"))
       .then((r) => (r.ok ? r.text() : ""))
       .then((text) => { if (!cancelled) setMemoContent(text); })
+      .catch(() => {});
+    fetch(publicUrl("data/neighbors.json"))
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data) => { if (!cancelled) setNeighbors(data); })
       .catch(() => {});
     return () => { cancelled = true; };
   }, []);
@@ -147,18 +190,52 @@ export default function MainPage({
             <span className={styles.memoToggleIcon}>{memoOpen ? "▲" : "▼"}</span>
             <span>{memoOpen ? "닫기" : "프롬프트"}</span>
           </button>
+          <button
+            className={`${styles.memoToggleBtn} ${neighborsOpen ? styles.memoToggleBtnOpen : ""}`}
+            onClick={() => setNeighborsOpen((v) => !v)}
+          >
+            <span className={styles.memoToggleIcon}>{neighborsOpen ? "▲" : "▼"}</span>
+            <span>{neighborsOpen ? "닫기" : "이웃집 둘러보기"}</span>
+          </button>
         </div>
 
         <div className={`${styles.memoPanel} ${memoOpen ? styles.memoPanelOpen : ""}`}>
           <div className={styles.memoContent}>
             {memoContent ? (
               <div className={styles.noticeMarkdown}>
-                <Markdown rehypePlugins={[rehypeRaw]}>
+                <Markdown rehypePlugins={[rehypeRaw]} components={memoComponents}>
                   {fixCjkEmphasis(memoContent.replace(/\n---(\n|$)/g, "\n\n---\n\n"))}
                 </Markdown>
               </div>
             ) : (
               <p className={styles.noticeEmpty}>등록된 메모가 없습니다.</p>
+            )}
+          </div>
+        </div>
+
+        <div className={`${styles.memoPanel} ${neighborsOpen ? styles.memoPanelOpen : ""}`}>
+          <div className={styles.memoContent}>
+            {neighbors.length > 0 ? (
+              <div className={styles.neighborsGrid}>
+                {neighbors.map((n, i) => (
+                  <a
+                    key={i}
+                    href={n.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.neighborItem}
+                  >
+                    <img
+                      src={publicUrl(n.image)}
+                      alt={n.name}
+                      className={styles.neighborImg}
+                    />
+                    <span className={styles.neighborName}>{n.name}</span>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <p className={styles.noticeEmpty}>등록된 이웃이 없습니다.</p>
             )}
           </div>
         </div>

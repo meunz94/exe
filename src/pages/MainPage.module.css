@@ -142,6 +142,38 @@
   opacity: 0.4;
 }
 
+.memoH3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.memoCopyBtn {
+  flex-shrink: 0;
+  margin-left: 12px;
+  padding: 2px 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: rgba(0, 0, 0, 0.03);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.memoCopyBtn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: rgba(100, 201, 73, 0.06);
+}
+
+.memoCopyBtnDone {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
 .noticeEmpty {
   font-size: 14px;
   color: var(--color-text-muted);
@@ -155,6 +187,7 @@
   margin-top: 12px;
   display: flex;
   justify-content: center;
+  gap: 8px;
 }
 
 .memoToggleBtn {
@@ -217,6 +250,54 @@
     0 1px 3px rgba(0, 0, 0, 0.05),
     0 4px 16px rgba(0, 0, 0, 0.04);
   box-sizing: border-box;
+}
+
+/* === Neighbors Grid === */
+.neighborsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.neighborItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: rgba(0, 0, 0, 0.015);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.neighborItem:hover {
+  border-color: var(--color-accent);
+  background: rgba(100, 201, 73, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.neighborImg {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: calc(var(--radius-md) - 2px);
+}
+
+.neighborName {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+.neighborItem:hover .neighborName {
+  color: var(--color-accent);
 }
 
 .scrollHint {
@@ -416,6 +497,42 @@
 :global([data-theme="dark"]) .noticeMarkdown hr {
   border-top-color: var(--color-neon);
   opacity: 0.25;
+}
+
+:global([data-theme="dark"]) .neighborItem {
+  border-color: rgba(0, 170, 255, 0.15);
+  background: rgba(0, 170, 255, 0.03);
+}
+
+:global([data-theme="dark"]) .neighborItem:hover {
+  border-color: var(--color-neon);
+  background: rgba(0, 170, 255, 0.08);
+  box-shadow: 0 0 12px rgba(0, 170, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .neighborName {
+  color: rgba(200, 218, 240, 0.6);
+}
+
+:global([data-theme="dark"]) .neighborItem:hover .neighborName {
+  color: var(--color-neon);
+}
+
+:global([data-theme="dark"]) .memoCopyBtn {
+  border-color: rgba(0, 170, 255, 0.2);
+  color: rgba(200, 218, 240, 0.5);
+  background: rgba(0, 170, 255, 0.04);
+}
+
+:global([data-theme="dark"]) .memoCopyBtn:hover {
+  border-color: var(--color-neon);
+  color: var(--color-neon);
+  background: rgba(0, 170, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .memoCopyBtnDone {
+  border-color: var(--color-neon);
+  color: var(--color-neon);
 }
 
 :global([data-theme="dark"]) .memoToggleBtn {
