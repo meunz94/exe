@@ -32,5 +32,17 @@
     "url": "https://amoremio.luv3r.me",
     "crop": 35,
     "cropPosition": 45
+  },
+  {
+    "name": "Protocol Genesis",
+    "image": "data/neighbors/yana.jpg",
+    "url": "https://yana.luv3r.me",
+    "crop": 35,
+    "cropPosition": 60
+  },
+  {
+    "name": "[54, 88]",
+    "image": "data/neighbors/fweq.jpg",
+    "url": "https://mtr7458.dothome.co.kr/"
   }
 ]
