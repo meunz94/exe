@@ -3,5 +3,20 @@
     "name": "Romance Overclock",
     "image": "data/neighbors/by-banner.png",
     "url": "https://meunz94.github.io/exe"
+  },
+  {
+    "name": "Love in December",
+    "image": "data/neighbors/love.png",
+    "url": "https://icecandy.tistory.com/"
+  },
+  {
+    "name": "Love Error Code",
+    "image": "data/neighbors/momo.png",
+    "url": "https://dearmysn1p3r.tistory.com/"
+  },
+  {
+    "name": "내가 이끌 것, 두 번째 별의 잔상",
+    "image": "data/neighbors/u-must.jpg",
+    "url": "https://u-must.luv3r.me"
   }
 ]

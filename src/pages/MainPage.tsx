@@ -230,7 +230,7 @@ export default function MainPage({
                       alt={n.name}
                       className={styles.neighborImg}
                     />
-                    <span className={styles.neighborName}>{n.name}</span>
+                    {n.name && <span className={styles.neighborName}>{n.name}</span>}
                   </a>
                 ))}
               </div>
