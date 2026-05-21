@@ -1,10 +1,15 @@
 import sharp from "sharp";
 import { stat, unlink, rename } from "fs/promises";
 
+const SKIP_EXT = new Set([".gif"]);
+
 const files = process.argv.slice(2);
 if (!files.length) process.exit(0);
 
 for (const file of files) {
+  const ext = file.slice(file.lastIndexOf(".")).toLowerCase();
+  if (SKIP_EXT.has(ext)) continue;
+
   try {
     const before = (await stat(file)).size;
     const buf = await sharp(file).rotate().toBuffer();

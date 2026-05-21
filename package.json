@@ -24,7 +24,7 @@
     "three": "^0.183.2"
   },
   "lint-staged": {
-    "*.{jpg,jpeg,png,gif,webp,tiff,bmp}": "node scripts/strip-exif.mjs"
+    "*.{jpg,jpeg,png,webp,tiff,bmp}": "node scripts/strip-exif.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
