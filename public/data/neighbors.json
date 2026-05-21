@@ -51,5 +51,20 @@
     "url": "https://koiu.luv3r.me",
     "crop": 40,
     "cropPosition": 25
+  },
+  {
+    "name": "Escape Reality!",
+    "image": "data/neighbors/reality.jpg",
+    "url": "https://replica.luv3r.me/"
+  },
+  {
+    "name": "melt away",
+    "image": "data/neighbors/melt.jpg",
+    "url": "https://meltaway.luv3r.me"
+  },
+  {
+    "name": "The Thirsty Thorn",
+    "image": "data/neighbors/TTT1.gif",
+    "url": "https://major-code.tistory.com/"
   }
 ]
