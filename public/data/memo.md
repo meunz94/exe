@@ -1,5 +1,5 @@
 - 첫 번째 문단은 외형, 아래 문단은 의상/표정
-- 제 그림체에 맞게 가중치가 들어간 부분들이 있어서 적당히 프롬프트 가감해주셔도 됩니다! >///<
+- adult, v-shaped eyebrows는 제 그림체에 맞게 가중치가 들어간 부분들이 있어서 적당히 프롬프트 가감해주셔도 됩니다! >///<
 
 ### VANCE
 ```
@@ -11,7 +11,7 @@ expressionless,
 ---
 ### BLANC
 ```
-girl, female, 0.8::adult::, slender, small breast, jet-black hair, short curved bob cut, see-through bangs, gently waved hair, thin eyebrows, -1::v-shaped eyebrows::, dark blue eyes, tsurime, mischeif, cute face,
+girl, female, 0.8::adult::, slender, small breast, jet-black hair, curved bob cut, choppy cut, see-through bangs, thin eyebrows, -0.2::v-shaped eyebrows::, navy blue eyes, tsurime, mischeif, cute face,
 
 white formal blazer, white collar shirts, black suspenders, black pants,
 soft smile, mischievous smile
@@ -19,7 +19,7 @@ soft smile, mischievous smile
 ---
 ### SIGNAL
 ```
-girl, female, 0.8::adult::, slender, small breast, jet-black hair, ::low short ponytail::, see-through bangs, thin eyebrows, -1::v-shaped eyebrows::, dark blue eyes, tsurime, mischeif, cute face,
+girl, female, 0.8::adult::, slender, small breast, jet-black hair, ::low short ponytail::, see-through bangs, thin eyebrows, -0.2::v-shaped eyebrows::, navy blue eyes, tsurime, mischeif, cute face,
 
 oversized white leather jacket, high-waist black denim skirt, white turtleneck, white knee-high socks, black platform shoes,
 soft smile, mischievous smile
