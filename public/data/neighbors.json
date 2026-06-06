@@ -66,5 +66,37 @@
     "name": "The Thirsty Thorn",
     "image": "data/neighbors/TTT1.gif",
     "url": "https://major-code.tistory.com/"
+  },
+  {
+    "name": "CROSS THE BORDER",
+    "image": "data/neighbors/crosstheborder.png",
+    "url": "https://clignitys.luv3r.me/"
+  },
+  {
+    "name": "恋せば千度死す",
+    "image": "data/neighbors/hayeon.jpg",
+    "url": "https://halphas.luv3r.me",
+    "crop": 35,
+    "cropPosition": 40
+  },
+  {
+    "name": "LSY ♥ CYJ",
+    "image": "data/neighbors/2y.png",
+    "url": "https://dongainterex.luv3r.me/"
+  },
+  {
+    "name": "PROJECT ANGEL",
+    "image": "data/neighbors/angel.png",
+    "url": "https://projectangel.tistory.com/"
+  },
+  {
+    "name": "Nouvelle Vague",
+    "image": "data/neighbors/jjangji.png",
+    "url": "https://lanouvellevague.tistory.com/"
+  },
+  {
+    "name": "Syndrome Symphony",
+    "image": "data/neighbors/symphony.png",
+    "url": "https://yujin.tistory.com/"
   }
 ]
