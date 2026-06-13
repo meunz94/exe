@@ -142,6 +142,53 @@
   opacity: 0.4;
 }
 
+.noticeMarkdown details {
+  margin: 8px 0;
+  padding: 4px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.noticeMarkdown summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--color-accent);
+  list-style: none;
+  user-select: none;
+  padding: 4px 0;
+}
+
+.noticeMarkdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.noticeMarkdown summary::before {
+  content: "♥";
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 11px;
+  opacity: 0.5;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.noticeMarkdown details[open] > summary::before {
+  opacity: 1;
+}
+
+.noticeMarkdown details :not(summary) strong {
+  color: var(--color-accent);
+}
+
+.noticeMarkdown details > *:not(summary) {
+  margin-top: 4px;
+}
+
+.noticeMarkdown details ul,
+.noticeMarkdown details ol {
+  margin-bottom: 4px;
+}
+
 .memoH3 {
   display: flex;
   align-items: center;
@@ -519,6 +566,19 @@
 :global([data-theme="dark"]) .noticeMarkdown hr {
   border-top-color: var(--color-neon);
   opacity: 0.25;
+}
+
+:global([data-theme="dark"]) .noticeMarkdown details {
+  border-color: rgba(0, 170, 255, 0.18);
+  background: rgba(0, 10, 30, 0.4);
+}
+
+:global([data-theme="dark"]) .noticeMarkdown summary {
+  color: var(--color-neon);
+}
+
+:global([data-theme="dark"]) .noticeMarkdown details :not(summary) strong {
+  color: var(--color-neon);
 }
 
 :global([data-theme="dark"]) .neighborItem {
