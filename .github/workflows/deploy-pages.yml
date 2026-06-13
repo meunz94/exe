@@ -1,5 +1,5 @@
-# 사용자 페이지: 저장소 이름이 반드시 {GitHub아이디}.github.io 여야 함 (예: meunz94/meunz94.github.io)
-# → https://meunz94.github.io/ 루트에 배포되며, 빌드 시 Vite base 는 "/" 로 맞춰짐.
+# 커스텀 도메인 사용: 사이트가 도메인 루트("/")에서 서빙되므로 Vite base 는 항상 "/" 로 고정.
+# (커스텀 도메인은 public/CNAME 파일로 지정 → 빌드 시 dist 로 복사됨)
 name: Deploy to GitHub Pages
 
 on:
@@ -29,13 +29,7 @@ jobs:
 
       - name: Install and build
         run: |
-          REPO="${{ github.event.repository.name }}"
-          OWNER="${{ github.repository_owner }}"
-          if [ "$REPO" = "${OWNER}.github.io" ]; then
-            export VITE_BASE="/"
-          else
-            export VITE_BASE="/${REPO}/"
-          fi
+          export VITE_BASE="/"
           npm ci
           npm run build
 
