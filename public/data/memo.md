@@ -11,16 +11,8 @@ expressionless,
 ---
 ### BLANC
 ```
-girl, female, 0.8::adult::, slender, small breast, jet-black hair, curved bob cut, choppy cut, see-through bangs, thin eyebrows, -0.2::v-shaped eyebrows::, navy blue eyes, tsurime, mischeif, cute face,
+girl, female, adult, slender, small breast, jet-black hair, curved bob cut, choppy cut, 0.2::messy hair::, see-through bangs, thin eyebrows, -0.2::v-shaped eyebrows::, navy blue eyes, tsurime, mischeif, cute face,
 
 white formal blazer, white collar shirts, black suspenders, black pants,
-soft smile, mischievous smile
-```
----
-### SIGNAL
-```
-girl, female, 0.8::adult::, slender, small breast, jet-black hair, ::low short ponytail::, see-through bangs, thin eyebrows, -0.2::v-shaped eyebrows::, navy blue eyes, tsurime, mischeif, cute face,
-
-oversized white leather jacket, high-waist black denim skirt, white turtleneck, white knee-high socks, black platform shoes,
 soft smile, mischievous smile
 ```

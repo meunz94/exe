@@ -143,5 +143,20 @@
     "name": "사랑하는 나의 J",
     "image": "data/neighbors/jester.png",
     "url": "https://jester.luv3r.me"
+  },
+  {
+    "name": "",
+    "image": "data/neighbors/jt.png",
+    "url": "https://13thwave.web.app/"
+  },
+  {
+    "name": "STEALTH ACADEMY 특별호",
+    "image": "data/neighbors/0620.png",
+    "url": "https://my-only-eternity.tistory.com/"
+  },
+  {
+    "name": "Halcyon days",
+    "image": "data/neighbors/mint.jpg",
+    "url": "https://personya.me/ash0829/"
   }
 ]
