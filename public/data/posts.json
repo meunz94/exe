@@ -171,16 +171,6 @@
       "id": "VB-OOC",
       "name": "OOC",
       "category": "VB"
-    },
-    {
-      "id": "VS-LOG",
-      "name": "LOG",
-      "category": "VS"
-    },
-    {
-      "id": "VS-OOC",
-      "name": "OOC",
-      "category": "VS"
     }
   ]
 }
