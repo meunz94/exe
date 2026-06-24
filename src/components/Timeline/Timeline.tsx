@@ -14,7 +14,6 @@ export default function Timeline({ events }: TimelineProps) {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.heading}>TIMELINE</h3>
       <div className={styles.timeline}>
         {sorted.map((event, idx) => (
           <div

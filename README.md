@@ -9,7 +9,7 @@
 `public/data/posts/{카테고리}/{게시판}/` 에 `.md` 파일 추가.
 
 ```
-public/data/posts/1-A/OOC/9.md
+public/data/posts/VB/OOC/9.md
 ```
 
 frontmatter 형식:
@@ -62,7 +62,7 @@ preview: "미리보기 텍스트"
 
 ```json
 "youtube": [
-  { "id": "yt-1", "videoId": "dQw4w9WgXcQ", "title": "영상 제목", "category": "1-A" }
+  { "id": "yt-1", "videoId": "dQw4w9WgXcQ", "title": "영상 제목", "category": "VB" }
 ]
 ```
 
@@ -74,7 +74,7 @@ preview: "미리보기 텍스트"
 카테고리별: `public/images/gallery/{카테고리}/` 에 이미지 파일 배치.
 
 ```
-public/images/gallery/1-A/photo.jpeg
+public/images/gallery/VB/photo.jpeg
 ```
 
 AU별: `public/images/gallery/au/{auId}/` 에 이미지 파일 배치.

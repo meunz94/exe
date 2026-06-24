@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import type { Agent } from "../../types";
 import { publicUrl } from "../../utils/publicUrl";
 import AgentCard3D from "./AgentCard3D";
@@ -50,41 +50,18 @@ function getAttrStyle(attribute: string) {
 }
 
 export default function AgentCard({ agent, onClick }: AgentCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [rotation, setRotation] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
   const agentIdNum = agent.id.startsWith("vance") ? "1223" : "0904";
 
   const attr = getAttrStyle(agent.detail.profile.attribute);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setRotation({ x: y * 12, y: -x * 12 });
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setRotation({ x: 0, y: 0 });
-    setIsHovered(false);
-  }, []);
-
-  const handleMouseEnter = useCallback(() => {
-    setIsHovered(true);
-  }, []);
-
   return (
     <div
-      ref={cardRef}
       className={styles.cardWrapper}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onMouseEnter={handleMouseEnter}
+      role="button"
+      tabIndex={0}
       onClick={() => onClick(agent)}
-      style={{
-        transform: `perspective(800px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(${isHovered ? 1.02 : 1})`,
+      onKeyDown={(e) => {
+        if (e.key === "Enter") onClick(agent);
       }}
     >
       <div className={styles.card}>
@@ -106,7 +83,7 @@ export default function AgentCard({ agent, onClick }: AgentCardProps) {
                   alt={agent.name}
                 />
               ) : (
-                <AgentCard3D rotationX={rotation.x} rotationY={rotation.y} />
+                <AgentCard3D rotationX={0} rotationY={0} />
               )}
             </div>
           </div>

@@ -1,307 +1,226 @@
+/* Post content as a centered Win98 modal window. Flat — no neon/glow. */
 .overlay {
   position: fixed;
   inset: 0;
-  background: var(--color-overlay);
-  z-index: 200;
-  animation: fadeIn 0.25s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.scrollArea {
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  display: flex;
-  justify-content: center;
-  padding: 40px 20px;
-}
-
-.popup {
-  width: 100%;
-  max-width: 560px;
-  background: var(--color-surface);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  animation: slideUp 0.3s ease;
-  align-self: flex-start;
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.heroImage {
-  width: 100%;
-  max-height: 320px;
-  overflow: hidden;
-  background: var(--color-surface-secondary);
-}
-
-.heroImage img {
-  width: 100%;
-  height: 100%;
-  max-height: 320px;
-  object-fit: cover;
-  display: block;
-}
-
-.header {
-  position: relative;
-  padding: 28px 32px 20px;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.closeButton {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--color-btn-bg);
+  z-index: 200000;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  color: var(--color-text-secondary);
-  transition: background var(--transition-fast);
+  background: rgba(0, 0, 0, 0.55);
 }
 
-.closeButton:hover {
-  background: var(--color-btn-bg-hover);
-  color: var(--color-text-primary);
+.scrollArea {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  overflow-y: auto;
 }
 
-.date {
-  display: block;
-  font-size: 12px;
-  color: var(--color-text-muted);
-  margin-bottom: 8px;
+.popup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 560px;
+  margin: auto;
+  padding: 3px;
+  background: #c0c0c0;
+  box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+  /* archive post windows read as normal documents: Pretendard + antialiasing
+     (override the desktop's pixel font + font-smoothing:none) */
+  font-family: "Pretendard", "Apple SD Gothic Neo", -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.title {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--color-text-primary);
-  line-height: 1.3;
-  margin-bottom: 0;
-  padding-right: 32px;
-}
-
-.body {
-  padding: 24px 32px 32px;
-  font-size: 14px;
-  color: var(--color-text-primary);
-  line-height: 1.8;
-}
-
-.body p {
-  margin: 0 0 16px;
-}
-
-.body p:last-child {
-  margin-bottom: 0;
-}
-
-.body h1,
-.body h2,
-.body h3 {
-  color: var(--color-text-primary);
-  line-height: 1.4;
-  margin: 24px 0 12px;
-}
-
-.body h1 { font-size: 20px; font-weight: 800; }
-.body h2 { font-size: 18px; font-weight: 700; }
-.body h3 { font-size: 16px; font-weight: 700; }
-
-.body h1:first-child,
-.body h2:first-child,
-.body h3:first-child {
-  margin-top: 0;
-}
-
-.body strong {
-  font-weight: 700;
-  color: var(--color-text-primary);
-}
-
-.body em {
-  font-style: italic;
-  color: gray;
-}
-
-.body ul,
-.body ol {
-  margin: 8px 0 16px;
-  padding-left: 20px;
-}
-
-.body li {
-  margin-bottom: 4px;
-}
-
-.body code {
-  font-family: "JetBrains Mono", "Fira Code", "SF Mono", monospace;
-  font-size: 12px;
-  padding: 2px 6px;
-  border-radius: 3px;
-  background: var(--color-surface-secondary);
-  border: 1px solid var(--color-divider);
-  color: var(--color-accent);
-}
-
-.body pre {
-  margin: 12px 0 16px;
-  padding: 14px 16px;
-  border-radius: var(--radius-md);
-  background: var(--color-surface-secondary);
-  border: 1px solid var(--color-divider);
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-x: auto;
-}
-
-.body pre code {
-  padding: 0;
-  border: none;
-  background: transparent;
-  color: var(--color-text-primary);
-}
-
-.body blockquote {
-  margin: 12px 0 16px;
-  padding: 10px 16px;
-  border-left: 3px solid var(--color-accent);
-  background: var(--color-surface-secondary);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  color: var(--color-text-secondary);
-}
-
-.body blockquote p {
-  margin: 0;
-}
-
-.body a {
-  color: var(--color-accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.body a:hover {
-  opacity: 0.8;
-}
-
-.body hr {
-  border: none;
-  border-top: 1px solid var(--color-divider);
-  margin: 20px 0;
-}
-
-.body img {
-  max-width: 100%;
-  border-radius: var(--radius-md);
-  margin: 8px 0;
-}
-
-:global([data-theme="dark"]) .heroImage {
-  background: var(--color-surface);
-}
-
-/* Dark mode: cyber glow effects */
-:global([data-theme="dark"]) .popup {
-  border: 1px solid var(--color-neon-dim);
-  box-shadow: 0 0 24px rgba(0, 170, 255, 0.12), inset 0 0 30px rgba(0, 170, 255, 0.03);
-}
-
-:global([data-theme="dark"]) .header {
-  border-bottom-color: var(--color-neon-dim);
-}
-
-:global([data-theme="dark"]) .title {
-  text-shadow: 0 0 10px rgba(0, 170, 255, 0.25);
-}
-
-:global([data-theme="dark"]) .date {
-  color: var(--color-neon);
-  text-shadow: 0 0 6px rgba(0, 170, 255, 0.3);
-}
-
-:global([data-theme="dark"]) .closeButton {
-  background: rgba(0, 170, 255, 0.1);
-  border: 1px solid rgba(0, 170, 255, 0.25);
-  color: var(--color-neon);
-}
-
-:global([data-theme="dark"]) .closeButton:hover {
-  background: rgba(0, 170, 255, 0.2);
+/* ===== title bar ===== */
+.titleBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  height: 22px;
+  padding: 0 3px 0 6px;
+  background: linear-gradient(90deg, #000080, #1084d0);
   color: #fff;
 }
 
-:global([data-theme="dark"]) .body code {
-  background: rgba(0, 170, 255, 0.08);
-  border-color: rgba(0, 170, 255, 0.15);
-  color: var(--color-neon);
+.titleBarText {
+  font-size: 11px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-:global([data-theme="dark"]) .body pre {
-  background: rgba(0, 170, 255, 0.04);
-  border-color: rgba(0, 170, 255, 0.1);
+/* ===== hero ===== */
+.heroImage {
+  margin: 3px 1px 0;
+  max-height: 280px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #808080;
 }
 
-:global([data-theme="dark"]) .body blockquote {
-  border-left-color: var(--color-neon);
-  background: rgba(0, 170, 255, 0.04);
-  color: rgba(200, 218, 240, 0.7);
+.heroImage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
-:global([data-theme="dark"]) .body a {
-  color: var(--color-neon);
-  text-shadow: 0 0 4px rgba(0, 170, 255, 0.3);
+/* ===== header ===== */
+.header {
+  padding: 12px 14px 6px;
 }
 
-:global([data-theme="dark"]) .body em {
-  color: var(--color-text-secondary);
+.date {
+  font-size: 10px;
+  color: #606060;
 }
 
-:global([data-theme="dark"]) .body hr {
-  border-top-color: rgba(0, 170, 255, 0.1);
+.title {
+  margin: 4px 0 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  line-height: 1.3;
 }
 
-@media (max-width: 768px) {
-  .scrollArea {
-    padding: 0;
-  }
+/* ===== markdown / embedded HTML body — rendered as a normal document so any
+   raw HTML in the post displays in proper HTML form (not 98-styled) ===== */
+.body {
+  margin: 4px;
+  padding: 14px 16px;
+  background: #fff;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #808080;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #1a1a1a;
+  word-break: break-word;
+  /* posts may use `color: var(--color-accent)` — render it as retro navy */
+  --color-accent: #000080;
+}
 
-  .popup {
-    max-width: 100%;
-    border-radius: 0;
-    min-height: 100vh;
-  }
+.body :global(p) {
+  margin: 0.7em 0;
+}
 
-  .heroImage {
-    max-height: 240px;
-  }
+.body :global(h1),
+.body :global(h2),
+.body :global(h3),
+.body :global(h4),
+.body :global(h5),
+.body :global(h6) {
+  margin: 1em 0 0.4em;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #111;
+}
 
-  .heroImage img {
-    max-height: 240px;
-  }
+.body :global(h1) {
+  font-size: 1.6em;
+}
 
-  .header {
-    padding: 24px 20px 16px;
-  }
+.body :global(h2) {
+  font-size: 1.35em;
+}
 
-  .title {
-    font-size: 20px;
-  }
+.body :global(h3) {
+  font-size: 1.15em;
+}
 
-  .body {
-    padding: 20px;
-  }
+.body :global(h4),
+.body :global(h5),
+.body :global(h6) {
+  font-size: 1em;
+}
+
+.body :global(strong),
+.body :global(b) {
+  font-weight: 700;
+}
+
+.body :global(em),
+.body :global(i) {
+  font-style: italic;
+}
+
+.body :global(a) {
+  color: #0645ad;
+  text-decoration: underline;
+}
+
+.body :global(hr) {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 1.2em 0;
+}
+
+.body :global(img) {
+  max-width: 100%;
+  height: auto;
+}
+
+.body :global(ul) {
+  list-style: disc;
+  padding-left: 1.6em;
+  margin: 0.7em 0;
+}
+
+.body :global(ol) {
+  list-style: decimal;
+  padding-left: 1.6em;
+  margin: 0.7em 0;
+}
+
+.body :global(li) {
+  margin: 0.25em 0;
+}
+
+.body :global(blockquote) {
+  margin: 0.8em 0;
+  padding: 0.4em 1em;
+  border-left: 3px solid #ccc;
+  color: #555;
+}
+
+.body :global(table) {
+  border-collapse: collapse;
+  margin: 0.8em 0;
+}
+
+.body :global(th),
+.body :global(td) {
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  text-align: left;
+}
+
+.body :global(code) {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.9em;
+  background: #f0f0f0;
+  padding: 1px 4px;
+  border-radius: 3px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.body :global(pre) {
+  background: #f4f4f4;
+  padding: 10px 12px;
+  border-radius: 4px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.body :global(pre) code {
+  background: none;
+  padding: 0;
 }

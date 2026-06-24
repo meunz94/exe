@@ -60,6 +60,12 @@ export default function Popup({ agent, onClose }: PopupProps) {
     <div className={styles.overlay} data-dark-bg onClick={handleOverlayClick}>
       <div className={styles.popupScroll} onClick={handleScrollAreaClick}>
         <div className={styles.popup}>
+          <div className={styles.titleBar}>
+            <span className={styles.titleBarText}>{detail.title} — Profile</span>
+            <div className="title-bar-controls">
+              <button aria-label="Close" onClick={onClose} />
+            </div>
+          </div>
           <div className={styles.hero} data-dark-bg>
             <div
               className={styles.heroBackground}
@@ -70,7 +76,6 @@ export default function Popup({ agent, onClose }: PopupProps) {
               }
             />
             <div className={styles.heroGradient} />
-            <button className={styles.closeButton} onClick={onClose}>✕</button>
             <div className={styles.heroContent}>
               <span className={`${styles.subtitleTag} ${attrCls}`}>{detail.subtitle}</span>
               <h2 className={styles.title}>{detail.title}</h2>

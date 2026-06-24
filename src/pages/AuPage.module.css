@@ -1,149 +1,89 @@
+/* Another Universe browser rendered inside a Win98 window. Flat — no neon. */
 .page {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 60px 24px 80px;
-  min-height: 100vh;
+  max-width: 100%;
+  padding: 12px;
 }
 
+/* ===== header ===== */
 .header {
-  text-align: center;
-  margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-bottom: 10px;
 }
 
 .backBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 20px;
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  margin-bottom: 24px;
-}
-
-.backBtn:hover {
-  background: var(--color-surface-hover);
-  color: var(--color-text-primary);
+  margin-bottom: 4px;
+  min-width: 0;
+  padding: 2px 10px;
+  font-size: 11px;
 }
 
 .title {
-  font-size: 36px;
-  font-weight: 900;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin: 0 0 8px;
-  line-height: 1.2;
-  text-shadow: 0 0 16px rgba(100, 201, 73, 0.3), 0 0 48px rgba(100, 201, 73, 0.1);
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: 1px;
 }
 
 .subtitle {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  letter-spacing: 3px;
-  text-transform: uppercase;
   margin: 0;
-  text-shadow: 0 0 12px rgba(100, 201, 73, 0.15);
+  font-size: 11px;
+  color: #404040;
 }
 
-/* Tag filter bar */
+/* ===== tag filter ===== */
 .filterBar {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 32px;
+  gap: 4px;
+  margin-bottom: 12px;
+  padding: 6px;
+  background: #c0c0c0;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #808080;
 }
 
-.filterBtn {
-  padding: 6px 14px;
-  border-radius: 100px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.filterBtn:hover {
-  background: var(--color-surface-hover);
-  color: var(--color-text-primary);
+.filterBtn,
+.filterBtnActive {
+  min-width: 0;
+  padding: 2px 8px;
+  font-size: 11px;
 }
 
 .filterBtnActive {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #fff;
-  box-shadow: 0 0 12px rgba(100, 201, 73, 0.35);
+  box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
+  font-weight: 700;
 }
 
-.filterBtnActive:hover {
-  background: var(--color-accent);
-  color: #fff;
-}
-
-/* "RECOMMEND" badge (top-left on card image) */
-.loveBadge {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 8px;
-  border-radius: 4px;
-  background: var(--color-accent);
-  color: #fff;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  line-height: 1;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-  pointer-events: none;
-}
-
-/* Gallery grid (max 3 columns on wide viewports) */
+/* ===== card grid ===== */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(max(220px, calc((100% - 40px) / 3)), 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
 }
 
 .card {
-  border-radius: var(--radius-lg);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  background: #c0c0c0;
+  box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+  padding: 4px;
+  cursor: inherit;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(100, 201, 73, 0.35);
-  box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.08),
-    0 0 20px rgba(100, 201, 73, 0.12);
+  outline: 1px dotted #000080;
+  outline-offset: -1px;
 }
 
 .cardImage {
   position: relative;
-  width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: var(--color-surface-tertiary);
+  background: #000;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #808080;
 }
 
 .cardImage img {
@@ -158,165 +98,69 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(145deg, #e8e8e8 0%, #dcdcdc 40%, #d0d0d0 100%);
+  background: #1565a0;
 }
 
 .placeholderIcon {
-  color: #ffffff;
   opacity: 0.7;
 }
 
+.loveBadge {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  z-index: 1;
+  padding: 1px 6px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  background: #a40000;
+}
+
 .cardBody {
-  padding: 14px 16px 16px;
+  padding: 6px 4px 2px;
 }
 
 .cardTitle {
-  font-size: 14px;
+  margin: 0 0 3px;
+  font-size: 11px;
   font-weight: 700;
-  color: var(--color-text-primary);
-  margin: 0 0 6px;
+  color: #000;
 }
 
 .cardDesc {
-  font-size: 12px;
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-  margin: 0 0 10px;
+  margin: 0 0 6px;
+  font-size: 10px;
+  line-height: 1.6;
+  font-family: "Pixelated MS Sans Serif", "Galmuri9", sans-serif;
+  color: #404040;
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 3px;
 }
 
-.tag {
-  font-size: 10px;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 100px;
-  background: var(--color-tag-bg);
-  color: var(--color-text-secondary);
-  transition: background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+.tag,
+.tagHighlight {
+  padding: 1px 6px;
+  font-size: 9px;
+  font-family: "Pixelated MS Sans Serif", "Galmuri9", sans-serif;
+  color: #000;
+  background: #c0c0c0;
+  box-shadow: inset -1px -1px #808080, inset 1px 1px #fff;
 }
 
 .tagHighlight {
-  background: var(--color-accent);
   color: #fff;
-  box-shadow: 0 0 8px rgba(100, 201, 73, 0.3);
+  background: #000080;
+  box-shadow: none;
 }
 
 .empty {
+  padding: 30px 10px;
   text-align: center;
-  padding: 80px 20px;
-  color: var(--color-text-muted);
-  font-size: 14px;
-}
-
-/* Dark mode */
-:global([data-theme="dark"]) .backBtn {
-  border-color: var(--color-neon-dim);
-  color: var(--color-neon);
-}
-
-:global([data-theme="dark"]) .backBtn:hover {
-  background: rgba(0, 170, 255, 0.08);
-  border-color: var(--color-neon);
-  box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
-}
-
-:global([data-theme="dark"]) .title {
-  text-shadow: 0 0 20px rgba(0, 170, 255, 0.6), 0 0 60px rgba(0, 170, 255, 0.2);
-}
-
-:global([data-theme="dark"]) .subtitle {
-  color: rgba(0, 170, 255, 0.5);
-}
-
-:global([data-theme="dark"]) .card {
-  border-color: var(--color-neon-dim);
-  box-shadow: 0 0 12px rgba(0, 170, 255, 0.06);
-}
-
-:global([data-theme="dark"]) .card:hover {
-  border-color: var(--color-neon-glow);
-  box-shadow: 0 0 24px rgba(0, 170, 255, 0.15), 0 0 60px rgba(0, 170, 255, 0.05);
-}
-
-:global([data-theme="dark"]) .placeholder {
-  background: linear-gradient(145deg, #0a2a50 0%, #0d3a6a 40%, #1050a0 100%);
-}
-
-:global([data-theme="dark"]) .placeholderIcon {
-  color: #ffffff;
-  opacity: 0.8;
-}
-
-:global([data-theme="dark"]) .tag {
-  border: 1px solid var(--color-neon-dim);
-  background: transparent;
-  color: var(--color-neon);
-}
-
-:global([data-theme="dark"]) .tagHighlight {
-  background: var(--color-neon);
-  border-color: var(--color-neon);
-  color: #04121f;
-  box-shadow: 0 0 10px rgba(0, 170, 255, 0.4);
-}
-
-:global([data-theme="dark"]) .filterBtn {
-  border-color: var(--color-neon-dim);
-  background: transparent;
-  color: var(--color-neon);
-}
-
-:global([data-theme="dark"]) .filterBtn:hover {
-  background: rgba(0, 170, 255, 0.08);
-  border-color: var(--color-neon);
-  color: var(--color-neon);
-  box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
-}
-
-:global([data-theme="dark"]) .filterBtnActive {
-  background: var(--color-neon);
-  border-color: var(--color-neon);
-  color: #04121f;
-  box-shadow: 0 0 16px rgba(0, 170, 255, 0.45);
-}
-
-:global([data-theme="dark"]) .filterBtnActive:hover {
-  background: var(--color-neon);
-  color: #04121f;
-}
-
-:global([data-theme="dark"]) .loveBadge {
-  background: var(--color-neon);
-  color: #04121f;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .page {
-    padding: 40px 16px 60px;
-  }
-
-  .title {
-    font-size: 24px;
-    letter-spacing: 4px;
-  }
-
-  .filterBar {
-    margin-bottom: 24px;
-  }
-
-  .filterBtn {
-    padding: 5px 12px;
-    font-size: 11px;
-  }
-
-  .gallery {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
+  font-size: 11px;
+  color: #808080;
 }

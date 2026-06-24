@@ -1,0 +1,22 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  gap: 12px;
+  color: var(--color-text-secondary);
+  background: var(--color-bg);
+}
+
+.title {
+  font-family: "Orbitron", system-ui, sans-serif;
+  font-size: 22px;
+  color: var(--color-text-primary);
+  letter-spacing: 1px;
+}
+
+.sub {
+  font-size: 14px;
+}

@@ -1,0 +1,58 @@
+.window {
+  position: absolute;
+  max-width: calc(100% - 8px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.maximized {
+  max-width: 100%;
+}
+
+.titleBar {
+  cursor: inherit;
+  user-select: none;
+  touch-action: none;
+}
+
+.titleText {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.titleIcon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+
+/* the window content scrolls inside the body so tall sections stay contained;
+   margin 0 (override 98.css's .window-body margin, which is injected later in
+   the head and would otherwise win) so section components can fill the window
+   edge-to-edge and control their own padding */
+.window .body {
+  flex: 1;
+  overflow-y: auto;
+  max-height: calc(80vh - 30px);
+  margin: 0;
+  padding: 0;
+  /* white content area instead of the default 98 silver */
+  background: #fff;
+}
+
+.window.maximized .body {
+  max-height: none;
+}
+
+/* English keeps the pixel font; Korean falls back to Galmuri (pixel). */
+.body,
+.titleText {
+  font-family: "Pixelated MS Sans Serif", "Galmuri11", sans-serif;
+}
