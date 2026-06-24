@@ -1,173 +1,135 @@
-.container {
-  width: 100%;
-  max-width: 520px;
-  margin: 24px auto 0;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  padding: 18px 16px 14px;
+/* Fills its window like a Win98 media player: an LCD display strip above a
+   sunken track list. No outer frame (the window provides it). */
+.player {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
 }
 
-.heading {
-  font-size: 11px;
+.display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  background: #08240f;
+  color: #36e36b;
+  font-family: "JetBrains Mono", "Consolas", monospace;
+  letter-spacing: 1px;
+  box-shadow: inset -1px -1px #2a6e42, inset 1px 1px #000, inset -2px -2px #1c5733, inset 2px 2px #000;
+}
+
+.displayIcon {
+  font-size: 14px;
+}
+
+.displayText {
+  flex: 1;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 3px;
-  color: var(--color-text-muted);
-  margin: 0 0 10px 2px;
+}
+
+.displayCount {
+  font-size: 11px;
+  opacity: 0.85;
 }
 
 .list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  background: #fff;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #808080;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
 .track {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 10px 14px;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: background var(--transition-fast);
-  position: relative;
+  gap: 10px;
+  padding: 6px 10px;
+  border-bottom: 1px solid #dfdfdf;
+  cursor: inherit;
 }
 
 .track:hover {
-  background: var(--color-surface-hover);
-}
-
-.tooltip {
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  top: 100%;
-  margin-top: 4px;
-  padding: 10px 14px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-  z-index: 10;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-4px);
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-  pointer-events: none;
-}
-
-.track:hover .tooltip {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.tooltipLabel {
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--color-accent);
-  letter-spacing: 1px;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.tooltipText {
-  font-size: 12px;
-  color: var(--color-text-secondary);
-  line-height: 1.7;
-  margin: 0;
-  white-space: pre-line;
-  font-style: italic;
+  background: #000080;
+  color: #fff;
 }
 
 .num {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--color-text-muted);
-  width: 20px;
-  text-align: right;
-  flex-shrink: 0;
-  font-variant-numeric: tabular-nums;
+  width: 18px;
+  font-size: 10px;
+  font-family: "JetBrains Mono", "Consolas", monospace;
+  color: #808080;
+}
+
+.track:hover .num {
+  color: #c0c0c0;
 }
 
 .info {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 1px;
-  min-width: 0;
 }
 
 .title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-text-primary);
+  font-size: 11px;
+  font-weight: 700;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .artist {
-  font-size: 11px;
-  color: var(--color-text-muted);
+  font-size: 9px;
+  font-family: "Pixelated MS Sans Serif", "Galmuri9", sans-serif;
+  color: #808080;
+}
+
+.track:hover .artist {
+  color: #d8d8d8;
 }
 
 .duration {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--color-text-muted);
   flex-shrink: 0;
-  font-variant-numeric: tabular-nums;
+  font-size: 10px;
+  font-family: "JetBrains Mono", "Consolas", monospace;
+  color: #404040;
 }
 
-/* Dark mode */
-:global([data-theme="dark"]) .container {
-  border-color: var(--color-neon-dim);
-  box-shadow: 0 0 16px rgba(0, 170, 255, 0.06), inset 0 0 20px rgba(0, 170, 255, 0.02);
+.track:hover .duration {
+  color: #d8d8d8;
 }
 
-:global([data-theme="dark"]) .heading {
-  color: var(--color-neon);
-  text-shadow: 0 0 6px rgba(0, 170, 255, 0.4);
+/* lyrics shown as a classic pale-yellow Win98 tooltip on hover */
+.tooltip {
+  display: none;
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 100%;
+  z-index: 5;
+  padding: 6px 8px;
+  background: #ffffe1;
+  color: #000;
+  border: 1px solid #000;
+  box-shadow: 1px 1px 0 grey;
 }
 
-:global([data-theme="dark"]) .num {
-  color: rgba(0, 170, 255, 0.5);
+.track:hover .tooltip {
+  display: block;
 }
 
-:global([data-theme="dark"]) .track:hover {
-  background: rgba(0, 170, 255, 0.05);
+.tooltipLabel {
+  margin-right: 4px;
+  font-weight: 700;
 }
 
-:global([data-theme="dark"]) .duration {
-  color: rgba(0, 170, 255, 0.4);
-}
-
-:global([data-theme="dark"]) .tooltip {
-  background: #0a0a1c;
-  border-color: rgba(0, 170, 255, 0.2);
-  box-shadow: 0 0 16px rgba(0, 170, 255, 0.1), inset 0 0 12px rgba(0, 170, 255, 0.03);
-}
-
-:global([data-theme="dark"]) .tooltipLabel {
-  color: var(--color-neon);
-  text-shadow: 0 0 4px rgba(0, 170, 255, 0.4);
-}
-
-:global([data-theme="dark"]) .tooltipText {
-  color: rgba(200, 218, 240, 0.6);
-}
-
-@media (max-width: 768px) {
-  .container {
-    max-width: 100%;
-    margin: 16px 0 0;
-    border-radius: var(--radius-md);
-  }
-
-  .track {
-    padding: 8px 10px;
-    gap: 10px;
-  }
+.tooltipText {
+  margin: 2px 0 0;
+  font-size: 10px;
+  line-height: 1.5;
+  white-space: pre-wrap;
 }

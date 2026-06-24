@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import type { Post, Board } from "../../types";
 import { displayDate } from "../../utils/publicUrl";
 import styles from "./PostList.module.css";
@@ -39,38 +39,33 @@ export default function PostList({
   }, [posts, activeBoardId]);
 
   const totalPages = Math.max(1, Math.ceil(filteredPosts.length / PAGE_SIZE));
+  // clamp instead of resetting via an effect — the active page may exceed the
+  // page count after filtering, so derive a safe page during render
+  const currentPage = Math.min(page, totalPages - 1);
   const pagedPosts = useMemo(
-    () => filteredPosts.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE),
-    [filteredPosts, page]
+    () => filteredPosts.slice(currentPage * PAGE_SIZE, (currentPage + 1) * PAGE_SIZE),
+    [filteredPosts, currentPage]
   );
 
-  useEffect(() => {
+  const selectBoard = (boardId: string | null) => {
+    setActiveBoardId(boardId);
     setPage(0);
-  }, [activeBoardId, posts]);
+  };
 
   const handleTagClick = (boardId: string) => {
     setActiveBoardId((prev) => (prev === boardId ? null : boardId));
+    setPage(0);
   };
 
   return (
     <div className={styles.window}>
-      <div className={styles.titleBar}>
-        <div className={styles.titleBarDots}>
-          <span className={styles.dotRed} />
-          <span className={styles.dotYellow} />
-          <span className={styles.dotGreen} />
-        </div>
-        <span className={styles.titleBarText}>Archive</span>
-        <div className={styles.titleBarSpacer} />
-      </div>
-
       {boards.length > 0 && (
         <div className={styles.boardTags}>
           <span
             className={
               activeBoardId === null ? styles.boardTagActive : styles.boardTag
             }
-            onClick={() => setActiveBoardId(null)}
+            onClick={() => selectBoard(null)}
           >
             전체
           </span>
@@ -121,23 +116,23 @@ export default function PostList({
         <span className={styles.statusText}>
           {filteredPosts.length === 0
             ? "0개"
-            : `${filteredPosts.length}개 중 ${page * PAGE_SIZE + 1}-${Math.min((page + 1) * PAGE_SIZE, filteredPosts.length)}`}
+            : `${filteredPosts.length}개 중 ${currentPage * PAGE_SIZE + 1}-${Math.min((currentPage + 1) * PAGE_SIZE, filteredPosts.length)}`}
         </span>
         <div className={styles.pagination}>
           <button
             className={styles.pageBtn}
-            onClick={() => setPage((p) => Math.max(0, p - 1))}
-            disabled={page === 0}
+            onClick={() => setPage(Math.max(0, currentPage - 1))}
+            disabled={currentPage === 0}
           >
             ‹
           </button>
           <span className={styles.pageInfo}>
-            {page + 1} / {totalPages}
+            {currentPage + 1} / {totalPages}
           </span>
           <button
             className={styles.pageBtn}
-            onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
-            disabled={page >= totalPages - 1}
+            onClick={() => setPage(Math.min(totalPages - 1, currentPage + 1))}
+            disabled={currentPage >= totalPages - 1}
           >
             ›
           </button>

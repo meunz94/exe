@@ -1,0 +1,300 @@
+.desktop {
+  position: fixed;
+  inset: 0;
+  background: #008080; /* classic teal desktop */
+  overflow: hidden;
+  /* English keeps the 98.css pixel font; Korean falls back to Galmuri (a Korean
+     pixel font tuned for an 11px grid). Crisp — no antialiasing. */
+  font-family: "Pixelated MS Sans Serif", "Galmuri11", sans-serif;
+  font-size: 11px;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+}
+
+/* ===== desktop icons (top-left, vertical) ===== */
+.iconLayer {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-height: calc(100% - 44px);
+}
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 78px;
+  padding: 6px 4px;
+  background: transparent;
+  /* kill the 98.css raised-button bevel — desktop icons are flat */
+  border: 1px dotted transparent;
+  box-shadow: none;
+  cursor: inherit;
+}
+
+.icon:active {
+  box-shadow: none;
+}
+
+.icon:hover,
+.icon:focus {
+  border: 1px dotted #fff;
+  box-shadow: none;
+  outline: none;
+}
+
+.iconImg {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.iconLabel {
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.3;
+  text-align: center;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.6);
+  word-break: keep-all;
+}
+
+/* ===== open windows ===== */
+/* the layer spans the desktop but must not eat clicks meant for the icons
+   beneath it — only the actual windows are interactive */
+.windowLayer {
+  position: absolute;
+  inset: 0 0 30px 0;
+  pointer-events: none;
+}
+
+.windowLayer > * {
+  pointer-events: auto;
+}
+
+/* ===== folder window contents (section icons) ===== */
+.folderGrid {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 6px;
+  min-height: 150px;
+  padding: 10px;
+  margin: 4px;
+  background: #fff;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #808080;
+}
+
+.folderItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 84px;
+  padding: 8px 4px;
+  background: transparent;
+  border: 1px dotted transparent;
+  cursor: inherit;
+}
+
+.folderItem:hover,
+.folderItem:focus {
+  border: 1px dotted #000080;
+  outline: none;
+}
+
+.folderIcon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.folderLabel {
+  font-size: 11px;
+  text-align: center;
+  color: #000;
+  word-break: break-word;
+}
+
+/* ===== section window contents ===== */
+.sectionPad {
+  padding: 10px;
+}
+
+.profileSection {
+  padding: 12px;
+}
+
+.profileSynopsis {
+  margin: 0 0 12px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #000;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.profileCards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* ===== taskbar ===== */
+.taskbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 4px;
+  background: #c0c0c0;
+  box-shadow: inset 0 1px 0 #fff, inset 0 2px 0 #dfdfdf;
+  z-index: 100000;
+}
+
+.startBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  height: 22px;
+  padding: 0 8px 0 4px;
+  font-weight: 700;
+}
+
+.startBtnActive {
+  box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
+}
+
+.startBtnIcon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.taskButtons {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.taskBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  min-width: 0;
+  max-width: 160px;
+  padding: 0 8px;
+  text-align: left;
+}
+
+.taskBtnActive {
+  box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
+  font-weight: 700;
+}
+
+.taskBtnIcon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+
+.taskBtnLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.clock {
+  flex-shrink: 0;
+  padding: 3px 8px;
+  font-size: 11px;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #808080;
+}
+
+/* ===== start menu ===== */
+.startMenu {
+  position: absolute;
+  left: 2px;
+  bottom: 30px;
+  z-index: 100001;
+  display: flex;
+  width: 220px;
+  background: #c0c0c0;
+  box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+  padding: 3px;
+}
+
+.startBanner {
+  flex-shrink: 0;
+  width: 26px;
+  background: linear-gradient(#000080, #1084d0);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  padding: 8px 4px;
+}
+
+.startItems {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-left: 3px;
+}
+
+.startItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 6px 8px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-align: left;
+  color: #000;
+}
+
+.startItem:hover,
+.startItem:focus {
+  background: #000080;
+  color: #fff;
+  outline: none;
+}
+
+.startItemIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+
+.startDivider {
+  height: 1px;
+  margin: 4px 2px;
+  background: grey;
+  box-shadow: 0 1px 0 #fff;
+}

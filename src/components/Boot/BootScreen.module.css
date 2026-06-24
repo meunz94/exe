@@ -1,0 +1,430 @@
+/* ===== Full-screen retro gate ===== */
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 30%, #4a4a52 0%, #26262c 55%, #141418 100%);
+  overflow: auto;
+}
+
+/* ===== CSS-drawn classic Macintosh ===== */
+.mac {
+  position: relative;
+  width: 440px;
+  max-width: 100%;
+  background: linear-gradient(160deg, #ece6d6 0%, #ded7c3 45%, #cfc7b1 100%);
+  border-radius: 28px 28px 18px 18px;
+  padding: 26px 26px 0;
+  box-shadow:
+    inset 2px 2px 3px rgba(255, 255, 255, 0.7),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.22),
+    0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+/* recessed bezel around the CRT */
+.bezel {
+  background: linear-gradient(160deg, #c7bfa8, #b3ab93);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow:
+    inset 3px 3px 6px rgba(0, 0, 0, 0.35),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.45);
+}
+
+/* the screen itself = a tiny win98 desktop */
+.screen {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  background: #008080; /* classic teal desktop */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset 0 0 0 2px #06060a,
+    inset 0 0 22px rgba(0, 0, 0, 0.55);
+}
+
+/* CRT scanline + glare overlay */
+.screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.18) 50%),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.12), transparent 60%);
+  background-size: 100% 3px, 100% 100%;
+  z-index: 5;
+}
+
+/* brand chin under the screen */
+.chin {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 22px;
+}
+
+.brandGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand {
+  font-family: "Orbitron", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  color: #6f6750;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.rainbow {
+  width: 18px;
+  height: 22px;
+  border-radius: 3px;
+  background: linear-gradient(
+    #6ec5e9 0 16.6%, #4caf50 0 33.3%, #ffd54a 0 50%,
+    #ff9800 0 66.6%, #e5544b 0 83.3%, #9c5db0 0 100%
+  );
+  opacity: 0.85;
+}
+
+.slot {
+  width: 120px;
+  height: 7px;
+  border-radius: 4px;
+  background: linear-gradient(#9a927c, #b8b099);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== win98 desktop inside the screen ===== */
+.desktop {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  z-index: 2;
+}
+
+/* dim backdrop when a modal dialog is open — overlays the whole stage so the
+   dialog is never clipped by the small CRT screen */
+.modalLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+/* each window is centered (transform set inline, incl. cascade offset) */
+.windowSlot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(480px, calc(100% - 32px));
+  display: flex;
+  justify-content: center;
+}
+
+.windowSlot > .dialog {
+  width: 100%;
+}
+
+/* ===== shared 98 helpers (scoped to boot) ===== */
+.userList {
+  height: 88px;
+  margin: 8px 0;
+}
+
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  cursor: inherit;
+}
+
+.userRowSelected {
+  background: navy;
+  color: #fff;
+}
+
+.userIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+
+.userMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.userName {
+  font-weight: 700;
+}
+
+.userDesc {
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+.fieldRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.fieldRow label {
+  min-width: 64px;
+}
+
+.fieldRow input {
+  flex: 1;
+}
+
+.buttonRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+/* login has 4 buttons — let them shrink to text so they stay inside the window */
+.loginButtons button {
+  min-width: 0;
+  padding: 0 9px;
+}
+
+/* ===== dialog (New User / Settings) ===== */
+.dialog {
+  width: 100%;
+  max-width: 480px;
+}
+
+.dialogBody {
+  max-height: min(56vh, 360px);
+  overflow-y: auto;
+  background: #fff;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px grey,
+    inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
+  padding: 12px 14px;
+  margin: 8px 2px;
+}
+
+/* English keeps the 98.css pixel font; Korean has no glyphs there so it falls
+   back to Galmuri (a Korean pixel font). No antialiasing — stays crisp/pixel. */
+.dialogText,
+.markdown,
+.placeholderText {
+  font-family: "Pixelated MS Sans Serif", "Galmuri11", sans-serif;
+}
+
+.dialogText {
+  font-size: 11px;
+}
+
+/* markdown content inside the New User terms */
+.markdown {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #1a1a1a;
+  /* notice.md uses `color: var(--color-accent)` (lime) for @handles/#tags —
+     override the variable here so they render in a retro Win98 navy instead */
+  --color-accent: #000080;
+}
+
+.markdown h3 {
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+
+.markdown p {
+  margin: 6px 0;
+}
+
+.markdown hr {
+  border: none;
+  border-top: 1px solid #b9b9b9;
+  margin: 10px 0;
+}
+
+.markdown ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 6px 0;
+}
+
+.markdown a {
+  color: #00f;
+}
+
+.markdown details {
+  margin: 6px 0;
+  border: 1px dashed #b9b9b9;
+  padding: 6px 8px;
+}
+
+.markdown summary {
+  cursor: inherit;
+  font-weight: 700;
+}
+
+/* memo.md prompts live in fenced code blocks — wrap long lines so they don't
+   overflow the dialog */
+.markdown pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.markdown code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.placeholderText {
+  padding: 10px 4px;
+  font-size: 11px;
+}
+
+/* ===== Settings control-panel icons ===== */
+.iconGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 12px;
+  min-height: 96px;
+}
+
+.iconItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 76px;
+  padding: 8px 4px;
+  cursor: inherit;
+}
+
+.iconItem:focus,
+.iconItem:hover {
+  outline: 1px dotted #000;
+  outline-offset: -2px;
+}
+
+.iconImg {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.iconLabel {
+  font-size: 11px;
+  text-align: center;
+}
+
+/* ===== Memo per-section copy button ===== */
+.memoH3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.memoCopyBtn {
+  flex-shrink: 0;
+  /* 98.css button look comes from the bare element styling */
+}
+
+.memoCopyBtnDone {
+  font-weight: 700;
+}
+
+/* ===== Neighbors grid ===== */
+.neighborsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.neighborItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  cursor: inherit;
+}
+
+.neighborImg {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border: 1px solid #808080;
+}
+
+.neighborImgCrop {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #808080;
+}
+
+.neighborImgCropped {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: auto;
+}
+
+.neighborName {
+  width: 100%;
+  font-size: 11px;
+  font-weight: 700;
+  color: #000080;
+  text-align: center;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+/* ===== responsive ===== */
+@media (max-width: 520px) {
+  .stage {
+    padding: 0;
+    align-items: stretch;
+  }
+  .mac {
+    width: 100%;
+    border-radius: 0;
+    padding: 16px 14px 0;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .screen {
+    aspect-ratio: auto;
+    min-height: 60vh;
+  }
+}

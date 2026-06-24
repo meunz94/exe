@@ -15,7 +15,6 @@ export default function YoutubePlayer({ videos }: YoutubePlayerProps) {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.heading}>VIDEO</h3>
       <div className={styles.playerWrapper}>
         <iframe
           src={`https://www.youtube.com/embed/${video.videoId}`}

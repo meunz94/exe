@@ -29,7 +29,6 @@ export default function Gallery({ images }: GalleryProps) {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.heading}>GALLERY</h3>
       <div className={styles.masonry}>
         {images.map((img, idx) => (
           <div

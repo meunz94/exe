@@ -60,6 +60,12 @@ export default function AuPopup({ item, posts, loadingAuPostId, onPostClick, onC
     <div className={styles.overlay} data-dark-bg onClick={handleOverlayClick}>
       <div className={styles.popupScroll} onClick={handleScrollAreaClick}>
         <div className={styles.popup} data-light-bg>
+          <div className={styles.titleBar}>
+            <span className={styles.titleBarText}>{item.title}</span>
+            <div className="title-bar-controls">
+              <button aria-label="Close" onClick={onClose} />
+            </div>
+          </div>
           <div className={styles.hero} data-dark-bg>
             <div
               className={styles.heroBackground}
@@ -70,9 +76,6 @@ export default function AuPopup({ item, posts, loadingAuPostId, onPostClick, onC
               } : undefined}
             />
             <div className={styles.heroGradient} />
-            <button className={styles.closeButton} onClick={onClose}>
-              ✕
-            </button>
             <div className={styles.heroContent}>
               <div className={styles.tags}>
                 {item.tags.map((tag) => (
