@@ -1,7 +1,6 @@
 ### 연짱 <span style="color: var(--color-accent)">@myonlyoutlier</span>
-**-Dr. Vance** (@CherryMango) | CBC ONLY 이입 드림<br>
+**Dr. Vance** (@CherryMango) | CBC ONLY 이입 드림<br>
 - Dr. Vance<sup style="font-size: 0.55em; line-height: 0; vertical-align: super">변정원</sup> x Blanc<sup style="font-size: 0.55em; line-height: 0; vertical-align: super">김연수</sup> <span style="color: var(--color-accent)">#변연</span>
---
 
 ---
 
@@ -31,7 +30,7 @@
 - **@dxpn**　선우시안
 - **@eung9**　길티, 러브, 레기온, 록시, 제스테, 지젤, 타이탄
 - **@Meom_Meo**　매그넘, 에단
-- **@meowmoon** 단테, 마티스
+- **@meowmoon**　단테, 마티스
 - **@quack_04**　백호준
 - **@vlt_**　쿠가 히사야
 - **@yumgood**　할파스
