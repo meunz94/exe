@@ -1,6 +1,9 @@
 ### 연짱 <span style="color: var(--color-accent)">@myonlyoutlier</span>
-**ARCH Dr. Vance** | CBC ONLY 이입 드림<br>
+**MAIN | Dr. Vance** (@CherryMango) | CBC ONLY 이입 드림<br>
 - Dr. Vance<sup style="font-size: 0.55em; line-height: 0; vertical-align: super">변정원</sup> x Blanc<sup style="font-size: 0.55em; line-height: 0; vertical-align: super">김연수</sup> <span style="color: var(--color-accent)">#변연</span>
+
+**SUB | Julian Voss** (@hinya) | CBC OPEN 이입 드림<br>
+- Julian Voss<sup style="font-size: 0.55em; line-height: 0; vertical-align: super">줄리언 보스</sup> x Elisa Byrd<sup style="font-size: 0.55em; line-height: 0; vertical-align: super">엘리사 버드</sup> <span style="color: var(--color-accent)">#송버드</span>
 
 ---
 
@@ -10,21 +13,6 @@
 - ARCH 캐릭터 본명 언급 필터링 없음
 - NSFW 트윗 다수 + 짭ㄹ친, NTR, 성인미자 등의 민감 소재 언급 있음
 - R-15 이상의 이미지 및 텍스트 업로드 시 필터링 O
-
----
-
-**찍먹**
-- 찍먹 관련 로그는 별도 계정에서 업로드 중
-- 하기 리스트의 캐릭터는 해당 계정에서도 가끔 언급되는 캐릭터입니다.
-
-<details>
-<summary>언급 있는 캐릭터 (260620 update)</summary>
-
-- **@208x195**　바나비
-- **@hinya**　줄리언 보스
-- **@saradinpudding**　레이, 에단 위트모어
-
-</details>
 
 ---
 
@@ -45,10 +33,11 @@
 - **@dxpn**　선우시안
 - **@eung9**　길티, 러브, 레기온, 록시, 제스테, 지젤, 타이탄
 - **@Meom_Meo**　매그넘, 에단
-- **@_summer**　시릴
+- **@meowmoon** 단테, 마티스
 - **@quack_04**　백호준
 - **@vlt_**　쿠가 히사야
 - **@yumgood**　할파스
+- **@_summer**　시릴
 - **etc**　GIN
 
 </details>
