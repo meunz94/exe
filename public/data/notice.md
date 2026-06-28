@@ -4,6 +4,7 @@
 
 **SUB | Julian Voss** (@hinya) | CBC OPEN 이입 드림<br>
 - Julian Voss<sup style="font-size: 0.55em; line-height: 0; vertical-align: super">줄리언 보스</sup> x Elisa Byrd<sup style="font-size: 0.55em; line-height: 0; vertical-align: super">엘리사 버드</sup> <span style="color: var(--color-accent)">#송버드</span>
+- 해당 계정에서 서브 드림 언급 없습니다! 별도 계정에서 얘기하고 있어요.
 
 ---
 
