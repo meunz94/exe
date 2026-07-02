@@ -74,10 +74,8 @@
   },
   {
     "name": "恋せば千度死す",
-    "image": "data/neighbors/hayeon.jpg",
-    "url": "https://halphas.luv3r.me",
-    "crop": 35,
-    "cropPosition": 40
+    "image": "data/neighbors/halphas.jpeg",
+    "url": "https://halphas.one/"
   },
   {
     "name": "LSY ♥ CYJ",
@@ -163,5 +161,10 @@
     "name": "Eternity",
     "image": "data/neighbors/bana.jpg",
     "url": "https://cheonyeong.luv3r.me/"
+  },
+  {
+    "name": "헬리오스 본부 파산 위기",
+    "image": "data/neighbors/magnum.jpeg",
+    "url": "https://magnum-opus.luv3r.me/"
   }
 ]
