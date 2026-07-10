@@ -166,5 +166,10 @@
     "name": "헬리오스 본부 파산 위기",
     "image": "data/neighbors/magnum.jpeg",
     "url": "https://magnum-opus.luv3r.me/"
+  },
+  {
+    "name": "사랑한 영원",
+    "image": "data/neighbors/icarus.jpg",
+    "url": "https://eternixome.luv3r.me/"
   }
 ]
