@@ -137,5 +137,25 @@
     "name": "クズ男とバカ女",
     "image": "data/neighbors/carrion.jpg",
     "url": "https://carrion.luv3r.me/"
+  },
+  {
+    "name": "AN MEINEN CHAMPION",
+    "image": "data/neighbors/orbit.jpeg",
+    "url": "https://your-orbit.luv3r.me/"
+  },
+  {
+    "name": "Afebrile, but warm",
+    "image": "data/neighbors/dove.jpeg",
+    "url": "https://dove.luv3r.me/"
+  },
+  {
+    "name": "Where the System Ends",
+    "image": "data/neighbors/giselle.jpeg",
+    "url": "https://jaeha-log.luv3r.me/"
+  },
+  {
+    "name": "내 가치를 네가 찾아내줘",
+    "image": "data/neighbors/catch.jpeg",
+    "url": "https://anunbreakableorbit.luv3r.me/"
   }
 ]
