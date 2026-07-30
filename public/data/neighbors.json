@@ -157,5 +157,15 @@
     "name": "내 가치를 네가 찾아내줘",
     "image": "data/neighbors/catch.jpeg",
     "url": "https://anunbreakableorbit.luv3r.me/"
+  },
+  {
+    "name": "The one port in a tempest",
+    "image": "data/neighbors/still.jpeg",
+    "url": "https://still.luv3r.me/"
+  },
+  {
+    "name": "Red Promise",
+    "image": "data/neighbors/dive.jpeg",
+    "url": "https://inhyeok-hari.luv3r.me"
   }
 ]
