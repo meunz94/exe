@@ -22,6 +22,8 @@ interface Win98DesktopProps {
   fetchContent: (post: Post) => Promise<PostWithContent>;
   fetchAuContent: (post: AuPost) => Promise<AuPostWithContent>;
   onLogout: () => void;
+  /** hash route segment for this desktop ("main" | "guest") */
+  routeBase?: string;
 }
 
 interface OpenWindow {
@@ -53,6 +55,7 @@ export default function Win98Desktop({
   fetchContent,
   fetchAuContent,
   onLogout,
+  routeBase = "main",
 }: Win98DesktopProps) {
   useWin98Styles();
 
@@ -174,10 +177,10 @@ export default function Win98Desktop({
     async (post: Post) => {
       const withContent = await fetchContent(post);
       const n = (postSeqRef.current += 1);
-      window.history.pushState(null, "", `#/main/archive/${n}`);
+      window.history.pushState(null, "", `#/${routeBase}/archive/${n}`);
       setSelectedPost(withContent);
     },
-    [fetchContent]
+    [fetchContent, routeBase]
   );
 
   const closePost = useCallback(() => {
@@ -269,7 +272,7 @@ export default function Win98Desktop({
       {/* start menu */}
       {startOpen && (
         <div className={styles.startMenu} onPointerDown={(e) => e.stopPropagation()}>
-          <div className={styles.startBanner}>Limbic&nbsp;OS</div>
+          <div className={styles.startBanner}>Yeonzzang&nbsp;OS</div>
           <div className={styles.startItems}>
             {data.sidebarItems.map((item) => (
               <button key={item.id} className={styles.startItem} onClick={() => openItem(item)}>
@@ -280,7 +283,7 @@ export default function Win98Desktop({
             <div className={styles.startDivider} />
             <button className={styles.startItem} onClick={onLogout}>
               <img src={iconLogoff} alt="" className={styles.startItemIcon} />
-              <span>로그아웃</span>
+              <span>LOGOUT</span>
             </button>
           </div>
         </div>

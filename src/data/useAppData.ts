@@ -34,7 +34,7 @@ const EMPTY: AppData = {
   youtube: [],
 };
 
-export function useAppData() {
+export function useAppData(dbFile = "data/db.json") {
   const [data, setData] = useState<AppData>(EMPTY);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -43,8 +43,8 @@ export function useAppData() {
     let cancelled = false;
 
     Promise.all([
-      fetch(publicUrl("data/db.json")).then((r) => {
-        if (!r.ok) throw new Error(`db.json: HTTP ${r.status} (${publicUrl("data/db.json")})`);
+      fetch(publicUrl(dbFile)).then((r) => {
+        if (!r.ok) throw new Error(`${dbFile}: HTTP ${r.status} (${publicUrl(dbFile)})`);
         return r.json();
       }),
       fetch(publicUrl("data/playlist.json")).then((r) => {
@@ -108,7 +108,7 @@ export function useAppData() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [dbFile]);
 
   return { data, loading, error };
 }

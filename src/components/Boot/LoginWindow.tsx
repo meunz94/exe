@@ -42,7 +42,7 @@ export default function LoginWindow({
       </div>
 
       <div className="window-body">
-        <p style={{ marginBottom: 4 }}>Type a user name and password to log on.</p>
+        <p style={{ marginBottom: 4 }}>Please check [New User] before login.</p>
 
         <ul className={`sunken-panel ${styles.userList}`}>
           {USERS.map((u) => (

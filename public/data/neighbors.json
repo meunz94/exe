@@ -20,20 +20,6 @@
     "url": "https://wrench.luv3r.me/"
   },
   {
-    "name": "내가 이끌 것, 두 번째 별의 잔상",
-    "image": "data/neighbors/u-must.jpg",
-    "url": "https://u-must.luv3r.me",
-    "crop": 35,
-    "cropPosition": 40
-  },
-  {
-    "name": "il mio amore",
-    "image": "data/neighbors/mio-amore.jpg",
-    "url": "https://amoremio.luv3r.me",
-    "crop": 35,
-    "cropPosition": 45
-  },
-  {
     "name": "Protocol Genesis",
     "image": "data/neighbors/yana.jpg",
     "url": "https://yana.luv3r.me",
@@ -53,16 +39,6 @@
     "cropPosition": 25
   },
   {
-    "name": "Escape Reality!",
-    "image": "data/neighbors/reality.jpg",
-    "url": "https://replica.luv3r.me/"
-  },
-  {
-    "name": "melt away",
-    "image": "data/neighbors/melt.jpg",
-    "url": "https://meltaway.luv3r.me"
-  },
-  {
     "name": "The Thirsty Thorn",
     "image": "data/neighbors/TTT1.gif",
     "url": "https://major-code.tistory.com/"
@@ -71,11 +47,6 @@
     "name": "CROSS THE BORDER",
     "image": "data/neighbors/crosstheborder.png",
     "url": "https://clignitys.luv3r.me/"
-  },
-  {
-    "name": "恋せば千度死す",
-    "image": "data/neighbors/halphas.jpeg",
-    "url": "https://halphas.one/"
   },
   {
     "name": "LSY ♥ CYJ",
@@ -100,7 +71,7 @@
   {
     "name": "반대가 끌리는 이유",
     "image": "data/neighbors/electricwavy.jpg",
-    "url": "https://elecwavy.luv3r.me"
+    "url": "https://silentwavy.tistory.com/"
   },
   {
     "name": "FR## FALL",
@@ -121,11 +92,6 @@
     "name": "The Vampire Hunt",
     "image": "data/neighbors/bih.jpg",
     "url": "https://dox1n.luv3r.me/"
-  },
-  {
-    "name": "나의 다정한 파괴자에게",
-    "image": "data/neighbors/guilty.png",
-    "url": "https://boy-meets-girl.tistory.com/3"
   },
   {
     "name": "표류漂流",
@@ -158,11 +124,6 @@
     "url": "https://personya.me/ash0829/"
   },
   {
-    "name": "Eternity",
-    "image": "data/neighbors/bana.jpg",
-    "url": "https://cheonyeong.luv3r.me/"
-  },
-  {
     "name": "헬리오스 본부 파산 위기",
     "image": "data/neighbors/magnum.jpeg",
     "url": "https://magnum-opus.luv3r.me/"
@@ -171,5 +132,10 @@
     "name": "사랑한 영원",
     "image": "data/neighbors/icarus.jpg",
     "url": "https://eternixome.luv3r.me/"
+  },
+  {
+    "name": "クズ男とバカ女",
+    "image": "data/neighbors/carrion.jpg",
+    "url": "https://carrion.luv3r.me/"
   }
 ]

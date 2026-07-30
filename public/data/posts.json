@@ -1,6 +1,36 @@
 {
   "posts": [
     {
+      "id": "1",
+      "title": "OOC: 샘플 잡담",
+      "date": "2026-07-03",
+      "preview": "OOC 게시판의 더미 게시글입니다.",
+      "imageUrl": "",
+      "category": "G1",
+      "boardId": "G1-OOC",
+      "contentPath": "posts/G1/OOC/1.md"
+    },
+    {
+      "id": "1",
+      "title": "샘플 스토리 02 로그 01",
+      "date": "2026-07-02",
+      "preview": "두 번째 폴더의 더미 게시글입니다.",
+      "imageUrl": "",
+      "category": "G2",
+      "boardId": "G2-LOG",
+      "contentPath": "posts/G2/LOG/1.md"
+    },
+    {
+      "id": "1",
+      "title": "샘플 로그 01",
+      "date": "2026-07-01",
+      "preview": "게시글 미리보기가 들어가는 자리입니다.",
+      "imageUrl": "",
+      "category": "G1",
+      "boardId": "G1-LOG",
+      "contentPath": "posts/G1/LOG/1.md"
+    },
+    {
       "id": "11",
       "title": "OOC: PC, 카베시리 당하다...",
       "date": "2026-04-07",
@@ -162,6 +192,21 @@
     }
   ],
   "boards": [
+    {
+      "id": "G1-LOG",
+      "name": "LOG",
+      "category": "G1"
+    },
+    {
+      "id": "G1-OOC",
+      "name": "OOC",
+      "category": "G1"
+    },
+    {
+      "id": "G2-LOG",
+      "name": "LOG",
+      "category": "G2"
+    },
     {
       "id": "VB-LOG",
       "name": "LOG",

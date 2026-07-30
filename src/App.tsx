@@ -31,7 +31,7 @@ export default function App() {
   }
 
   if (authUser === "guest") {
-    return <GuestPage />;
+    return <GuestPage onLogout={() => setAuthUser(null)} />;
   }
 
   if (loading) {
