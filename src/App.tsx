@@ -42,10 +42,10 @@ export default function App() {
 
   // Reflect the current screen in the URL so each one is distinct in history.
   useEffect(() => {
-    const hash =
-      screen === "site" ? "#/main" : screen === "boot" || screen === "flood" ? "#/" : `#/${screen}`;
-    if (!window.location.hash.startsWith(hash)) {
-      window.history.replaceState(null, "", hash);
+    const path =
+      screen === "site" ? "/main" : screen === "boot" || screen === "flood" ? "/" : `/${screen}`;
+    if (!window.location.pathname.startsWith(path)) {
+      window.history.replaceState(null, "", path);
     }
   }, [screen]);
 

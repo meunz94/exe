@@ -35,13 +35,19 @@
   left: 50%;
   width: max(100vw, calc(100dvh * var(--scene-w) / var(--scene-h)));
   aspect-ratio: var(--scene-w) / var(--scene-h);
-  translate: -50% -50%;
+
+  /* Centring is folded into `transform` rather than using the standalone
+     `translate` property. Per spec the two compose, but CSS minifiers see a
+     later `transform` in the same rule and drop the `translate` as redundant —
+     which silently un-centred the whole scene in production builds. Keeping it
+     in a variable means every zoom state below reuses the same offset. */
+  --center: translate(-50%, -50%);
 
   /* The camera. Origin is the centre of the glass so every zoom stays framed
      on the monitor. */
   transform-origin: calc(var(--glass-left) + var(--glass-width) / 2)
     calc(var(--glass-top) + var(--glass-height) / 2);
-  transform: scale(1);
+  transform: var(--center) scale(1);
   transition: transform 1200ms cubic-bezier(0.22, 1, 0.28, 1), filter 900ms ease;
   will-change: transform;
 }
@@ -51,12 +57,12 @@
    viewports — where "cover" has already cropped in hard — don't over-magnify. */
 .warming .scene,
 .on .scene {
-  transform: scale(var(--zoom, 1.6));
+  transform: var(--center) scale(var(--zoom, 1.6));
 }
 
 /* …and all the way through the glass on the way out. */
 .entering .scene {
-  transform: scale(9);
+  transform: var(--center) scale(9);
   filter: brightness(1.5) blur(3px);
   transition: transform 800ms cubic-bezier(0.6, 0, 0.75, 0), filter 800ms ease;
 }
@@ -260,7 +266,7 @@
   }
 
   .warming .warmup { animation: none; }
-  .entering .scene { transform: scale(var(--zoom, 1.6)); filter: none; }
+  .entering .scene { transform: var(--center) scale(var(--zoom, 1.6)); filter: none; }
   .promptDot, .prompt { animation: none; }
 }
 

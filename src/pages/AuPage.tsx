@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import type { AuItem, AuPost } from "../types";
-import type { Route } from "../utils/hashRouter";
+import type { Route } from "../utils/routes";
 import AuPopup from "../components/AuPopup/AuPopup";
 import { publicUrl } from "../utils/publicUrl";
 import styles from "./AuPage.module.css";

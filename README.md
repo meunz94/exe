@@ -176,6 +176,25 @@ npm run boot-scene -- src/assets/새이미지.png
 > 엔트리는 창이 아니라 페이지다. 남은 건 부팅 화면의 레트로 커서
 > ([`useRetroCursors.ts`](src/components/Boot/useRetroCursors.ts))뿐.
 
+### 주의: 표준 `translate`/`scale`/`rotate` 속성
+
+`transform` 과 **같은 룰 안에서** 표준 속성(`translate:` 등)을 쓰지 말 것.
+명세상 둘은 합성되지만, CSS 미니파이어는 뒤에 오는 `transform` 이 덮어쓴다고 보고
+표준 속성을 **통째로 삭제한다.** dev 에서는 정상이고 프로덕션 빌드에서만 깨진다.
+
+실제로 이 문제로 `.scene` 의 `translate: -50% -50%` 가 배포본에서 사라져
+첫 화면 전체가 우하단으로 밀렸다. 지금은 `--center` 변수로 `transform` 안에 넣어둔다.
+
+```css
+/* 위험 — 프로덕션에서 translate 가 사라진다 */
+.x { translate: -50% -50%; transform: scale(1); }
+
+/* 안전 */
+.x { --center: translate(-50%, -50%); transform: var(--center) scale(1); }
+```
+
+`transform` 이 없는 룰이면 표준 속성 단독 사용은 안전하다 (`.glow`, `.prompt` 등).
+
 ## 디자인 시스템
 
 전역 팔레트·타이포 토큰은 [`src/styles/tokens.css`](src/styles/tokens.css) 한 곳에 있다.

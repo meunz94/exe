@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import type { AuItem, AuPost, AuPostWithContent } from "../../types";
-import type { Route } from "../../utils/hashRouter";
+import type { Route } from "../../utils/routes";
 import AuPage from "../AuPage";
 import PostReader from "./PostReader";
 import styles from "../EntryPage.module.css";
@@ -18,7 +18,7 @@ interface AuEntryProps {
  * the four-section split — it's a browsable set of universes, not one story's
  * material.
  *
- * AuPage was written against the hash router, so it gets a local route adapter:
+ * AuPage was written against the old router, so it gets a local route adapter:
  * navigation stays inside this component instead of touching the global URL.
  */
 export default function AuEntry({

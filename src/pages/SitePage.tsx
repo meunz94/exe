@@ -60,9 +60,9 @@ export default function SitePage({
   // owns its own `overflow-y: auto` and manages the class itself.
 
   useEffect(() => {
-    const hash = entry ? `#/main/${entry.category.toLowerCase()}` : "#/main";
-    if (window.location.hash !== hash) {
-      window.history.replaceState(null, "", hash);
+    const path = entry ? `/main/${entry.category.toLowerCase()}` : "/main";
+    if (window.location.pathname !== path) {
+      window.history.replaceState(null, "", path);
     }
   }, [entry]);
 
