@@ -1,0 +1,170 @@
+/* ---------------------------------------------------------------------------
+ * Design tokens — dark CRT palette.
+ *
+ * Two layers live here:
+ *   1. `--px-*`  raw palette + type scale. Never referenced by components
+ *                directly; they exist so the semantic layer below (and the
+ *                section colour-inversion classes) have one source of truth.
+ *   2. `--color-*` semantic aliases that the existing component CSS modules
+ *                already consume. Remapping these re-skins the whole site
+ *                without touching each module.
+ *
+ * Colour inversion: a `.sectionRed` / `.sectionBlue` / … wrapper swaps
+ * `--background` and `--color`. Anything inside reads
+ * `var(--background, var(--px-bg))`, so nested elements follow automatically.
+ * ------------------------------------------------------------------------- */
+
+:root {
+  /* ---- raw palette ---- */
+  --px-bg: #1a1a1a;
+  --px-primary: #bababa;
+  --px-black: #111;
+  --px-lightgrey: #71737d;
+  --px-red: #ff001a;
+  --px-blue: #03049c;
+  --px-green: #0f0;
+  --px-lightblue: #9fe4f3;
+  --px-cream: #bab5a6;
+  --px-pink: #a7849d;
+
+  --px-border: 1px solid hsla(0, 0%, 100%, 0.7);
+  --px-border-fade: 1px solid hsla(0, 0%, 100%, 0.5);
+  --px-rule: hsla(0, 0%, 100%, 0.22);
+
+  /* ---- grid ---- */
+  --px-columns: 20;
+  --px-size: calc(100vw / var(--px-columns));
+  --px-gutter: 3vw;
+
+  /* ---- type ---- */
+  --font-display: "Big Shoulders Display", "Oswald", "Arial Narrow",
+    sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", "SFMono-Regular", Consolas,
+    monospace;
+  --font-body: "Pretendard", "Apple SD Gothic Neo", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-pixel: "Pixelated MS Sans Serif", "Galmuri11", sans-serif;
+
+  /* Inversion defaults. Section classes override these. */
+  --background: var(--px-bg);
+  --color: var(--px-primary);
+}
+
+/* ---------------------------------------------------------------------------
+ * Semantic aliases — consumed by the existing component CSS modules.
+ * ------------------------------------------------------------------------- */
+
+:root {
+  --color-bg: var(--px-bg);
+  --color-surface: #202020;
+  --color-surface-secondary: #242424;
+  --color-surface-tertiary: #1d1d1d;
+  --color-surface-hover: #2c2c2c;
+
+  --color-text-primary: var(--px-primary);
+  --color-text-secondary: #8d8d8d;
+  --color-text-muted: var(--px-lightgrey);
+
+  --color-accent: var(--px-red);
+  --color-accent-light: #2a0f12;
+
+  --color-border: #3a3a3a;
+  --color-divider: #2b2b2b;
+  --color-overlay: rgba(10, 10, 10, 0.88);
+
+  --color-placeholder: #2a2a2a;
+  --color-hero-bg: #232323;
+  --color-subtitle-bg: var(--px-red);
+  --color-tag-bg: #262626;
+  --color-tag-bg-hover: #333333;
+  --color-btn-bg: #262626;
+  --color-btn-bg-hover: #333333;
+  --color-status-bar: #161616;
+  --color-title-bar-start: #1f1f1f;
+  --color-title-bar-end: #171717;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.65);
+  --shadow-lg: 0 12px 44px rgba(0, 0, 0, 0.75);
+
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease;
+
+  --sidebar-width: 52px;
+
+  /* Easing borrowed from the reference site's expo-out feel. */
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* ---------------------------------------------------------------------------
+ * Colour-inversion section classes.
+ * ------------------------------------------------------------------------- */
+
+.sectionDefault {
+  --background: var(--px-bg);
+  --color: var(--px-primary);
+}
+.sectionBlack {
+  --background: var(--px-black);
+  --color: var(--px-primary);
+}
+.sectionRed {
+  --background: var(--px-red);
+  --color: #ffffff;
+}
+.sectionBlue {
+  --background: var(--px-blue);
+  --color: var(--px-primary);
+}
+.sectionCream {
+  --background: var(--px-cream);
+  --color: var(--px-black);
+}
+.sectionLightgrey {
+  --background: var(--px-lightgrey);
+  --color: var(--px-black);
+}
+
+.sectionDefault,
+.sectionBlack,
+.sectionRed,
+.sectionBlue,
+.sectionCream,
+.sectionLightgrey {
+  background-color: var(--background);
+  color: var(--color);
+}
+
+/* ---------------------------------------------------------------------------
+ * Shared display / mono type helpers.
+ * ------------------------------------------------------------------------- */
+
+.pxDisplay {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.pxMono {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 1ms;
+    --transition-normal: 1ms;
+    --transition-slow: 1ms;
+  }
+}

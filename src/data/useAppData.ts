@@ -34,7 +34,34 @@ const EMPTY: AppData = {
   youtube: [],
 };
 
-export function useAppData(dbFile = "data/db.json") {
+/**
+ * Account databases, merged into one dataset.
+ *
+ * These used to be separate logins (vance / guest) rendering separate
+ * desktops. They're now one continuous page, so their entries are simply
+ * concatenated — the shared files (posts, gallery, timeline, playlist) already
+ * tag every row with its category, so the existing per-category filtering does
+ * the rest without changes.
+ *
+ * Later files win on scalar fields; array fields are appended in order.
+ */
+const DB_FILES = ["data/db.json", "data/guest.json"];
+
+type RawDb = Partial<AppData> & Record<string, unknown>;
+
+function mergeDbs(dbs: RawDb[]): RawDb {
+  return dbs.reduce<RawDb>((acc, db) => {
+    for (const [key, value] of Object.entries(db)) {
+      const existing = acc[key];
+      acc[key] = Array.isArray(value)
+        ? [...(Array.isArray(existing) ? existing : []), ...value]
+        : value;
+    }
+    return acc;
+  }, {});
+}
+
+export function useAppData() {
   const [data, setData] = useState<AppData>(EMPTY);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -43,10 +70,20 @@ export function useAppData(dbFile = "data/db.json") {
     let cancelled = false;
 
     Promise.all([
-      fetch(publicUrl(dbFile)).then((r) => {
-        if (!r.ok) throw new Error(`${dbFile}: HTTP ${r.status} (${publicUrl(dbFile)})`);
-        return r.json();
-      }),
+      Promise.all(
+        DB_FILES.map((file) =>
+          fetch(publicUrl(file)).then((r) => {
+            if (!r.ok) throw new Error(`${file}: HTTP ${r.status} (${publicUrl(file)})`);
+            return r.json() as Promise<RawDb>;
+          })
+        )
+      ).then(mergeDbs),
+      // 노션 동기화 산출물. 파일이 있으면 (scripts/notion-sync.mjs 가 생성)
+      // 담고 있는 키(notices 등)가 계정 파일의 같은 키를 통째로 대체한다.
+      // 아직 동기화 전이라 파일이 없으면 조용히 무시.
+      fetch(publicUrl("data/notion.json"))
+        .then((r) => (r.ok ? (r.json() as Promise<RawDb>) : {}))
+        .catch(() => ({} as RawDb)),
       fetch(publicUrl("data/playlist.json")).then((r) => {
         if (!r.ok) throw new Error(`playlist.json: HTTP ${r.status} (${publicUrl("data/playlist.json")})`);
         return r.json() as Promise<PlaylistItem[]>;
@@ -72,7 +109,7 @@ export function useAppData(dbFile = "data/db.json") {
         return r.json() as Promise<Record<string, AuGalleryImage[]>>;
       }),
     ])
-      .then(([db, playlist, timeline, postsData, auPostsData, galleryData, auGalleryData]) => {
+      .then(([db, notionDb, playlist, timeline, postsData, auPostsData, galleryData, auGalleryData]) => {
         if (!cancelled) {
           const auWithGallery: AuItem[] = (db.au ?? []).map((item: AuItem) => ({
             ...item,
@@ -80,7 +117,11 @@ export function useAppData(dbFile = "data/db.json") {
           }));
 
           setData({
+            // EMPTY first: the account files only carry the keys they use, so
+            // this fills in whatever either of them omitted.
+            ...EMPTY,
             ...db,
+            ...notionDb,
             au: auWithGallery,
             playlist,
             timeline,
@@ -108,7 +149,7 @@ export function useAppData(dbFile = "data/db.json") {
     return () => {
       cancelled = true;
     };
-  }, [dbFile]);
+  }, []);
 
   return { data, loading, error };
 }

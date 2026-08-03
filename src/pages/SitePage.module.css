@@ -1,0 +1,26 @@
+/* Return path to the boot desk, parked out of the way on the index. */
+.deskButton {
+  position: fixed;
+  right: var(--px-gutter);
+  bottom: calc(2vh + 1rem);
+  z-index: 30;
+  padding: 0.62em 1.15em;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: var(--px-bg);
+  color: var(--px-primary);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast), background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.deskButton:hover {
+  opacity: 1;
+  background: var(--px-primary);
+  color: var(--px-bg);
+}

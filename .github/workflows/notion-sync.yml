@@ -1,0 +1,63 @@
+# 노션 → repo 콘텐츠 동기화.
+#
+# 트리거:
+#   - repository_dispatch(notion-sync): 노션 버튼 → 웹훅 프록시가 호출 (docs/NOTION.md)
+#   - workflow_dispatch: GitHub Actions 탭에서 수동 실행
+#   - schedule: 주기 동기화를 원하면 아래 주석을 해제
+#
+# 변경분을 커밋한 뒤 deploy-pages.yml 을 직접 dispatch 한다.
+# (GITHUB_TOKEN 으로 만든 push 는 다른 워크플로우를 트리거하지 않기 때문)
+name: Sync content from Notion
+
+on:
+  repository_dispatch:
+    types: [notion-sync]
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "0 */6 * * *"
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: notion-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Sync from Notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: node scripts/notion-sync.mjs
+
+      - name: Commit changes
+        id: commit
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "chore: sync content from Notion"
+            git pull --rebase origin main
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "변경 사항 없음"
+          fi
+
+      # 스케줄 실행은 변경이 있을 때만, 버튼/수동 실행은 항상 배포한다.
+      - name: Trigger deploy
+        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-pages.yml --ref main --repo "$GITHUB_REPOSITORY"

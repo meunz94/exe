@@ -1,0 +1,211 @@
+/* ---------------------------------------------------------------------------
+ * Full-screen terminal readout used as a page transition.
+ *
+ * Two skins over one mechanism:
+ *   amber — an "identity protocol" handshake, used going into info / prompt
+ *   green — a boot log, used going into the site itself
+ * ------------------------------------------------------------------------- */
+
+.flood {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  overflow: hidden;
+  padding: clamp(20px, 4vw, 64px) clamp(18px, 5vw, 90px);
+  background: #050505;
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 0.92vw, 15px);
+  line-height: 1.75;
+  letter-spacing: 0.04em;
+  animation: floodIn 180ms ease both;
+}
+
+.leaving {
+  animation: floodOut 320ms ease both;
+}
+
+@keyframes floodIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes floodOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* --- skins ----------------------------------------------------------------- */
+
+.amber {
+  --ink: #d99a2b;
+  --ink-dim: rgba(217, 154, 43, 0.55);
+  --ink-hot: #ffd479;
+  --glowc: rgba(217, 154, 43, 0.16);
+}
+
+.green {
+  --ink: #3ce07b;
+  --ink-dim: rgba(150, 160, 155, 0.6);
+  --ink-hot: #b6ffd0;
+  --glowc: rgba(60, 224, 123, 0.14);
+}
+
+.flood {
+  color: var(--ink);
+}
+
+/* --- phosphor treatment ---------------------------------------------------- */
+
+.flood::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.28) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+.flood::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(ellipse 46% 44% at 50% 46%, var(--glowc) 0%, transparent 72%);
+}
+
+/* --- header ---------------------------------------------------------------- */
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+  padding-bottom: 0.7em;
+  margin-bottom: 1.4em;
+  border-bottom: 1px solid var(--ink-dim);
+  color: var(--ink-dim);
+  text-transform: uppercase;
+}
+
+.headCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+}
+
+.headRight {
+  text-align: right;
+}
+
+.headVal {
+  color: var(--ink);
+}
+
+/* --- lines ----------------------------------------------------------------- */
+
+.body {
+  position: relative;
+  z-index: 1;
+  white-space: pre-wrap;
+}
+
+.line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  /* each line is revealed by JS appending it; this is the per-line entrance */
+  animation: lineIn 160ms ease both;
+}
+
+@keyframes lineIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lineText {
+  color: var(--ink);
+}
+
+.dim {
+  color: var(--ink-dim);
+}
+
+.rule {
+  flex: 1;
+  border-bottom: 1px dotted var(--ink-dim);
+  transform: translateY(-0.25em);
+}
+
+/* bracketed status tag at the end of a line */
+.tag {
+  color: var(--ink-hot);
+  white-space: nowrap;
+}
+
+.hr {
+  height: 1px;
+  margin: 0.9em 0;
+  background: var(--ink-dim);
+}
+
+.big {
+  font-size: 1.9em;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  color: var(--ink-hot);
+  text-transform: uppercase;
+}
+
+.caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  translate: 0 0.18em;
+  background: var(--ink);
+  animation: caretBlink 1s steps(1) infinite;
+}
+
+@keyframes caretBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* --- skip ------------------------------------------------------------------ */
+
+.skip {
+  position: absolute;
+  z-index: 4;
+  right: clamp(18px, 5vw, 90px);
+  bottom: clamp(18px, 4vw, 56px);
+  padding: 0.5em 1.1em;
+  border: 1px solid var(--ink-dim);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-dim);
+  font: inherit;
+  font-size: 0.85em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.skip:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flood,
+  .line {
+    animation-duration: 1ms;
+  }
+
+  .caret {
+    animation: none;
+  }
+}

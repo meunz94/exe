@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# generated gallery thumbnails (rebuilt by scripts/generate-gallery.mjs)
+public/images/thumbs

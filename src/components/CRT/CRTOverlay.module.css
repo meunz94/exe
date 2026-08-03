@@ -1,0 +1,189 @@
+/* ---------------------------------------------------------------------------
+ * Four stacked fixed layers that sit above everything and swallow no clicks.
+ * All textures are generated (SVG feTurbulence / gradients) rather than
+ * shipped as images, so there are no binary assets to keep in sync.
+ * ------------------------------------------------------------------------- */
+
+.root {
+  pointer-events: none;
+}
+
+/* --- 1. drifting film grain ------------------------------------------------
+   Oversized and translated around so the tile seam never enters the viewport. */
+.noise {
+  position: fixed;
+  top: -10rem;
+  left: -10rem;
+  width: calc(100% + 20rem);
+  height: calc(100% + 20rem);
+  z-index: 9000;
+  pointer-events: none;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+  background-repeat: repeat;
+  background-size: 220px 220px;
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'>\
+<filter id='n'>\
+<feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/>\
+<feColorMatrix type='saturate' values='0'/>\
+</filter>\
+<rect width='220' height='220' filter='url(%23n)'/>\
+</svg>");
+  animation: grainDrift 0.5s steps(1) infinite;
+}
+
+@keyframes grainDrift {
+  0%   { transform: translate3d(0, 9rem, 0); }
+  10%  { transform: translate3d(-1rem, -4rem, 0); }
+  20%  { transform: translate3d(-8rem, 2rem, 0); }
+  30%  { transform: translate3d(9rem, -9rem, 0); }
+  40%  { transform: translate3d(-2rem, 7rem, 0); }
+  50%  { transform: translate3d(-9rem, -4rem, 0); }
+  60%  { transform: translate3d(2rem, 6rem, 0); }
+  70%  { transform: translate3d(7rem, -8rem, 0); }
+  80%  { transform: translate3d(-9rem, 1rem, 0); }
+  90%  { transform: translate3d(6rem, -5rem, 0); }
+  100% { transform: translate3d(-7rem, 0, 0); }
+}
+
+/* --- 2. scanlines ----------------------------------------------------------
+   `::before` is the single bright sweep travelling up the screen,
+   `::after` is the static horizontal line grid. */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9001;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.scanlines::before,
+.scanlines::after {
+  content: "";
+  display: block;
+  position: absolute;
+  pointer-events: none;
+}
+
+.scanlines::before {
+  left: 0;
+  width: 100%;
+  height: clamp(2px, 0.1vw, 3px);
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0.8;
+  transform: translate3d(0, -10vh, 0);
+  will-change: transform;
+  animation: scanSweep 8s linear infinite;
+}
+
+.scanlines::after {
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 50%,
+    rgba(0, 0, 0, 0.3) 51%
+  );
+  background-size: 100% 0.4vw;
+  animation: scanFlicker 1s steps(60) infinite;
+}
+
+@keyframes scanSweep {
+  0%   { transform: translate3d(0, 110vh, 0); }
+  100% { transform: translate3d(0, -200vh, 0); }
+}
+
+@keyframes scanFlicker {
+  0% { background-position: 0 50%; }
+}
+
+/* --- 3. gloom — a whisper of defocus over the whole panel ------------------ */
+.gloom {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9002;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.gloom::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* --- 4. vignette + tube curvature ------------------------------------------
+   Two radial gradients: a soft corner falloff and a tighter edge burn that
+   fakes the glass bulge of a CRT bezel. */
+.vignette {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 9003;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.7;
+  background:
+    radial-gradient(
+      ellipse 78% 74% at 50% 50%,
+      transparent 42%,
+      rgba(0, 0, 0, 0.35) 78%,
+      rgba(0, 0, 0, 0.82) 100%
+    ),
+    radial-gradient(
+      ellipse 120% 108% at 50% 50%,
+      transparent 68%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+}
+
+/* ---------------------------------------------------------------------------
+ * Cheaper on small screens: the grain animation is the most expensive layer
+ * and reads as noise-on-noise at phone DPI.
+ * ------------------------------------------------------------------------- */
+@media screen and (max-width: 600px) {
+  .noise {
+    display: none;
+  }
+
+  .scanlines::before {
+    opacity: 0.5;
+  }
+
+  .scanlines::after {
+    background-size: 100% 0.4vh;
+  }
+
+  .gloom::before {
+    opacity: 0.2;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .noise,
+  .scanlines::before,
+  .scanlines::after {
+    animation: none;
+  }
+
+  .scanlines::before {
+    display: none;
+  }
+}

@@ -24,14 +24,14 @@
   margin: 0;
   font-size: 18px;
   font-weight: 700;
-  color: #000;
+  color: var(--px-primary);
   letter-spacing: 1px;
 }
 
 .subtitle {
   margin: 0;
   font-size: 11px;
-  color: #404040;
+  color: #8d8d8d;
 }
 
 /* ===== tag filter ===== */
@@ -41,8 +41,8 @@
   gap: 4px;
   margin-bottom: 12px;
   padding: 6px;
-  background: #c0c0c0;
-  box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #808080;
+  background: rgb(43, 43, 43);
+  box-shadow: inset -1px -1px rgb(90, 90, 90), inset 1px 1px grey, inset -2px -2px rgb(66, 66, 66), inset 2px 2px rgb(20, 20, 20);
 }
 
 .filterBtn,
@@ -53,7 +53,7 @@
 }
 
 .filterBtnActive {
-  box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
+  box-shadow: inset -1px -1px rgb(90, 90, 90), inset 1px 1px grey, inset -2px -2px rgb(66, 66, 66), inset 2px 2px rgb(5, 5, 5);
   font-weight: 700;
 }
 
@@ -67,14 +67,14 @@
 .card {
   display: flex;
   flex-direction: column;
-  background: #c0c0c0;
-  box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+  background: rgb(43, 43, 43);
+  box-shadow: inset -1px -1px rgb(5, 5, 5), inset 1px 1px rgb(90, 90, 90), inset -2px -2px grey, inset 2px 2px rgb(66, 66, 66);
   padding: 4px;
   cursor: inherit;
 }
 
 .card:hover {
-  outline: 1px dotted #000080;
+  outline: 1px dotted rgb(3, 4, 156);
   outline-offset: -1px;
 }
 
@@ -83,7 +83,7 @@
   aspect-ratio: 4 / 3;
   overflow: hidden;
   background: #000;
-  box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #808080;
+  box-shadow: inset -1px -1px rgb(90, 90, 90), inset 1px 1px grey, inset -2px -2px rgb(66, 66, 66), inset 2px 2px rgb(20, 20, 20);
 }
 
 .cardImage img {
@@ -114,7 +114,7 @@
   font-size: 9px;
   font-weight: 700;
   color: #fff;
-  background: #a40000;
+  background: #8c1420;
 }
 
 .cardBody {
@@ -125,7 +125,7 @@
   margin: 0 0 3px;
   font-size: 11px;
   font-weight: 700;
-  color: #000;
+  color: var(--px-primary);
 }
 
 .cardDesc {
@@ -133,7 +133,7 @@
   font-size: 10px;
   line-height: 1.6;
   font-family: "Pixelated MS Sans Serif", "Galmuri9", sans-serif;
-  color: #404040;
+  color: #8d8d8d;
 }
 
 .tags {
@@ -147,14 +147,14 @@
   padding: 1px 6px;
   font-size: 9px;
   font-family: "Pixelated MS Sans Serif", "Galmuri9", sans-serif;
-  color: #000;
-  background: #c0c0c0;
-  box-shadow: inset -1px -1px #808080, inset 1px 1px #fff;
+  color: var(--px-primary);
+  background: rgb(43, 43, 43);
+  box-shadow: inset -1px -1px rgb(20, 20, 20), inset 1px 1px rgb(90, 90, 90);
 }
 
 .tagHighlight {
   color: #fff;
-  background: #000080;
+  background: rgb(3, 4, 156);
   box-shadow: none;
 }
 
@@ -162,5 +162,5 @@
   padding: 30px 10px;
   text-align: center;
   font-size: 11px;
-  color: #808080;
+  color: #6f6f6f;
 }

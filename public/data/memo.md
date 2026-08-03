@@ -2,14 +2,18 @@
 - adult, v-shaped eyebrows는 제 그림체에 맞게 가중치가 들어간 부분들이 있어서 적당히 프롬프트 가감해주셔도 됩니다! >///<
 
 ### VANCE
+
 ```
 male, mature, adult, aged up, cool, dark green khaki hair, clean cut, short hair, center certained bang, black eyebrows, thin eyebrows, -1::v-shaped eyebrows::, gray eyes, tsurime, sharp eyes, thin eyes, thin silver metal glasses, broad shoulders,
 
 black turtleneck, white lab coat, white pants,
 expressionless,
 ```
+
 ---
+
 ### BLANC
+
 ```
 girl, female, adult, slender, small breast, jet-black hair, curved bob cut, choppy cut, 0.2::messy hair::, see-through bangs, thin eyebrows, -0.2::v-shaped eyebrows::, navy blue eyes, tsurime, mischeif, cute face,
 

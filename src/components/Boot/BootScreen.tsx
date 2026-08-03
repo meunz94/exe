@@ -1,95 +1,183 @@
-import { useEffect, useState, useCallback } from "react";
-import LoginWindow from "./LoginWindow";
-import NewUserDialog from "./NewUserDialog";
-import SettingsDialog from "./SettingsDialog";
-import MemoDialog from "./MemoDialog";
-import NeighborsDialog from "./NeighborsDialog";
-import { useWin98Styles } from "./useWin98Styles";
+import { useEffect, useState, useCallback, useRef } from "react";
+import GlassDesktop, { type GlassTarget } from "./GlassDesktop";
+import { useRetroCursors } from "./useRetroCursors";
+import deskScene from "../../assets/boot-desk.webp";
 import styles from "./BootScreen.module.css";
 
-export type AuthUser = "vance" | "guest";
+/**
+ * off      — the desk is dark; the monitor's glass is empty
+ * warming  — CRT strike: a hot line blooms open into a full raster
+ * on       — the scene has pushed in on the monitor; icons are usable
+ * entering — LOVE was picked; the camera dives into the glass
+ */
+type Power = "off" | "warming" | "on" | "entering";
 
-type WinId = "newUser" | "settings" | "memo" | "neighbors";
+const WARMUP_MS = 700;
+/** Matches the dive transition in BootScreen.module.css. */
+const ENTER_MS = 800;
 
-interface BootScreenProps {
-  onLogin: (user: AuthUser) => void;
+/**
+ * The glass desktop is laid out in `em`, so one number drives its whole scale.
+ * The icon row measures ~16.4em wide; dividing the glass by 18 leaves a margin
+ * either side at every viewport size.
+ */
+const GLASS_EM_DIVISOR = 18;
+
+/** The glass is this fraction of the scene's width (measured off the photo). */
+const GLASS_FRACTION = 0.18242;
+
+/**
+ * How wide we want the glass to end up on screen. Everything else follows:
+ * the push-in is whatever zoom hits this, and the desktop is then scaled to
+ * fill it. Hardcoding a zoom instead would over-magnify narrow viewports,
+ * where "cover" has already cropped in hard.
+ */
+function targetGlassWidth() {
+  const byWidth = window.innerWidth * 0.46;
+  const byHeight = window.innerHeight * 0.62;
+  return Math.max(272, Math.min(byWidth, byHeight, 520));
 }
 
-export default function BootScreen({ onLogin }: BootScreenProps) {
-  const [selected, setSelected] = useState<AuthUser>("vance");
-  const [stack, setStack] = useState<WinId[]>([]);
+interface BootScreenProps {
+  /** Fired after the dive-in completes (LOVE). */
+  onEnter: () => void;
+  /** Fired immediately on click (info / prompt) — caller plays the transition. */
+  onOpenDoc: (target: "info" | "prompt") => void;
+  /**
+   * Skip the power-on. Set when coming back from a document: the machine was
+   * already running, so making the visitor switch it on again reads as a bug.
+   */
+  alreadyOn?: boolean;
+}
 
-  const open = useCallback(
-    (id: WinId) => setStack((s) => [...s.filter((w) => w !== id), id]),
-    []
-  );
-  const close = useCallback(
-    (id: WinId) => setStack((s) => s.filter((w) => w !== id)),
-    []
+export default function BootScreen({ onEnter, onOpenDoc, alreadyOn = false }: BootScreenProps) {
+  const [power, setPower] = useState<Power>(alreadyOn ? "on" : "off");
+  const [glassEm, setGlassEm] = useState(16);
+  const [zoom, setZoom] = useState(1.6);
+
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const timers = useRef<number[]>([]);
+
+  useEffect(() => {
+    const pending = timers.current;
+    return () => pending.forEach(clearTimeout);
+  }, []);
+
+  const powerOn = useCallback(() => {
+    if (power !== "off") return;
+    setPower("warming");
+    timers.current.push(window.setTimeout(() => setPower("on"), WARMUP_MS));
+  }, [power]);
+
+  const openTarget = useCallback(
+    (target: GlassTarget) => {
+      if (power !== "on") return;
+      if (target === "love") {
+        // Dive through the glass, then hand off to the boot log.
+        setPower("entering");
+        timers.current.push(window.setTimeout(onEnter, ENTER_MS));
+        return;
+      }
+      // Documents don't zoom — the terminal flood covers the cut instead.
+      onOpenDoc(target);
+    },
+    [power, onEnter, onOpenDoc]
   );
 
-  // Scope 98.css + retro cursors to the boot subtree only.
-  useWin98Styles();
+  // Retro pointer pair, scoped to the boot subtree.
+  useRetroCursors();
+
+  // The boot gate owns the whole viewport. Now that the document scrolls for
+  // the landing page, pin it while we're mounted so nothing drifts behind the
+  // fixed stage.
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.add("viewportLocked");
+    return () => root.classList.remove("viewportLocked");
+  }, []);
+
+  // Derive the push-in and the chrome scale from the actual layout: how much
+  // the photo had to be blown up to cover this viewport decides how much
+  // further we need to go to reach a readable glass.
+  useEffect(() => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+
+    const fit = () => {
+      // offsetWidth, not getBoundingClientRect — the latter includes our own
+      // zoom transform and would feed back into the next measurement.
+      const base = scene.offsetWidth * GLASS_FRACTION;
+      if (base <= 0) return;
+
+      const target = targetGlassWidth();
+      // Cap the magnification: the source is 1672px wide, and pushing much
+      // past ~1.8x starts to visibly soften the photo.
+      setZoom(Math.max(1, Math.min(target / base, 1.8)));
+
+      // From `base`, the glass's *layout* width — not its on-screen size. The
+      // desktop sits inside the scene, so the zoom already applies to it;
+      // measuring the zoomed width here would compound the two scales.
+      setGlassEm(base / GLASS_EM_DIVISOR);
+    };
+
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(scene);
+    window.addEventListener("resize", fit);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", fit);
+    };
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== "Escape") return;
-      setStack((s) => s.slice(0, -1));
+      if (power === "off" && (e.key === "Enter" || e.key === " ")) {
+        e.preventDefault();
+        powerOn();
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [power, powerOn]);
 
   return (
-    <div className={styles.stage} data-win98-root>
-      <div className={styles.mac}>
-        <div className={styles.bezel}>
-          <div className={styles.screen}>
-            <div className={styles.desktop}>
-              <LoginWindow
-                selected={selected}
-                onSelect={setSelected}
-                onOk={() => onLogin(selected)}
-                onCancel={() => setSelected("vance")}
-                onNewUser={() => open("newUser")}
-                onSettings={() => open("settings")}
-              />
-            </div>
-          </div>
-        </div>
+    <div className={`${styles.stage} ${styles[power]}`} data-win98-root data-power={power}>
+      <div
+        className={styles.scene}
+        ref={sceneRef}
+        style={{ "--zoom": zoom } as React.CSSProperties}
+      >
+        <img className={styles.photo} src={deskScene} alt="" draggable={false} />
 
-        <div className={styles.chin}>
-          <span className={styles.brandGroup}>
-            <span className={styles.rainbow} />
-            <span className={styles.brand}>Macintosh</span>
-          </span>
-          <span className={styles.slot} />
+        {/* light the CRT throws back onto the desk once it's running */}
+        <span className={styles.glow} aria-hidden="true" />
+
+        <div className={styles.glass}>
+          {/* CRT strike, painted above the content while warming */}
+          <span className={styles.warmup} aria-hidden="true" />
+          <span className={styles.scanlines} aria-hidden="true" />
+
+          <div className={styles.screenContent} style={{ fontSize: glassEm }}>
+            <GlassDesktop onOpen={openTarget} />
+          </div>
+
+          {power === "off" && (
+            <button
+              type="button"
+              className={styles.powerHit}
+              onClick={powerOn}
+              aria-label="전원 켜기"
+            />
+          )}
         </div>
       </div>
 
-      {/* windows overlay the whole stage (not the small CRT) so they never clip;
-          each stacks above the previous with a small cascade offset */}
-      {stack.length > 0 && (
-        <div className={styles.modalLayer}>
-          {stack.map((id, i) => (
-            <div
-              key={id}
-              className={styles.windowSlot}
-              style={{ transform: `translate(calc(-50% + ${i * 18}px), calc(-50% + ${i * 18}px))` }}
-            >
-              {id === "newUser" && <NewUserDialog onClose={() => close("newUser")} />}
-              {id === "settings" && (
-                <SettingsDialog
-                  onOpenMemo={() => open("memo")}
-                  onOpenNeighbors={() => open("neighbors")}
-                  onClose={() => close("settings")}
-                />
-              )}
-              {id === "memo" && <MemoDialog onClose={() => close("memo")} />}
-              {id === "neighbors" && <NeighborsDialog onClose={() => close("neighbors")} />}
-            </div>
-          ))}
-        </div>
+      {power === "off" && (
+        <p className={styles.prompt}>
+          <span className={styles.promptDot} />
+          Click the screen to power on
+        </p>
       )}
     </div>
   );

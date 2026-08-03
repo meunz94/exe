@@ -62,9 +62,14 @@ export default function AuPopup({ item, posts, loadingAuPostId, onPostClick, onC
         <div className={styles.popup} data-light-bg>
           <div className={styles.titleBar}>
             <span className={styles.titleBarText}>{item.title}</span>
-            <div className="title-bar-controls">
-              <button aria-label="Close" onClick={onClose} />
-            </div>
+            <button
+              type="button"
+              className={styles.closeBtn}
+              aria-label="닫기"
+              onClick={onClose}
+            >
+              ✕
+            </button>
           </div>
           <div className={styles.hero} data-dark-bg>
             <div

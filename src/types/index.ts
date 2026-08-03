@@ -144,6 +144,8 @@ export interface AuPostWithContent extends AuPost {
 export interface GalleryImage {
   id: string;
   url: string;
+  /** Height-capped webp emitted by scripts/generate-gallery.mjs. */
+  thumbUrl?: string;
   caption?: string;
   category: string;
 }

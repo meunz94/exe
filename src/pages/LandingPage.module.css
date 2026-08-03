@@ -1,0 +1,317 @@
+.landing {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  /* height of the sticky nav + marquee, reserved by hero/section padding */
+  --banner-height: clamp(96px, 12.5vw, 210px);
+  background-color: var(--px-bg);
+  color: var(--px-primary);
+  /* clear the fixed taskbar */
+  padding-bottom: calc(var(--taskbar-height, 34px) + 4vw);
+}
+
+/* --- top banner ------------------------------------------------------------ */
+
+.topBanner {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background-color: var(--px-bg);
+  border-bottom: 1px solid var(--px-rule);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.4em;
+  padding: 0.55em var(--px-gutter);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.navSpacer {
+  flex: 1;
+}
+
+.navItem {
+  opacity: 0.65;
+  transition: opacity var(--transition-fast);
+}
+
+.navItem:hover {
+  opacity: 1;
+}
+
+.navClock {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.5;
+}
+
+/* --- hero ------------------------------------------------------------------ */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* svh, not vh: on mobile the URL bar would otherwise push the scroll cue off
+     screen. Padding is inside the box, so the whole hero fits one viewport. */
+  min-height: 100svh;
+  padding: calc(var(--banner-height) + 2vw) var(--px-gutter)
+    calc(var(--taskbar-height, 30px) + 3vw);
+  overflow: hidden;
+}
+
+.heroCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(64px, 13vw, 300px);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.heroTitle span {
+  display: block;
+}
+
+.heroMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  margin-top: 3vw;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.heroScroll {
+  margin-top: 4vw;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  animation: nudge 2.4s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* --- entry sections -------------------------------------------------------- */
+
+.section {
+  position: relative;
+  padding: calc(var(--banner-height) + 3vw) 0 10vw;
+  transition: background-color 600ms ease, color 600ms ease;
+}
+
+.sectionInner {
+  padding-inline: var(--px-gutter);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2em;
+  padding-bottom: 1.2em;
+  margin-bottom: 4vw;
+  border-bottom: 1px solid currentColor;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.bullet {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.7em;
+}
+
+.entryTitle {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(52px, 11vw, 260px);
+  line-height: 0.84;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.entryBody {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3vw;
+  align-items: start;
+  margin-top: 4vw;
+}
+
+.entrySynopsis {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.05vw, 19px);
+  line-height: 1.85;
+  max-width: 60ch;
+  /* Korean body copy shouldn't break mid-word */
+  word-break: keep-all;
+  /* Revealed as one block rather than line by line: measuring rendered line
+     breaks and rebuilding them fights `word-break: keep-all` and produces
+     ragged orphans in Hangul. */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 900ms var(--ease-out-expo), transform 900ms var(--ease-out-expo);
+}
+
+.entrySynopsisRevealed {
+  opacity: 0.92;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entrySynopsis {
+    opacity: 0.92;
+    transform: none;
+  }
+}
+
+.entryAside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4em;
+  padding-top: 0.4em;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.88;
+}
+
+.entryAsideRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  padding-bottom: 0.7em;
+  border-bottom: 1px solid currentColor;
+}
+
+.enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  margin-top: 3vw;
+  padding: 0.85em 1.6em;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+.enter:hover {
+  background-color: currentColor;
+}
+
+/* Flip the label to the section background so it stays legible once the pill
+   fills with `currentColor`. */
+.enter:hover .enterLabel,
+.enter:hover .enterArrow {
+  color: var(--background, var(--px-bg));
+}
+
+.enterLabel,
+.enterArrow {
+  transition: color var(--transition-normal);
+}
+
+/* --- showcase + footer ----------------------------------------------------- */
+
+.showcaseSection {
+  padding: 10vw 0 7vw;
+}
+
+.showcaseHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2em;
+  padding: 0 var(--px-gutter) 1.2em;
+  border-bottom: 1px solid var(--px-rule);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.footer {
+  position: relative;
+  padding: 7vw var(--px-gutter) 4vw;
+  border-top: 1px solid var(--px-rule);
+}
+
+.footerMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  margin-top: 3vw;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* --- mobile ---------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .entryBody {
+    grid-template-columns: 1fr;
+    gap: 2em;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: 78vh;
+    padding-top: 14vh;
+  }
+
+  .heroTitle {
+    font-size: 24vw;
+  }
+
+  .section {
+    padding: 22vh 0 14vh;
+  }
+
+  .nav {
+    gap: 1em;
+    font-size: 0.58rem;
+  }
+}

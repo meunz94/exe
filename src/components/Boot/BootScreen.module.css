@@ -1,119 +1,267 @@
-/* ===== Full-screen retro gate ===== */
+/* ===== Full-screen retro gate =============================================
+ * A photograph of a desk with a compact Mac on it. The monitor's glass is a
+ * real DOM surface: the login chrome renders *inside* the photo.
+ *
+ * Alignment relies on the scene being a fixed-aspect box scaled to cover the
+ * viewport — that way the glass can be positioned in percentages measured off
+ * the source image and stays locked to the monitor at any window size.
+ *
+ * Screen rect measured from src/assets/image.png (1672x941):
+ *   x 659..963, y 340..564  ->  39.414% / 36.132% / 18.242% / 23.911%
+ * ========================================================================= */
+
 .stage {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background: radial-gradient(circle at 50% 30%, #4a4a52 0%, #26262c 55%, #141418 100%);
-  overflow: auto;
+  overflow: hidden;
+  background: #05050a;
+
+  /* source image geometry — change these together if the photo is replaced */
+  --scene-w: 1672;
+  --scene-h: 941;
+  --glass-left: 39.414%;
+  --glass-top: 36.132%;
+  --glass-width: 18.242%;
+  --glass-height: 23.911%;
 }
 
-/* ===== CSS-drawn classic Macintosh ===== */
-.mac {
-  position: relative;
-  width: 440px;
-  max-width: 100%;
-  background: linear-gradient(160deg, #ece6d6 0%, #ded7c3 45%, #cfc7b1 100%);
-  border-radius: 28px 28px 18px 18px;
-  padding: 26px 26px 0;
-  box-shadow:
-    inset 2px 2px 3px rgba(255, 255, 255, 0.7),
-    inset -3px -3px 6px rgba(0, 0, 0, 0.22),
-    0 24px 60px rgba(0, 0, 0, 0.55);
+/* Aspect-locked and sized to cover: whichever axis is the constraint, the box
+   still fills the viewport, so the photo is never letterboxed and the glass
+   percentages stay valid. */
+.scene {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100vw, calc(100dvh * var(--scene-w) / var(--scene-h)));
+  aspect-ratio: var(--scene-w) / var(--scene-h);
+  translate: -50% -50%;
+
+  /* The camera. Origin is the centre of the glass so every zoom stays framed
+     on the monitor. */
+  transform-origin: calc(var(--glass-left) + var(--glass-width) / 2)
+    calc(var(--glass-top) + var(--glass-height) / 2);
+  transform: scale(1);
+  transition: transform 1200ms cubic-bezier(0.22, 1, 0.28, 1), filter 900ms ease;
+  will-change: transform;
 }
 
-/* recessed bezel around the CRT */
-.bezel {
-  background: linear-gradient(160deg, #c7bfa8, #b3ab93);
-  border-radius: 16px;
-  padding: 18px;
-  box-shadow:
-    inset 3px 3px 6px rgba(0, 0, 0, 0.35),
-    inset -2px -2px 4px rgba(255, 255, 255, 0.45);
+/* Push in far enough that the glass can host the login chrome comfortably.
+   `--zoom` is computed in BootScreen from the measured layout, so narrow
+   viewports — where "cover" has already cropped in hard — don't over-magnify. */
+.warming .scene,
+.on .scene {
+  transform: scale(var(--zoom, 1.6));
 }
 
-/* the screen itself = a tiny win98 desktop */
-.screen {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  border-radius: 8px;
-  background: #008080; /* classic teal desktop */
+/* …and all the way through the glass on the way out. */
+.entering .scene {
+  transform: scale(9);
+  filter: brightness(1.5) blur(3px);
+  transition: transform 800ms cubic-bezier(0.6, 0, 0.75, 0), filter 800ms ease;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* --- the glass ------------------------------------------------------------- */
+
+.glass {
+  position: absolute;
+  left: var(--glass-left);
+  top: var(--glass-top);
+  width: var(--glass-width);
+  height: var(--glass-height);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow:
-    inset 0 0 0 2px #06060a,
-    inset 0 0 22px rgba(0, 0, 0, 0.55);
+  background: #000;
+  transition: background-color 600ms ease;
 }
 
-/* CRT scanline + glare overlay */
-.screen::after {
-  content: "";
+.on .glass,
+.entering .glass {
+  background: #0b1614;
+  /* phosphor bleed onto the surrounding bezel */
+  box-shadow: 0 0 3% 0.6% rgba(120, 190, 200, 0.35);
+}
+
+/* --- power-on bloom -------------------------------------------------------
+   A hot line snaps open horizontally, the raster expands, then burns off. */
+.warmup {
   position: absolute;
   inset: 0;
+  z-index: 6;
   pointer-events: none;
-  background:
-    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.18) 50%),
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.12), transparent 60%);
-  background-size: 100% 3px, 100% 100%;
-  z-index: 5;
-}
-
-/* brand chin under the screen */
-.chin {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 18px 22px;
-}
-
-.brandGroup {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.brand {
-  font-family: "Orbitron", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.5px;
-  color: #6f6750;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.55);
-}
-
-.rainbow {
-  width: 18px;
-  height: 22px;
-  border-radius: 3px;
-  background: linear-gradient(
-    #6ec5e9 0 16.6%, #4caf50 0 33.3%, #ffd54a 0 50%,
-    #ff9800 0 66.6%, #e5544b 0 83.3%, #9c5db0 0 100%
+  opacity: 0;
+  background: radial-gradient(
+    ellipse 70% 100% at 50% 50%,
+    #ffffff 0%,
+    #cfe8ff 45%,
+    rgba(160, 210, 255, 0) 78%
   );
-  opacity: 0.85;
+  clip-path: inset(49.9% 38% 49.9% 38%);
 }
 
-.slot {
-  width: 120px;
-  height: 7px;
-  border-radius: 4px;
-  background: linear-gradient(#9a927c, #b8b099);
-  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.5);
+.warming .warmup {
+  animation: crtStrike 700ms cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
-/* ===== win98 desktop inside the screen ===== */
-.desktop {
+@keyframes crtStrike {
+  0%   { opacity: 0;    clip-path: inset(49.9% 44% 49.9% 44%); }
+  14%  { opacity: 1;    clip-path: inset(49.9% 0% 49.9% 0%); }
+  46%  { opacity: 0.95; clip-path: inset(0 0 0 0); }
+  70%  { opacity: 0.45; clip-path: inset(0 0 0 0); }
+  100% { opacity: 0;    clip-path: inset(0 0 0 0); }
+}
+
+/* Scanlines + corner falloff, sized in em so they track the zoom. */
+.scanlines {
   position: absolute;
   inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%),
+    radial-gradient(ellipse 78% 74% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.5) 100%),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.1), transparent 60%);
+  background-size: 100% 3px, 100% 100%, 100% 100%;
+  transition: opacity 500ms ease;
+}
+
+.on .scanlines,
+.entering .scanlines {
+  opacity: 1;
+}
+
+/* The desktop only exists once the tube is warm. It fills the glass exactly;
+   BootScreen sets its font-size from the measured glass width, and everything
+   inside is sized in em, so there's no transform to compound with the zoom. */
+.screenContent {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 260ms ease;
+  pointer-events: none;
+}
+
+.on .screenContent,
+.entering .screenContent {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Whole glass is the power switch while the machine is off. The appearance
+   reset matters: a default button would paint its own face and border over the
+   dark glass. */
+.glass .powerHit {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* --- light thrown back onto the desk --------------------------------------- */
+
+.glow {
+  position: absolute;
+  z-index: 1;
+  left: calc(var(--glass-left) + var(--glass-width) / 2);
+  top: calc(var(--glass-top) + var(--glass-height) / 2);
+  width: 46%;
+  height: 78%;
+  translate: -50% -50%;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background: radial-gradient(
+    ellipse 50% 46% at 50% 50%,
+    rgba(120, 180, 205, 0.3) 0%,
+    rgba(70, 120, 155, 0.13) 40%,
+    transparent 72%
+  );
+  transition: opacity 1000ms ease;
+}
+
+.on .glow,
+.entering .glow {
+  opacity: 1;
+}
+
+.warming .glow {
+  opacity: 0.6;
+}
+
+/* --- hint ------------------------------------------------------------------ */
+
+.prompt {
+  position: absolute;
+  z-index: 10;
+  bottom: 7%;
+  left: 50%;
+  translate: -50% 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 14px;
-  z-index: 2;
+  gap: 9px;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(220, 210, 195, 0.72);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  animation: promptIn 900ms ease 500ms both;
+}
+
+.promptDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ff5a3c;
+  box-shadow: 0 0 6px rgba(255, 90, 60, 0.9);
+  animation: standbyPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes standbyPulse {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 1; }
+}
+
+@keyframes promptIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene,
+  .glass,
+  .screenContent,
+  .glow,
+  .scanlines {
+    transition: none;
+  }
+
+  .warming .warmup { animation: none; }
+  .entering .scene { transform: scale(var(--zoom, 1.6)); filter: none; }
+  .promptDot, .prompt { animation: none; }
 }
 
 /* dim backdrop when a modal dialog is open — overlays the whole stage so the
@@ -223,15 +371,15 @@
 .dialogBody {
   max-height: min(56vh, 360px);
   overflow-y: auto;
-  background: #fff;
-  box-shadow: inset -1px -1px #fff, inset 1px 1px grey,
-    inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
+  background: rgb(18, 18, 18);
+  box-shadow: inset -1px -1px rgb(90, 90, 90), inset 1px 1px grey,
+    inset -2px -2px rgb(66, 66, 66), inset 2px 2px rgb(5, 5, 5);
   padding: 12px 14px;
   margin: 8px 2px;
 }
 
-/* English keeps the 98.css pixel font; Korean has no glyphs there so it falls
-   back to Galmuri (a Korean pixel font). No antialiasing — stays crisp/pixel. */
+/* Pixelated MS Sans Serif has no Hangul, so Korean falls back to Galmuri (a
+   Korean pixel font). No antialiasing — stays crisp. */
 .dialogText,
 .markdown,
 .placeholderText {
@@ -246,10 +394,10 @@
 .markdown {
   font-size: 11px;
   line-height: 1.7;
-  color: #1a1a1a;
+  color: var(--px-primary);
   /* notice.md uses `color: var(--color-accent)` (lime) for @handles/#tags —
      override the variable here so they render in a retro Win98 navy instead */
-  --color-accent: #000080;
+  --color-accent: var(--px-lightblue);
 }
 
 .markdown h3 {
@@ -274,7 +422,7 @@
 }
 
 .markdown a {
-  color: #00f;
+  color: var(--px-lightblue);
 }
 
 .markdown details {
@@ -328,7 +476,7 @@
 
 .iconItem:focus,
 .iconItem:hover {
-  outline: 1px dotted #000;
+  outline: 1px dotted rgb(5, 5, 5);
   outline-offset: -2px;
 }
 
@@ -354,7 +502,7 @@
 
 .memoCopyBtn {
   flex-shrink: 0;
-  /* 98.css button look comes from the bare element styling */
+  /* plain pixel-font button, no chrome */
 }
 
 .memoCopyBtnDone {
@@ -381,14 +529,14 @@
   width: 100%;
   height: auto;
   object-fit: cover;
-  border: 1px solid #808080;
+  border: 1px solid rgb(20, 20, 20);
 }
 
 .neighborImgCrop {
   position: relative;
   width: 100%;
   overflow: hidden;
-  border: 1px solid #808080;
+  border: 1px solid rgb(20, 20, 20);
 }
 
 .neighborImgCropped {
@@ -402,7 +550,7 @@
   width: 100%;
   font-size: 11px;
   font-weight: 700;
-  color: #000080;
+  color: var(--px-lightblue);
   text-align: center;
   line-height: 1.4;
   word-break: keep-all;
