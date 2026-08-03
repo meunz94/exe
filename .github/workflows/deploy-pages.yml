@@ -36,6 +36,11 @@ jobs:
       - name: Disable Jekyll on Pages
         run: touch dist/.nojekyll
 
+      # GitHub Pages 는 정적 호스팅이라 /main 같은 경로로 직접 접속하면 404 가 뜬다.
+      # 404.html 을 index.html 사본으로 두면 어떤 경로든 SPA 가 그대로 뜬다.
+      - name: SPA fallback for client-side routes
+        run: cp dist/index.html dist/404.html
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
