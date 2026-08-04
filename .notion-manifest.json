@@ -1,138 +1,4 @@
 {
-  "3b15a6bf-c773-81c1-98f2-cb6cf4d20510": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/G1/LOG/1.md"
-    ]
-  },
-  "3b15a6bf-c773-811d-af75-ddc3fbbffb86": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/G1/OOC/1.md"
-    ]
-  },
-  "3b15a6bf-c773-81f8-8c31-f835bca0f38b": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/G2/LOG/1.md"
-    ]
-  },
-  "3b15a6bf-c773-8187-81a9-c3a1de3b42f9": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/images/notion/3b15a6bf/cover.jpeg",
-      "public/data/posts/VB/LOG/1.md"
-    ]
-  },
-  "3b15a6bf-c773-81a3-934f-d5b89ce46b3d": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/LOG/2.md"
-    ]
-  },
-  "3b15a6bf-c773-8163-82d5-fcd11ba62112": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/LOG/3.md"
-    ]
-  },
-  "3b15a6bf-c773-811c-8f55-e58afad7f9fc": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/OOC/1.md"
-    ]
-  },
-  "3b15a6bf-c773-8177-bf27-da53783e5f34": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/OOC/10.md"
-    ]
-  },
-  "3b15a6bf-c773-81ae-8174-d0567b0d902d": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/OOC/11.md"
-    ]
-  },
-  "3b15a6bf-c773-8139-962e-e801c73d6478": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/OOC/12.md"
-    ]
-  },
-  "3b15a6bf-c773-81f3-9787-f2ddfc20e58a": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/OOC/13.md"
-    ]
-  },
-  "3b15a6bf-c773-812b-87cd-db432c70dc4d": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/OOC/2.md"
-    ]
-  },
-  "3b15a6bf-c773-81ad-81fe-d9f1cdca898a": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/OOC/3.md"
-    ]
-  },
-  "3b15a6bf-c773-812b-a55d-f816c889f58a": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/OOC/4.md"
-    ]
-  },
-  "3b15a6bf-c773-8172-b64f-ccf3d9ae7446": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/OOC/5.md"
-    ]
-  },
-  "3b15a6bf-c773-819e-80f7-c2a1bd523279": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/OOC/6.md"
-    ]
-  },
-  "3b15a6bf-c773-81d5-886d-f454857dee1d": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/OOC/7.md"
-    ]
-  },
-  "3b15a6bf-c773-810a-bbd6-ef9a384ec818": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/OOC/8.md"
-    ]
-  },
-  "3b15a6bf-c773-814e-b163-c3d0c303646c": {
-    "ds": "posts",
-    "edited": "2026-08-03T11:36:00.000Z",
-    "files": [
-      "public/data/posts/VB/OOC/9.md"
-    ]
-  },
   "3b15a6bf-c773-81e9-abc2-f2af1767a32f": {
     "ds": "auPosts",
     "edited": "2026-08-03T11:36:00.000Z",
@@ -142,14 +8,14 @@
   },
   "3b15a6bf-c773-81dd-b7f7-edca04a00c72": {
     "ds": "notice",
-    "edited": "2026-08-03T11:54:00.000Z",
+    "edited": "2026-08-03T12:30:00.000Z",
     "files": [
       "public/data/notice.md"
     ]
   },
   "3b15a6bf-c773-81e1-93f1-e33e297707fd": {
     "ds": "memo",
-    "edited": "2026-08-03T11:54:00.000Z",
+    "edited": "2026-08-04T02:20:00.000Z",
     "files": [
       "public/data/memo.md"
     ]
@@ -163,224 +29,203 @@
   },
   "3b15a6bf-c773-8125-8c96-ef6707668ed7": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/love.png"
     ]
   },
   "3b15a6bf-c773-81fb-910a-dae6ac062e2c": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/momo.png"
     ]
   },
   "3b15a6bf-c773-81a0-9235-d8361f375c99": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/wrench.jpg"
     ]
   },
-  "3b15a6bf-c773-8179-9da2-e00391cea8c3": {
-    "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
-    "files": [
-      "public/images/notion/neighbors/yana.jpg"
-    ]
-  },
   "3b15a6bf-c773-8111-baaf-c22f8f10827e": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/fweq.jpg"
     ]
   },
   "3b15a6bf-c773-81c3-b322-d4799a118149": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/unfrozen.jpg"
     ]
   },
   "3b15a6bf-c773-8127-a923-e1dc8c3e14eb": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/TTT1.gif"
     ]
   },
   "3b15a6bf-c773-81f1-9ca2-fedda24f9fbd": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/crosstheborder.png"
     ]
   },
   "3b15a6bf-c773-813f-b4a6-f7c724483139": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/2y.png"
     ]
   },
   "3b15a6bf-c773-8114-ba36-fa7527f1d09a": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/angel.png"
     ]
   },
   "3b15a6bf-c773-81ab-874f-fbb6ea37a8cd": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/jjangji.png"
     ]
   },
   "3b15a6bf-c773-81ec-bc1f-f1d1fe163c1e": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/symphony.png"
     ]
   },
-  "3b15a6bf-c773-811e-a2a3-e06599f63742": {
-    "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
-    "files": [
-      "public/images/notion/neighbors/electricwavy.jpg"
-    ]
-  },
   "3b15a6bf-c773-81df-9978-de2b93f618cb": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/vibehs.jpg"
     ]
   },
   "3b15a6bf-c773-81ff-8d3d-ffe1ea91db4e": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/meetmeinblue.png"
     ]
   },
   "3b15a6bf-c773-8198-a3f3-fbf873154134": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/pneuma.png"
     ]
   },
   "3b15a6bf-c773-814a-8d85-c3201c89902b": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/bih.jpg"
     ]
   },
   "3b15a6bf-c773-8154-bd1a-e2770f3a4c0b": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/sea_1.png"
     ]
   },
   "3b15a6bf-c773-817b-968e-e1c1a9d32c75": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/sea_2.png"
     ]
   },
   "3b15a6bf-c773-8194-a806-dcf0cb9a0494": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:37:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/jester.png"
     ]
   },
   "3b15a6bf-c773-8143-936f-d18f044f1a07": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:38:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/jt.png"
     ]
   },
   "3b15a6bf-c773-8141-b4c5-fda50ccbd3ab": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:38:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/0620.png"
     ]
   },
-  "3b15a6bf-c773-81a5-a775-dc7bc7c14862": {
-    "ds": "neighbors",
-    "edited": "2026-08-03T11:38:00.000Z",
-    "files": [
-      "public/images/notion/neighbors/mint.jpg"
-    ]
-  },
   "3b15a6bf-c773-8117-be5e-ed2e098e088c": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:38:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/magnum.jpeg"
     ]
   },
   "3b15a6bf-c773-8120-8dd7-eea3d32594bd": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:38:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/icarus.jpg"
     ]
   },
   "3b15a6bf-c773-816c-bc3b-d147db3b6566": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:38:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/carrion.jpg"
     ]
   },
   "3b15a6bf-c773-813d-83bc-ed672c290868": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:38:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/orbit.jpeg"
     ]
   },
   "3b15a6bf-c773-81d9-b4cc-ff00ccda639e": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:38:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/dove.jpeg"
     ]
   },
   "3b15a6bf-c773-816f-82d1-ed099a243625": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:38:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/giselle.jpeg"
     ]
   },
   "3b15a6bf-c773-81ca-ae95-d6b60040ae0f": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:38:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/catch.jpeg"
     ]
   },
   "3b15a6bf-c773-815e-afa8-ea91875fd389": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:38:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/still.jpeg"
     ]
   },
   "3b15a6bf-c773-819f-bec5-ecbfb1c73f68": {
     "ds": "neighbors",
-    "edited": "2026-08-03T11:38:00.000Z",
+    "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/dive.jpeg"
     ]

@@ -1,10 +1,7 @@
-- 첫 번째 문단은 외형, 아래 문단은 의상/표정
-- adult, v-shaped eyebrows는 제 그림체에 맞게 가중치가 들어간 부분들이 있어서 적당히 프롬프트 가감해주셔도 됩니다! >///<
-
 ### VANCE
 
 ```
-male, mature, adult, aged up, cool, dark green khaki hair, clean cut, short hair, center certained bang, black eyebrows, thin eyebrows, -1::v-shaped eyebrows::, gray eyes, tsurime, sharp eyes, thin eyes, thin silver metal glasses, broad shoulders,
+male, mature, adult, aged up, cool, dark green khaki hair, clean cut, short hair, center certained bang, black eyebrows, thin eyebrows, -1::v-shaped eyebrows::, gray eyes, tsurime, sharp eyes, thin eyes, thin silver metal glasses, rimmed glasses, broad shoulders, -0.5::muscular::, soft bags under eyes,
 
 black turtleneck, white lab coat, white pants,
 expressionless,
@@ -15,8 +12,8 @@ expressionless,
 ### BLANC
 
 ```
-girl, female, adult, slender, small breast, jet-black hair, curved bob cut, choppy cut, 0.2::messy hair::, see-through bangs, thin eyebrows, -0.2::v-shaped eyebrows::, navy blue eyes, tsurime, mischeif, cute face,
+girl, female, adult, slender, small breast, jet-black hair, curved bob cut, choppy cut, 0.2::messy hair::, see-through bangs, ahoge, thin eyebrows, navy blue eyes, tsurime, mischeif, cute face,
 
 white formal blazer, white collar shirts, black suspenders, black pants,
-soft smile, mischievous smile
+soft smile, mischievous smile, -1::necktie, sharp teeth, canine, :3::
 ```
