@@ -2,42 +2,54 @@
  * Design tokens — dark CRT palette.
  *
  * Two layers live here:
- *   1. `--px-*`  raw palette + type scale. Never referenced by components
- *                directly; they exist so the semantic layer below (and the
- *                section colour-inversion classes) have one source of truth.
- *   2. `--color-*` semantic aliases that the existing component CSS modules
- *                already consume. Remapping these re-skins the whole site
- *                without touching each module.
+ *   1. `--px-*`  raw palette + type scale — the source of truth, read directly
+ *                by components and by the section colour-inversion classes.
+ *   2. `--color-*` a small set of semantic aliases. This layer was once broad,
+ *                mapping a whole Win98 component library onto the palette; that
+ *                library is gone, so only the aliases still consumed survive.
  *
- * Colour inversion: a `.sectionRed` / `.sectionBlue` / … wrapper swaps
+ * Colour inversion: a `.sectionGreen` / `.sectionBlue` wrapper swaps
  * `--background` and `--color`. Anything inside reads
  * `var(--background, var(--px-bg))`, so nested elements follow automatically.
  * ------------------------------------------------------------------------- */
 
 :root {
-  /* ---- raw palette ---- */
+  /* ---- raw palette ----
+     Two accent hues, phosphor green and electric blue, each at two values:
+     the hot one for small marks, the mid/deep one for large fills. A pure
+     `#0f0` full-bleed is genuinely painful to look at, so the vivid end is
+     reserved for indicators, links and type. */
   --px-bg: #1a1a1a;
   --px-primary: #bababa;
   --px-black: #111;
   --px-lightgrey: #71737d;
-  --px-red: #ff001a;
-  --px-blue: #03049c;
-  --px-green: #0f0;
-  --px-lightblue: #9fe4f3;
-  --px-cream: #bab5a6;
-  --px-pink: #a7849d;
 
-  --px-border: 1px solid hsla(0, 0%, 100%, 0.7);
+  /* green — the CRT phosphor the boot log and REC tally already use */
+  --px-green: #00ff5f;
+  --px-green-mid: #00d452;
+  --px-green-deep: #00913a;
+
+  /* blue */
+  --px-blue: #0a3cff;
+  --px-blue-deep: #001a99;
+  --px-lightblue: #7ce9ff;
+
+  /* Reserved for genuine alert semantics — errors and the standby LED. Not
+     part of the decorative palette any more. */
+  --px-red: #ff3b30;
+
   --px-border-fade: 1px solid hsla(0, 0%, 100%, 0.5);
   --px-rule: hsla(0, 0%, 100%, 0.22);
 
   /* ---- grid ---- */
-  --px-columns: 20;
-  --px-size: calc(100vw / var(--px-columns));
   --px-gutter: 3vw;
 
   /* ---- type ---- */
-  --font-display: "Big Shoulders Display", "Oswald", "Arial Narrow",
+  /* Google Sans Flex — the open (SIL OFL) release of Google's brand sans.
+     NOT plain "Google Sans", which is proprietary and caps at weight 700;
+     Flex is a variable font covering 100–900, so ExtraBold is actually
+     available. Display type sets 800. */
+  --font-display: "Google Sans Flex", "Google Sans", "Helvetica Neue", Arial,
     sans-serif;
   --font-mono: "Geist Mono", "JetBrains Mono", "SFMono-Regular", Consolas,
     monospace;
@@ -51,52 +63,21 @@
 }
 
 /* ---------------------------------------------------------------------------
- * Semantic aliases — consumed by the existing component CSS modules.
+ * Semantic aliases.
  * ------------------------------------------------------------------------- */
 
 :root {
   --color-bg: var(--px-bg);
-  --color-surface: #202020;
-  --color-surface-secondary: #242424;
-  --color-surface-tertiary: #1d1d1d;
-  --color-surface-hover: #2c2c2c;
-
   --color-text-primary: var(--px-primary);
-  --color-text-secondary: #8d8d8d;
   --color-text-muted: var(--px-lightgrey);
-
-  --color-accent: var(--px-red);
-  --color-accent-light: #2a0f12;
-
   --color-border: #3a3a3a;
-  --color-divider: #2b2b2b;
-  --color-overlay: rgba(10, 10, 10, 0.88);
 
-  --color-placeholder: #2a2a2a;
-  --color-hero-bg: #232323;
-  --color-subtitle-bg: var(--px-red);
-  --color-tag-bg: #262626;
-  --color-tag-bg-hover: #333333;
-  --color-btn-bg: #262626;
-  --color-btn-bg-hover: #333333;
-  --color-status-bar: #161616;
-  --color-title-bar-start: #1f1f1f;
-  --color-title-bar-end: #171717;
-
-  --radius-sm: 2px;
   --radius-md: 4px;
   --radius-lg: 8px;
-  --radius-xl: 12px;
-
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.6);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.65);
-  --shadow-lg: 0 12px 44px rgba(0, 0, 0, 0.75);
 
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
   --transition-slow: 400ms ease;
-
-  --sidebar-width: 52px;
 
   /* Easing borrowed from the reference site's expo-out feel. */
   --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
@@ -114,29 +95,20 @@
   --background: var(--px-black);
   --color: var(--px-primary);
 }
-.sectionRed {
-  --background: var(--px-red);
-  --color: #ffffff;
+/* Green is the light one of the pair — it takes dark type. */
+.sectionGreen {
+  --background: var(--px-green-mid);
+  --color: var(--px-black);
 }
 .sectionBlue {
   --background: var(--px-blue);
-  --color: var(--px-primary);
-}
-.sectionCream {
-  --background: var(--px-cream);
-  --color: var(--px-black);
-}
-.sectionLightgrey {
-  --background: var(--px-lightgrey);
-  --color: var(--px-black);
+  --color: #ffffff;
 }
 
 .sectionDefault,
 .sectionBlack,
-.sectionRed,
-.sectionBlue,
-.sectionCream,
-.sectionLightgrey {
+.sectionGreen,
+.sectionBlue {
   background-color: var(--background);
   color: var(--color);
 }
@@ -147,8 +119,8 @@
 
 .pxDisplay {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 0.86;
+  font-weight: 800;
+  line-height: 0.94;
   letter-spacing: -0.02em;
   text-transform: uppercase;
 }

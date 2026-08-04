@@ -85,9 +85,6 @@ export default function PromptPage({ onBack }: PromptPageProps) {
       </div>
 
       <h1 className={styles.title}>Prompt</h1>
-      <p className={styles.lede}>
-        캐릭터를 그릴 때 쓰는 생성 프롬프트. 섹션별로 복사해서 쓰세요.
-      </p>
 
       <section className={styles.section}>
         <div className={styles.sectionHead}>

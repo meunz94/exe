@@ -23,16 +23,24 @@ import "./index.css";
  */
 type Screen = "boot" | "flood" | "info" | "prompt" | "site";
 
+/** URL → screen. The inverse of the sync effect below; used on load and popstate. */
+function screenFromPath(pathname: string): Screen {
+  if (pathname.startsWith("/main")) return "site";
+  if (pathname.startsWith("/info")) return "info";
+  if (pathname.startsWith("/prompt")) return "prompt";
+  return "boot";
+}
+
 export default function App() {
   const { data, loading, error } = useAppData();
   const { fetchContent, loadingPostId } = useFetchPostContent();
   const { fetchAuContent, loadingAuPostId } = useFetchAuPostContent();
 
-  const [screen, setScreen] = useState<Screen>("boot");
+  const [screen, setScreen] = useState<Screen>(() => screenFromPath(window.location.pathname));
   /** Where the running flood is headed. */
   const [pending, setPending] = useState<Exclude<Screen, "boot" | "flood">>("site");
   /** Once the machine has been switched on, it stays on for the session. */
-  const [booted, setBooted] = useState(false);
+  const [booted, setBooted] = useState(() => screenFromPath(window.location.pathname) !== "boot");
 
   useEffect(() => {
     const block = (e: MouseEvent) => e.preventDefault();
@@ -40,14 +48,30 @@ export default function App() {
     return () => document.removeEventListener("contextmenu", block);
   }, []);
 
-  // Reflect the current screen in the URL so each one is distinct in history.
+  // Each screen is its own history entry, so the browser's back button walks
+  // back through the site instead of leaving it. `pushState` (not replace) is
+  // what builds the stack; the popstate listener below is what unwinds it.
   useEffect(() => {
     const path =
       screen === "site" ? "/main" : screen === "boot" || screen === "flood" ? "/" : `/${screen}`;
-    if (!window.location.pathname.startsWith(path)) {
-      window.history.replaceState(null, "", path);
+    const current = window.location.pathname;
+    // `/main/...` deep paths belong to SitePage — don't clobber them from here.
+    const covered = screen === "site" ? current.startsWith("/main") : current === path;
+    if (!covered) {
+      window.history.pushState(null, "", path);
     }
   }, [screen]);
+
+  // Browser back/forward: restore whichever screen the URL now points at.
+  useEffect(() => {
+    const onPop = () => {
+      const next = screenFromPath(window.location.pathname);
+      if (next !== "boot") setBooted(true);
+      setScreen(next);
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
 
   const runFlood = useCallback((to: Exclude<Screen, "boot" | "flood">) => {
     setBooted(true);

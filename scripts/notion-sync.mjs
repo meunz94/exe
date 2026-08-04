@@ -34,6 +34,9 @@ import {
   getNumber,
   getUrl,
   getFiles,
+  getMultiSelect,
+  youtubeId,
+  richTextToPlain,
   blocksToMarkdown,
   download,
   sanitizeFilename,
@@ -142,8 +145,9 @@ async function syncPosts() {
     }
     if (reuse(page, "posts")) continue;
 
-    const num = getNumber(page, "번호");
-    const id = num != null ? String(num) : shortId(page.id);
+    // 파일명(=글 id)은 노션 페이지 ID에서 딴다. 목록 정렬은 날짜 기준이라
+    // (generate-posts 가 날짜 내림차순 정렬) 사람이 번호를 매길 필요가 없다.
+    const id = shortId(page.id);
     const files = [];
 
     let imageUrl;
@@ -173,7 +177,7 @@ async function syncPosts() {
     files.push(target);
     record(page, "posts", files);
   }
-  cleanTree("public/data/posts", new Set(["public/data/posts/template.md"]));
+  cleanTree("public/data/posts");
   console.log(`✓ 게시글 ${rows.length}건`);
 }
 
@@ -187,8 +191,7 @@ async function syncAuPosts() {
     }
     if (reuse(page, "auPosts")) continue;
 
-    const num = getNumber(page, "번호");
-    const id = num != null ? String(num) : shortId(page.id);
+    const id = shortId(page.id);
     const files = [];
     const body = await pageBody(page, files);
     const target = rel("public", "data", "au-posts", auId, `${id}.md`);
@@ -241,6 +244,8 @@ async function syncPlaylist() {
     "public/data/playlist.json",
     rows.map((page, i) => {
       const lyrics = getText(page, "가사");
+      // 유튜브 링크를 통째로 붙여넣어도 ID 만 추려낸다.
+      const videoId = youtubeId(getText(page, "영상ID"));
       return {
         id: `pl-${i + 1}`,
         title: getTitle(page, "제목"),
@@ -248,6 +253,7 @@ async function syncPlaylist() {
         duration: getText(page, "길이"),
         category: getSelect(page, "카테고리"),
         ...(lyrics ? { lyrics } : {}),
+        ...(videoId ? { videoId } : {}),
       };
     })
   );
@@ -322,41 +328,125 @@ async function syncGallery() {
   console.log(`✓ 갤러리 ${rows.length}건`);
 }
 
+/**
+ * AU 목록. AU DB(평면 속성) + AU 멤버 DB(행 단위 멤버)를 조인한다.
+ * 페이지 본문의 인용 블록은 "멤버이름: 대사" 형식의 quotes 로 파싱되고,
+ * 나머지 블록이 content 가 된다.
+ */
+async function syncAu() {
+  const membersByAu = new Map();
+  if (dbs.auMembers) {
+    const memberRows = await queryAll(dbs.auMembers, { ...PUBLISHED, sorts: CREATED_ASC });
+    memberRows.sort(bySort("정렬"));
+    for (const m of memberRows) {
+      const auId = getText(m, "AU") || getSelect(m, "AU");
+      if (!auId) {
+        console.warn(`  ! AU 멤버 "${getTitle(m, "이름")}" 에 AU 가 없어 건너뜀`);
+        continue;
+      }
+      let imageUrl = "";
+      const img = getFiles(m, "이미지")[0];
+      if (img?.external) {
+        imageUrl = img.url;
+      } else if (img) {
+        const target = rel("public", "images", "notion", shortId(m.id), `member${extFromUrl(img.url)}`);
+        if (!reuse(m, "auMembers")) {
+          await download(img.url, path.resolve(target));
+          record(m, "auMembers", [target]);
+        }
+        imageUrl = "/" + target.replace(/^public\//, "");
+      }
+      const note = getText(m, "노트");
+      const list = membersByAu.get(auId) ?? [];
+      list.push({
+        name: getTitle(m, "이름"),
+        role: getText(m, "역할"),
+        imageUrl,
+        descriptions: getText(m, "소개").split("\n").map((s) => s.trim()).filter(Boolean),
+        ...(note ? { note } : {}),
+      });
+      membersByAu.set(auId, list);
+    }
+  }
+
+  const rows = await queryAll(dbs.au, { ...PUBLISHED, sorts: CREATED_ASC });
+  rows.sort(bySort("정렬"));
+  const items = [];
+  for (const page of rows) {
+    const id = getText(page, "ID") || shortId(page.id);
+    const members = membersByAu.get(id) ?? [];
+    const files = [];
+
+    let imageUrl = "";
+    const cover = getFiles(page, "대표이미지")[0];
+    if (cover?.external) {
+      imageUrl = cover.url;
+    } else if (cover) {
+      const target = rel("public", "images", "notion", shortId(page.id), `cover${extFromUrl(cover.url)}`);
+      await download(cover.url, path.resolve(target));
+      files.push(target);
+      imageUrl = "/" + target.replace(/^public\//, "");
+    }
+
+    // 본문: 인용 블록 → quotes, 나머지 → content
+    const blocks = await listBlocks(page.id);
+    const quotes = [];
+    const rest = [];
+    for (const b of blocks) {
+      if (b.type !== "quote") {
+        rest.push(b);
+        continue;
+      }
+      const text = richTextToPlain(b.quote?.rich_text ?? []).trim();
+      if (!text) continue;
+      const ci = text.indexOf(":");
+      const name = ci > 0 ? text.slice(0, ci).trim() : "";
+      const idx = members.findIndex((m) => m.name === name);
+      quotes.push({
+        memberIndex: idx >= 0 ? idx : 0,
+        text: idx >= 0 ? text.slice(ci + 1).trim() : text,
+      });
+    }
+    const ctx = {
+      saveImage: async (url, blockId) => {
+        const target = rel("public", "images", "notion", shortId(page.id), `${shortId(blockId)}${extFromUrl(url)}`);
+        await download(url, path.resolve(target));
+        files.push(target);
+        return "/" + target.replace(/^public\//, "");
+      },
+    };
+    const content = await blocksToMarkdown(rest, ctx);
+
+    const imagePosition = getText(page, "이미지위치");
+    const section = getSelect(page, "섹션");
+    items.push({
+      id,
+      title: getTitle(page, "제목"),
+      description: getText(page, "설명"),
+      imageUrl,
+      ...(imagePosition ? { imagePosition } : {}),
+      tags: getMultiSelect(page, "태그"),
+      ...(section ? { section } : {}),
+      members,
+      content,
+      ...(quotes.length ? { quotes } : {}),
+    });
+    record(page, "au", files);
+  }
+  console.log(`✓ AU ${rows.length}건`);
+  return items;
+}
+
 /** db.json 형태의 목록들 → notion.json (프론트에서 해당 키만 덮어쓴다). */
 async function syncDbLists() {
   const out = {};
-  if (dbs.notices) {
-    const rows = await queryAll(dbs.notices, { ...PUBLISHED, sorts: CREATED_ASC });
-    rows.sort(bySort("정렬"));
-    out.notices = rows.map((page, i) => {
-      const category = getSelect(page, "카테고리");
-      return {
-        id: `nt-${i + 1}`,
-        text: getTitle(page, "내용"),
-        ...(category ? { category } : {}),
-      };
-    });
-    console.log(`✓ 짧은 공지 ${rows.length}건`);
-  }
-  if (dbs.disciplinary) {
-    const rows = await queryAll(dbs.disciplinary, { ...PUBLISHED, sorts: CREATED_ASC });
-    rows.sort(byDate("날짜"));
-    out.disciplinary = rows.map((page, i) => ({
-      id: `disc-${i + 1}`,
-      subject: getTitle(page, "대상"),
-      reason: getText(page, "사유"),
-      date: getDate(page, "날짜"),
-      level: getSelect(page, "등급"),
-      category: getSelect(page, "카테고리"),
-    }));
-    console.log(`✓ 징계 기록 ${rows.length}건`);
-  }
+  if (dbs.au) out.au = await syncAu();
   if (dbs.youtube) {
     const rows = await queryAll(dbs.youtube, { ...PUBLISHED, sorts: CREATED_ASC });
     rows.sort(bySort("정렬"));
     out.youtube = rows.map((page, i) => ({
       id: `yt-${i + 1}`,
-      videoId: getText(page, "영상ID"),
+      videoId: youtubeId(getText(page, "영상ID")),
       title: getTitle(page, "제목"),
       category: getSelect(page, "카테고리"),
     }));
@@ -375,6 +465,8 @@ async function main() {
       dbs.auPosts && "auPosts",
       dbs.neighbors && "neighbors",
       dbs.gallery && "gallery",
+      dbs.au && "au",
+      dbs.auMembers && "auMembers",
       pages.notice && "notice",
       pages.memo && "memo",
     ].filter(Boolean)

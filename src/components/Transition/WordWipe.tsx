@@ -15,11 +15,11 @@ const MEASURE_PX = 100;
 /** Fraction of the viewport width the wordmark should span. */
 const FILL = 0.9;
 /**
- * Cap on horizontal stretch. Big Shoulders is a very condensed face — filling
- * the width at a size that still fits five rows needs ~2.7x, which reads as
- * distortion. 1.9x lands on roughly the reference's width-to-height ratio.
+ * Cap on horizontal stretch. Google Sans Flex is a normal-width sans, so short
+ * words need some help filling the line — but past ~1.5x the letterforms start
+ * to read as distorted rather than wide.
  */
-const MAX_STRETCH = 1.9;
+const MAX_STRETCH = 1.5;
 /** Must match `.row`'s line-height. */
 const LINE_HEIGHT = 1.02;
 

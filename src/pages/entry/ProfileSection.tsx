@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Agent, DisciplinaryRecord, TimelineEvent } from "../../types";
+import type { Agent, TimelineEvent } from "../../types";
 import { publicUrl } from "../../utils/publicUrl";
 import AgentDetail from "./AgentDetail";
 import styles from "../EntryPage.module.css";
@@ -7,28 +7,22 @@ import styles from "../EntryPage.module.css";
 interface ProfileSectionProps {
   agents: Agent[];
   timeline: TimelineEvent[];
-  disciplinary: DisciplinaryRecord[];
 }
 
 /**
- * Cast, chronology and records.
+ * Cast and chronology.
  *
- * Timeline and disciplinary logs live here rather than as their own tabs —
- * they're both per-character record material, and neither has the volume to
- * carry a section of its own.
+ * The timeline lives here rather than as its own tab — it's per-character
+ * record material without the volume to carry a section of its own.
  */
-export default function ProfileSection({
-  agents,
-  timeline,
-  disciplinary,
-}: ProfileSectionProps) {
+export default function ProfileSection({ agents, timeline }: ProfileSectionProps) {
   const [open, setOpen] = useState<Agent | null>(null);
 
   const sorted = [...timeline].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
-  if (agents.length === 0 && timeline.length === 0 && disciplinary.length === 0) {
+  if (agents.length === 0 && timeline.length === 0) {
     return <p className={styles.empty}>등록된 프로필이 없습니다</p>;
   }
 
@@ -84,27 +78,6 @@ export default function ProfileSection({
                   <span className={styles.rowTitle}>{e.title}</span>
                   <span className={styles.rowSub}>{e.description}</span>
                 </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {disciplinary.length > 0 && (
-        <div className={styles.block}>
-          <div className={styles.blockHead}>
-            <span>Disciplinary Log</span>
-            <span>{String(disciplinary.length).padStart(2, "0")}</span>
-          </div>
-          <div className={styles.rows}>
-            {disciplinary.map((r) => (
-              <div key={r.id} className={styles.row}>
-                <span className={styles.rowNum}>{r.date.slice(2, 10)}</span>
-                <span className={styles.rowMain}>
-                  <span className={styles.rowTitle}>{r.subject}</span>
-                  <span className={styles.rowSub}>{r.reason}</span>
-                </span>
-                <span className={styles.rowRight}>[{r.level}]</span>
               </div>
             ))}
           </div>

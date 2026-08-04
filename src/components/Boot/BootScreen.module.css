@@ -1,6 +1,6 @@
 /* ===== Full-screen retro gate =============================================
  * A photograph of a desk with a compact Mac on it. The monitor's glass is a
- * real DOM surface: the login chrome renders *inside* the photo.
+ * real DOM surface: the desktop icons render *inside* the photo.
  *
  * Alignment relies on the scene being a fixed-aspect box scaled to cover the
  * viewport — that way the glass can be positioned in percentages measured off
@@ -33,8 +33,15 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: max(100vw, calc(100dvh * var(--scene-w) / var(--scene-h)));
+  /* Oversized slightly past plain "cover" (103.1% / 104%): the powered-on
+     states pan the glass centre — at 48.535% / 48.088% of the photo — onto the
+     viewport centre, so the left/top edges need that much slack or they slide
+     into view on viewports where the zoom bottoms out at 1. */
+  width: max(103.1vw, calc(104dvh * var(--scene-w) / var(--scene-h)));
   aspect-ratio: var(--scene-w) / var(--scene-h);
+
+  --glass-cx: calc(var(--glass-left) + var(--glass-width) / 2);
+  --glass-cy: calc(var(--glass-top) + var(--glass-height) / 2);
 
   /* Centring is folded into `transform` rather than using the standalone
      `translate` property. Per spec the two compose, but CSS minifiers see a
@@ -43,10 +50,15 @@
      in a variable means every zoom state below reuses the same offset. */
   --center: translate(-50%, -50%);
 
+  /* Powered-on framing: pan so the *glass* centre — not the photo centre —
+     sits on the viewport centre. The glass is ~1.5% left / ~2% up of the
+     photo's middle, and on portrait phones the photo is far wider than the
+     viewport, so centring the photo left the icons visibly off-centre. */
+  --center-glass: translate(calc(-1 * var(--glass-cx)), calc(-1 * var(--glass-cy)));
+
   /* The camera. Origin is the centre of the glass so every zoom stays framed
-     on the monitor. */
-  transform-origin: calc(var(--glass-left) + var(--glass-width) / 2)
-    calc(var(--glass-top) + var(--glass-height) / 2);
+     on the monitor — scale() holds that point wherever the pan put it. */
+  transform-origin: var(--glass-cx) var(--glass-cy);
   transform: var(--center) scale(1);
   transition: transform 1200ms cubic-bezier(0.22, 1, 0.28, 1), filter 900ms ease;
   will-change: transform;
@@ -57,12 +69,12 @@
    viewports — where "cover" has already cropped in hard — don't over-magnify. */
 .warming .scene,
 .on .scene {
-  transform: var(--center) scale(var(--zoom, 1.6));
+  transform: var(--center-glass) scale(var(--zoom, 1.6));
 }
 
 /* …and all the way through the glass on the way out. */
 .entering .scene {
-  transform: var(--center) scale(9);
+  transform: var(--center-glass) scale(9);
   filter: brightness(1.5) blur(3px);
   transition: transform 800ms cubic-bezier(0.6, 0, 0.75, 0), filter 800ms ease;
 }
@@ -266,319 +278,6 @@
   }
 
   .warming .warmup { animation: none; }
-  .entering .scene { transform: var(--center) scale(var(--zoom, 1.6)); filter: none; }
+  .entering .scene { transform: var(--center-glass) scale(var(--zoom, 1.6)); filter: none; }
   .promptDot, .prompt { animation: none; }
-}
-
-/* dim backdrop when a modal dialog is open — overlays the whole stage so the
-   dialog is never clipped by the small CRT screen */
-.modalLayer {
-  position: absolute;
-  inset: 0;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  overflow-y: auto;
-  background: rgba(0, 0, 0, 0.45);
-}
-
-/* each window is centered (transform set inline, incl. cascade offset) */
-.windowSlot {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(480px, calc(100% - 32px));
-  display: flex;
-  justify-content: center;
-}
-
-.windowSlot > .dialog {
-  width: 100%;
-}
-
-/* ===== shared 98 helpers (scoped to boot) ===== */
-.userList {
-  height: 88px;
-  margin: 8px 0;
-}
-
-.userRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 6px;
-  cursor: inherit;
-}
-
-.userRowSelected {
-  background: navy;
-  color: #fff;
-}
-
-.userIcon {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-  image-rendering: pixelated;
-  flex-shrink: 0;
-}
-
-.userMeta {
-  display: flex;
-  flex-direction: column;
-}
-
-.userName {
-  font-weight: 700;
-}
-
-.userDesc {
-  font-size: 10px;
-  opacity: 0.8;
-}
-
-.fieldRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 10px 0;
-}
-
-.fieldRow label {
-  min-width: 64px;
-}
-
-.fieldRow input {
-  flex: 1;
-}
-
-.buttonRow {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 6px;
-  margin-top: 14px;
-}
-
-/* login has 4 buttons — let them shrink to text so they stay inside the window */
-.loginButtons button {
-  min-width: 0;
-  padding: 0 9px;
-}
-
-/* ===== dialog (New User / Settings) ===== */
-.dialog {
-  width: 100%;
-  max-width: 480px;
-}
-
-.dialogBody {
-  max-height: min(56vh, 360px);
-  overflow-y: auto;
-  background: rgb(18, 18, 18);
-  box-shadow: inset -1px -1px rgb(90, 90, 90), inset 1px 1px grey,
-    inset -2px -2px rgb(66, 66, 66), inset 2px 2px rgb(5, 5, 5);
-  padding: 12px 14px;
-  margin: 8px 2px;
-}
-
-/* Pixelated MS Sans Serif has no Hangul, so Korean falls back to Galmuri (a
-   Korean pixel font). No antialiasing — stays crisp. */
-.dialogText,
-.markdown,
-.placeholderText {
-  font-family: "Pixelated MS Sans Serif", "Galmuri11", sans-serif;
-}
-
-.dialogText {
-  font-size: 11px;
-}
-
-/* markdown content inside the New User terms */
-.markdown {
-  font-size: 11px;
-  line-height: 1.7;
-  color: var(--px-primary);
-  /* notice.md uses `color: var(--color-accent)` (lime) for @handles/#tags —
-     override the variable here so they render in a retro Win98 navy instead */
-  --color-accent: var(--px-lightblue);
-}
-
-.markdown h3 {
-  font-size: 22px;
-  margin: 0 0 8px;
-}
-
-.markdown p {
-  margin: 6px 0;
-}
-
-.markdown hr {
-  border: none;
-  border-top: 1px solid #b9b9b9;
-  margin: 10px 0;
-}
-
-.markdown ul {
-  list-style: disc;
-  padding-left: 20px;
-  margin: 6px 0;
-}
-
-.markdown a {
-  color: var(--px-lightblue);
-}
-
-.markdown details {
-  margin: 6px 0;
-  border: 1px dashed #b9b9b9;
-  padding: 6px 8px;
-}
-
-.markdown summary {
-  cursor: inherit;
-  font-weight: 700;
-}
-
-/* memo.md prompts live in fenced code blocks — wrap long lines so they don't
-   overflow the dialog */
-.markdown pre {
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  max-width: 100%;
-}
-
-.markdown code {
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-.placeholderText {
-  padding: 10px 4px;
-  font-size: 11px;
-}
-
-/* ===== Settings control-panel icons ===== */
-.iconGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 12px;
-  min-height: 96px;
-}
-
-.iconItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  width: 76px;
-  padding: 8px 4px;
-  cursor: inherit;
-}
-
-.iconItem:focus,
-.iconItem:hover {
-  outline: 1px dotted rgb(5, 5, 5);
-  outline-offset: -2px;
-}
-
-.iconImg {
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
-  image-rendering: pixelated;
-}
-
-.iconLabel {
-  font-size: 11px;
-  text-align: center;
-}
-
-/* ===== Memo per-section copy button ===== */
-.memoH3 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.memoCopyBtn {
-  flex-shrink: 0;
-  /* plain pixel-font button, no chrome */
-}
-
-.memoCopyBtnDone {
-  font-weight: 700;
-}
-
-/* ===== Neighbors grid ===== */
-.neighborsGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.neighborItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  cursor: inherit;
-}
-
-.neighborImg {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border: 1px solid rgb(20, 20, 20);
-}
-
-.neighborImgCrop {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  border: 1px solid rgb(20, 20, 20);
-}
-
-.neighborImgCropped {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: auto;
-}
-
-.neighborName {
-  width: 100%;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--px-lightblue);
-  text-align: center;
-  line-height: 1.4;
-  word-break: keep-all;
-}
-
-/* ===== responsive ===== */
-@media (max-width: 520px) {
-  .stage {
-    padding: 0;
-    align-items: stretch;
-  }
-  .mac {
-    width: 100%;
-    border-radius: 0;
-    padding: 16px 14px 0;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .screen {
-    aspect-ratio: auto;
-    min-height: 60vh;
-  }
 }

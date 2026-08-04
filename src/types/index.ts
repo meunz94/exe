@@ -73,12 +73,6 @@ export interface Board {
   category: string;
 }
 
-export interface Notice {
-  id: string;
-  text: string;
-  category?: string;
-}
-
 export interface PlaylistItem {
   id: string;
   title: string;
@@ -86,6 +80,8 @@ export interface PlaylistItem {
   duration: string;
   category: string;
   lyrics?: string;
+  /** YouTube id. Present = the disc is playable; absent = display only. */
+  videoId?: string;
 }
 
 export interface TimelineEvent {
@@ -157,21 +153,14 @@ export interface YoutubeVideo {
   category: string;
 }
 
-export interface DisciplinaryRecord {
-  id: string;
-  subject: string;
-  reason: string;
-  date: string;
-  level: string;
-  category: string;
-}
-
 export interface SidebarItem {
   id: string;
   label: string;
   category: string;
   page?: string;
   synopsis?: string;
+  /** Adds the AU tab to this entry — the alternate-universe set belongs to it. */
+  hasAu?: boolean;
 }
 
 export interface AppData {
@@ -179,12 +168,10 @@ export interface AppData {
   agents: Agent[];
   posts: Post[];
   boards: Board[];
-  notices: Notice[];
   au: AuItem[];
   auPosts: AuPost[];
   playlist: PlaylistItem[];
   timeline: TimelineEvent[];
-  disciplinary: DisciplinaryRecord[];
   gallery: GalleryImage[];
   youtube: YoutubeVideo[];
 }

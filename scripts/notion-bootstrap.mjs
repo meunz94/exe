@@ -76,8 +76,19 @@ async function resolveImage(src) {
 /* ---------------------------------------------------------- 생성 헬퍼 */
 
 async function createDb(key, title, properties) {
-  if (config.databases[key]) {
-    console.log(`- ${title}: 이미 설정됨, 건너뜀`);
+  const existing = config.databases[key];
+  if (existing) {
+    // 이미 있는 DB 는 행 이관 없이 스키마만 맞춘다: 코드에 새로 생긴 속성을 추가.
+    const db = await notion("GET", `/databases/${existing}`);
+    const missing = Object.fromEntries(
+      Object.entries(properties).filter(([name]) => !db.properties?.[name])
+    );
+    if (Object.keys(missing).length) {
+      await notion("PATCH", `/databases/${existing}`, { properties: missing });
+      console.log(`~ ${title}: 속성 추가 → ${Object.keys(missing).join(", ")}`);
+    } else {
+      console.log(`- ${title}: 이미 설정됨, 건너뜀`);
+    }
     return null;
   }
   const res = await notion("POST", "/databases", {
@@ -124,7 +135,6 @@ function mergedDbKey(key) {
 async function bootstrapPosts() {
   const dbId = await createDb("posts", "게시글", {
     제목: { title: {} },
-    번호: { number: {} },
     날짜: { date: {} },
     카테고리: { select: {} },
     게시판: { select: {} },
@@ -159,13 +169,11 @@ async function bootstrapPosts() {
           }
         }
 
-        const num = Number.parseInt(id, 10);
         console.log(`  게시글 이관: ${category}/${board}/${file}`);
         await createRow(
           dbId,
           props({
             제목: T(meta.title || id),
-            번호: Number.isNaN(num) ? undefined : NUM(num),
             날짜: DATE(meta.date),
             카테고리: SEL(category),
             게시판: SEL(board),
@@ -183,7 +191,6 @@ async function bootstrapPosts() {
 async function bootstrapAuPosts() {
   const dbId = await createDb("auPosts", "AU 게시글", {
     제목: { title: {} },
-    번호: { number: {} },
     날짜: { date: {} },
     AU: { select: {} },
     미리보기: { rich_text: {} },
@@ -198,13 +205,11 @@ async function bootstrapAuPosts() {
     for (const file of fs.readdirSync(path.join(root, auId)).filter((f) => f.endsWith(".md"))) {
       const id = path.basename(file, ".md");
       const { data: meta, content } = matter(fs.readFileSync(path.join(root, auId, file), "utf-8"));
-      const num = Number.parseInt(id, 10);
       console.log(`  AU 게시글 이관: ${auId}/${file}`);
       await createRow(
         dbId,
         props({
           제목: T(meta.title || id),
-          번호: Number.isNaN(num) ? undefined : NUM(num),
           날짜: DATE(meta.date),
           AU: SEL(auId),
           미리보기: RT(meta.preview ?? ""),
@@ -267,6 +272,7 @@ async function bootstrapPlaylist() {
     길이: { rich_text: {} },
     카테고리: { select: {} },
     가사: { rich_text: {} },
+    영상ID: { rich_text: {} },
     정렬: { number: {} },
     공개: { checkbox: {} },
   });
@@ -279,6 +285,7 @@ async function bootstrapPlaylist() {
       길이: RT(item.duration ?? ""),
       카테고리: SEL(item.category),
       가사: RT(item.lyrics ?? ""),
+      영상ID: item.videoId ? RT(item.videoId) : undefined,
       정렬: NUM(i + 1),
       공개: CHECK(true),
     }));
@@ -354,43 +361,73 @@ async function bootstrapGallery() {
   }
 }
 
-async function bootstrapNotices() {
-  const dbId = await createDb("notices", "짧은 공지", {
-    내용: { title: {} },
-    카테고리: { select: {} },
+async function bootstrapAu() {
+  const membersDbId = await createDb("auMembers", "AU 멤버", {
+    이름: { title: {} },
+    AU: { select: {} },
+    역할: { rich_text: {} },
+    이미지: { files: {} },
+    소개: { rich_text: {} },
+    노트: { rich_text: {} },
     정렬: { number: {} },
     공개: { checkbox: {} },
   });
-  if (!dbId) return;
-  for (const [i, item] of mergedDbKey("notices").entries()) {
-    await createRow(dbId, props({
-      내용: T(item.text),
-      카테고리: SEL(item.category),
-      정렬: NUM(i + 1),
-      공개: CHECK(true),
-    }));
-  }
-}
-
-async function bootstrapDisciplinary() {
-  const dbId = await createDb("disciplinary", "징계 기록", {
-    대상: { title: {} },
-    사유: { rich_text: {} },
-    날짜: { date: {} },
-    등급: { select: {} },
-    카테고리: { select: {} },
+  const auDbId = await createDb("au", "AU", {
+    제목: { title: {} },
+    ID: { rich_text: {} },
+    설명: { rich_text: {} },
+    대표이미지: { files: {} },
+    이미지위치: { rich_text: {} },
+    태그: { multi_select: {} },
+    섹션: { select: {} },
+    정렬: { number: {} },
     공개: { checkbox: {} },
   });
-  if (!dbId) return;
-  for (const item of mergedDbKey("disciplinary")) {
-    await createRow(dbId, props({
-      대상: T(item.subject),
-      사유: RT(item.reason ?? ""),
-      날짜: DATE(item.date),
-      등급: SEL(item.level),
-      카테고리: SEL(item.category),
-      공개: CHECK(true),
-    }));
+  if (!auDbId && !membersDbId) return;
+
+  const items = mergedDbKey("au");
+  for (const [i, au] of items.entries()) {
+    if (auDbId) {
+      console.log(`  AU 이관: ${au.title}`);
+      // 대사(quotes)는 본문 인용 블록으로 넣는다: "> 멤버이름: 대사"
+      const bodyLines = [];
+      if (au.content) bodyLines.push(au.content);
+      for (const q of au.quotes ?? []) {
+        const name = au.members?.[q.memberIndex]?.name ?? "";
+        bodyLines.push(`> ${name ? `${name}: ` : ""}${q.text}`);
+      }
+      await createRow(
+        auDbId,
+        props({
+          제목: T(au.title),
+          ID: RT(au.id),
+          설명: RT(au.description ?? ""),
+          대표이미지: await fileValue(au.imageUrl),
+          이미지위치: au.imagePosition ? RT(au.imagePosition) : undefined,
+          태그: au.tags?.length
+            ? { multi_select: au.tags.map((t) => ({ name: String(t).replaceAll(",", " ") })) }
+            : undefined,
+          섹션: SEL(au.section),
+          정렬: NUM(i + 1),
+          공개: CHECK(true),
+        }),
+        await markdownToBlocks(bodyLines.join("\n\n"), { resolveImage })
+      );
+    }
+    if (membersDbId) {
+      for (const [j, m] of (au.members ?? []).entries()) {
+        await createRow(membersDbId, props({
+          이름: T(m.name),
+          AU: SEL(au.id),
+          역할: RT(m.role ?? ""),
+          이미지: await fileValue(m.imageUrl),
+          소개: RT((m.descriptions ?? []).join("\n")),
+          노트: m.note ? RT(m.note) : undefined,
+          정렬: NUM(j + 1),
+          공개: CHECK(true),
+        }));
+      }
+    }
   }
 }
 
@@ -425,8 +462,7 @@ async function main() {
   await bootstrapPlaylist();
   await bootstrapNeighbors();
   await bootstrapGallery();
-  await bootstrapNotices();
-  await bootstrapDisciplinary();
+  await bootstrapAu();
   await bootstrapYoutube();
 
   console.log("\n이관 완료. notion.config.json 에 ID 가 기록되었습니다.");

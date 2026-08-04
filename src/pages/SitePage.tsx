@@ -9,7 +9,6 @@ import type {
 } from "../types";
 import LandingPage from "./LandingPage";
 import EntryPage from "./EntryPage";
-import AuEntry from "./entry/AuEntry";
 import WordWipe from "../components/Transition/WordWipe";
 import { WIPE_INKS } from "../components/Transition/wipeInks";
 import styles from "./SitePage.module.css";
@@ -36,7 +35,13 @@ export default function SitePage({
   fetchAuContent,
   onBackToDesk,
 }: SitePageProps) {
-  const [entry, setEntry] = useState<SidebarItem | null>(null);
+  const entryFromPath = useCallback(() => {
+    const slug = window.location.pathname.match(/^\/main\/([^/]+)/)?.[1];
+    if (!slug) return null;
+    return data.sidebarItems.find((s) => s.category.toLowerCase() === slug) ?? null;
+  }, [data.sidebarItems]);
+
+  const [entry, setEntry] = useState<SidebarItem | null>(entryFromPath);
   /** Destination held while the opening transition runs. */
   const [wiping, setWiping] = useState<SidebarItem | null>(null);
   const [wipeKey, setWipeKey] = useState(0);
@@ -59,12 +64,25 @@ export default function SitePage({
   // full-bleed sheets (dossier, reader, lightbox) lock it, and each of those
   // owns its own `overflow-y: auto` and manages the class itself.
 
+  // Opening/closing an entry is a real navigation: push it so the browser's
+  // back button steps entry → index → desk instead of leaving the site.
   useEffect(() => {
     const path = entry ? `/main/${entry.category.toLowerCase()}` : "/main";
     if (window.location.pathname !== path) {
-      window.history.replaceState(null, "", path);
+      window.history.pushState(null, "", path);
     }
   }, [entry]);
+
+  // Browser back/forward while inside the archive: sync the entry to the URL.
+  // Paths outside /main mean we're leaving the archive — App handles those.
+  useEffect(() => {
+    const onPop = () => {
+      if (!window.location.pathname.startsWith("/main")) return;
+      setEntry(entryFromPath());
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, [entryFromPath]);
 
   const openEntry = useCallback(
     (item: SidebarItem) => {
@@ -90,26 +108,18 @@ export default function SitePage({
           scrollLocked={wiping !== null}
         />
       )}
-
-      {entry !== null &&
-        (entry.page === "au" ? (
-          <AuEntry
-            items={data.au}
-            auPosts={data.auPosts}
-            loadingAuPostId={loadingAuPostId}
-            fetchAuContent={fetchAuContent}
-            onBack={closeEntry}
-          />
-        ) : (
-          <EntryPage
-            data={data}
-            item={entry}
-            index={indexOf(entry)}
-            loadingPostId={loadingPostId}
-            fetchContent={fetchContent}
-            onBack={closeEntry}
-          />
-        ))}
+      {entry !== null && (
+        <EntryPage
+          data={data}
+          item={entry}
+          index={indexOf(entry)}
+          loadingPostId={loadingPostId}
+          loadingAuPostId={loadingAuPostId}
+          fetchContent={fetchContent}
+          fetchAuContent={fetchAuContent}
+          onBack={closeEntry}
+        />
+      )}
 
       {wiping && (
         <WordWipe

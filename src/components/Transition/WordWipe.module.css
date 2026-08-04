@@ -19,8 +19,8 @@
   overflow: hidden;
   pointer-events: none;
   /* set per-invocation */
-  --wipe-ink: var(--px-red);
-  --wipe-text: rgba(255, 255, 255, 0.88);
+  --wipe-ink: var(--px-green-mid);
+  --wipe-text: rgba(6, 24, 12, 0.86);
 }
 
 /* The sheet owns the exit move; the rows own their own entrances. Keeping the
@@ -57,9 +57,9 @@
   font-weight: 800;
   /* Measured in JS so the word spans the viewport (see WordWipe.tsx); the
      min() is only the pre-measurement fallback. */
-  font-size: var(--row-size, min(15.5vw, 19.5vh));
+  font-size: var(--row-size, min(11vw, 19.5vh));
   line-height: 1.02;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   text-align: center;
   white-space: nowrap;
@@ -153,7 +153,7 @@
   white-space: nowrap;
   font-family: var(--font-display);
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   line-height: 1.02;
 }

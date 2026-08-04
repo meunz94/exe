@@ -4,6 +4,7 @@ import rehypeRaw from "rehype-raw";
 import type { PostWithContent } from "../../types";
 import { displayDate } from "../../utils/publicUrl";
 import { fixCjkEmphasis } from "../../utils/markdown";
+import { hasHangul } from "../../utils/text";
 import styles from "./EntryDetail.module.css";
 
 interface PostReaderProps {
@@ -39,7 +40,9 @@ export default function PostReader({ post, onClose }: PostReaderProps) {
 
       <div className={styles.readHead}>
         <span className={styles.kicker}>{displayDate(post.date)}</span>
-        <h1 className={styles.readTitle}>{post.title}</h1>
+        <h1 className={`${styles.readTitle} ${hasHangul(post.title) ? styles.titleCjk : ""}`}>
+          {post.title}
+        </h1>
       </div>
 
       <article className={styles.article}>

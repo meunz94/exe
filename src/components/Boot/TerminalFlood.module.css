@@ -44,10 +44,10 @@
 }
 
 .green {
-  --ink: #3ce07b;
+  --ink: var(--px-green);
   --ink-dim: rgba(150, 160, 155, 0.6);
-  --ink-hot: #b6ffd0;
-  --glowc: rgba(60, 224, 123, 0.14);
+  --ink-hot: #d6ffe6;
+  --glowc: rgba(0, 255, 95, 0.14);
 }
 
 .flood {

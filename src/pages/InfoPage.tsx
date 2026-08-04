@@ -63,9 +63,6 @@ export default function InfoPage({ onBack }: InfoPageProps) {
       </div>
 
       <h1 className={styles.title}>Info</h1>
-      <p className={styles.lede}>
-        이 아카이브에 대한 안내와, 오가는 이웃들.
-      </p>
 
       <section className={styles.section}>
         <div className={styles.sectionHead}>

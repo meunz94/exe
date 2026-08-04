@@ -7,7 +7,7 @@ import styles from "../../pages/LandingPage.module.css";
  * These are global class names from `styles/tokens.css` (imported by index.css),
  * not CSS-module locals — hence the bare strings.
  */
-const TONES = ["sectionDefault", "sectionRed", "sectionBlue", "sectionCream", "sectionLightgrey"] as const;
+const TONES = ["sectionDefault", "sectionGreen", "sectionBlue"] as const;
 
 interface EntrySectionProps {
   item: SidebarItem;
@@ -28,8 +28,8 @@ export default function EntrySection({ item, index, counts, onEnter }: EntrySect
     styles.entrySynopsisRevealed
   );
 
-  // A cream/lightgrey section is a light surface — flip the cursor pair.
-  const isLightTone = tone === "sectionCream" || tone === "sectionLightgrey";
+  // Green is the light fill of the pair, so it needs the dark-on-light cursors.
+  const isLightTone = tone === "sectionGreen";
 
   return (
     <section

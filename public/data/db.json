@@ -1,17 +1,30 @@
 {
   "sidebarItems": [
-    { "id": "sb-1", "label": "ROMANCE OVERCLOCK", "category": "VB", "synopsis": "훈련실을 통째로 얼려버린 탓에 밴스의 연구실로 불려간 블랑. 왜 훈련실을 얼렸느냐는 밴스의 추궁에, 동결 임계점을 실험하기 위험이었다고 답하는데. 블랑의 '오버클럭'에 흥미를 가진 밴스는, 그녀를 연구대상으로 지정하고 매일 연구실로 출석하라는 징계를 내린다. 그것 뿐인데, 왜 이렇게 신경이 쓰이는 거지?"},
-    { "id": "sb-4", "label": "403 NOSTELGIA FORBIDDEN", "category": "VS", "synopsis": "어릴 적부터 봐온 '아는 옆집 동생'이, 알고 보니 ARCH 소속의 가이드였다면? 징계 면담을 위해 연구실에 온 시그널을 본 순간 밴스는 그녀가 어릴 적의 그 아이와 동일인물임을 깨닫는다. 그 이후로, 밴스는 자꾸만 시그널과 어릴 적의 연수가 겹쳐 보이기 시작하는데..."},
-    { "id": "sb-5", "label": "ANOTHER UNIVERSE", "category": "AU", "page": "au"}
+    {
+      "id": "sb-1",
+      "label": "ROMANCE OVERCLOCK",
+      "category": "VB",
+      "synopsis": "훈련실을 통째로 얼려버린 탓에 밴스의 연구실로 불려간 블랑. 왜 훈련실을 얼렸느냐는 밴스의 추궁에, 동결 임계점을 실험하기 위험이었다고 답하는데. 블랑의 '오버클럭'에 흥미를 가진 밴스는, 그녀를 연구대상으로 지정하고 매일 연구실로 출석하라는 징계를 내린다. 그것 뿐인데, 왜 이렇게 신경이 쓰이는 거지?",
+      "hasAu": true
+    },
+    {
+      "id": "sb-4",
+      "label": "403 NOSTELGIA FORBIDDEN",
+      "category": "VS",
+      "synopsis": "어릴 적부터 봐온 '아는 옆집 동생'이, 알고 보니 ARCH 소속의 가이드였다면? 징계 면담을 위해 연구실에 온 시그널을 본 순간 밴스는 그녀가 어릴 적의 그 아이와 동일인물임을 깨닫는다. 그 이후로, 밴스는 자꾸만 시그널과 어릴 적의 연수가 겹쳐 보이기 시작하는데..."
+    }
   ],
   "agents": [
     {
       "id": "vance-1",
       "name": "Dr. Vance",
-      "description": ["Harmony Div.", "Head of Harmony"],
+      "description": [
+        "Harmony Div.",
+        "Head of Harmony"
+      ],
       "imageUrl": "/images/agents/vance.jpeg",
       "category": "VB",
-      "detail": { 
+      "detail": {
         "heroImageUrl": "/images/heroes/vance-bg.jpeg",
         "subtitle": "S-Class Guide",
         "title": "Dr. Vance",
@@ -29,7 +42,10 @@
         },
         "ability": {
           "overview": "정원 개방 (Open the Garden)",
-          "skills": ["생명 데이터화: 접촉 시 센티넬의 생체 조건을 '라이프 인덱스'라는 데이터로 변환하여 파악.", "정화의 영역: 생체 리듬을 동기화하여 특정 구역 내에 강력한 치유 필드를 생성."],
+          "skills": [
+            "생명 데이터화: 접촉 시 센티넬의 생체 조건을 '라이프 인덱스'라는 데이터로 변환하여 파악.",
+            "정화의 영역: 생체 리듬을 동기화하여 특정 구역 내에 강력한 치유 필드를 생성."
+          ],
           "berserkSign": ""
         },
         "appearance": {
@@ -38,24 +54,57 @@
           "outfit": "검은 터틀넥 위에 흰색 의사 가운, 단정한 흰 바지와 구두."
         },
         "tmi": [
-          { "title": "워커홀릭", "text": "극도로 바쁜 업무와 본인의 철칙으로 인해 전담 파트너(Pair)를 두지 않는다. 커피와 에너지 드링크를 달고 산다. 비혼, 비연애주의." },
-          { "title": "강아지", "text": "강아지를 키우고 싶지만 시간이 없어, 매일 강아지 영상을 몰래 보며 힐링한다." },
-          { "title": "취미", "text": "연구실에서 식물을 키우는 취미가 있다." },
-          { "title": "평판", "text": "직장 내 이미지가 차가워서 안 좋다. 내심 상처받는다." },
-          { "title": "HATE", "text": "무식함, 말이 통하지 않는 상대, 원치 않는 스킨십"},
-          { "title": "ETC", "text": "술/담배 안 함. 시력이 매우 안 좋음." }
+          {
+            "title": "워커홀릭",
+            "text": "극도로 바쁜 업무와 본인의 철칙으로 인해 전담 파트너(Pair)를 두지 않는다. 커피와 에너지 드링크를 달고 산다. 비혼, 비연애주의."
+          },
+          {
+            "title": "강아지",
+            "text": "강아지를 키우고 싶지만 시간이 없어, 매일 강아지 영상을 몰래 보며 힐링한다."
+          },
+          {
+            "title": "취미",
+            "text": "연구실에서 식물을 키우는 취미가 있다."
+          },
+          {
+            "title": "평판",
+            "text": "직장 내 이미지가 차가워서 안 좋다. 내심 상처받는다."
+          },
+          {
+            "title": "HATE",
+            "text": "무식함, 말이 통하지 않는 상대, 원치 않는 스킨십"
+          },
+          {
+            "title": "ETC",
+            "text": "술/담배 안 함. 시력이 매우 안 좋음."
+          }
         ],
         "relations": [
-          { "name": "Blanc", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 아내." },
-          { "name": "Zaian", "relation": "동료", "description": "같은 S급 풀속성 가이드라는 공통점을 가진 동료. 친구라고 부를 수 있을 만한 유일한 인물." },
-          { "name": "Pure", "relation": "부하", "description": "의무실 소속의 메딕이자, 신뢰할 수 있는 부하 직원." }
+          {
+            "name": "Blanc",
+            "relation": "파트너",
+            "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 아내."
+          },
+          {
+            "name": "Zaian",
+            "relation": "동료",
+            "description": "같은 S급 풀속성 가이드라는 공통점을 가진 동료. 친구라고 부를 수 있을 만한 유일한 인물."
+          },
+          {
+            "name": "Pure",
+            "relation": "부하",
+            "description": "의무실 소속의 메딕이자, 신뢰할 수 있는 부하 직원."
+          }
         ]
       }
     },
     {
       "id": "blanc-1",
       "name": "Blanc",
-      "description": ["S-Class Sentinel", "Vanguard (Team 4)"],
+      "description": [
+        "S-Class Sentinel",
+        "Vanguard (Team 4)"
+      ],
       "imageUrl": "/images/agents/blanc.png",
       "category": "VB",
       "detail": {
@@ -75,7 +124,11 @@
         },
         "ability": {
           "overview": "설경 (Snowscape)",
-          "skills": ["블리자드 (Blizzard): 주변 지역 일대에 날카로운 서리 폭풍을 일으켜 무력화.", "화이트 아웃 (White Out): 오버클럭(Overclock)을 활용해 반경 1km 범위를 통째로 빙결시켜 모든 행동을 봉쇄.", "아이시클 재블린 (Icicle Javelin): 얼기설기 뭉쳐진 고드름 형태의 창을 던져 적을 관통."],
+          "skills": [
+            "블리자드 (Blizzard): 주변 지역 일대에 날카로운 서리 폭풍을 일으켜 무력화.",
+            "화이트 아웃 (White Out): 오버클럭(Overclock)을 활용해 반경 1km 범위를 통째로 빙결시켜 모든 행동을 봉쇄.",
+            "아이시클 재블린 (Icicle Javelin): 얼기설기 뭉쳐진 고드름 형태의 창을 던져 적을 관통."
+          ],
           "berserkSign": "통각을 비롯한 오감이 점차 둔해지며, 신체의 근육이 굳기 시작한다. 상태가 지속될 경우 극심한 저체온증 현상이 발생한다."
         },
         "appearance": {
@@ -84,25 +137,51 @@
           "outfit": "흰색 셔츠와 검은색 멜빵 바지에 포멀한 흰색 자켓. 흰 양말과 검은색 플랫폼 슈즈."
         },
         "tmi": [
-          { "title": "LIKE", "text": "초콜릿, 홍차, 포근한 것, 침대" },
-          { "title": "HATE", "text": "카레, 브로콜리, 잘난 척하는 사람, 답답함" },
-          { "title": "취미", "text": "각종 게임과 독서가 취미... 이긴 하나, 호기심이 많고 끈기가 없어 관심사는 자주 바뀐다." },
-          { "title": "평판", "text": "밝고 붙임성이 좋아 많은 요원들과 두루두루 안면이 있는 편이다. 앳된 외모와 성격 때문에 '얼초'라는 별명이 있음." },
-          { "title": "ETC", "text": "왼손잡이. 얼음 속성인 탓에 체온이 낮은 편이다. 걸음이 빠르고 가볍다."}
+          {
+            "title": "LIKE",
+            "text": "초콜릿, 홍차, 포근한 것, 침대"
+          },
+          {
+            "title": "HATE",
+            "text": "카레, 브로콜리, 잘난 척하는 사람, 답답함"
+          },
+          {
+            "title": "취미",
+            "text": "각종 게임과 독서가 취미... 이긴 하나, 호기심이 많고 끈기가 없어 관심사는 자주 바뀐다."
+          },
+          {
+            "title": "평판",
+            "text": "밝고 붙임성이 좋아 많은 요원들과 두루두루 안면이 있는 편이다. 앳된 외모와 성격 때문에 '얼초'라는 별명이 있음."
+          },
+          {
+            "title": "ETC",
+            "text": "왼손잡이. 얼음 속성인 탓에 체온이 낮은 편이다. 걸음이 빠르고 가볍다."
+          }
         ],
         "relations": [
-          { "name": "Dr. Vance", "relation": "파트너", "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 남편." },
-          { "name": "Pure", "relation": "친구", "description": "파트너가 없을 적 의무실에 자주 들르다보니 친해진 사이." }
+          {
+            "name": "Dr. Vance",
+            "relation": "파트너",
+            "description": "파장 동기화율 98.9%을 기록한, 공식 파트너이자 남편."
+          },
+          {
+            "name": "Pure",
+            "relation": "친구",
+            "description": "파트너가 없을 적 의무실에 자주 들르다보니 친해진 사이."
+          }
         ]
       }
     },
     {
       "id": "vance-4",
       "name": "Dr. Vance",
-      "description": ["Harmony Div.", "Head of Harmony"],
+      "description": [
+        "Harmony Div.",
+        "Head of Harmony"
+      ],
       "imageUrl": "/images/agents/vance.jpeg",
       "category": "VS",
-      "detail": { 
+      "detail": {
         "heroImageUrl": "/images/heroes/vance-bg.jpeg",
         "subtitle": "S-Class Guide",
         "title": "Dr. Vance",
@@ -120,7 +199,10 @@
         },
         "ability": {
           "overview": "정원 개방 (Open the Garden)",
-          "skills": ["생명 데이터화: 접촉 시 센티넬의 생체 조건을 '라이프 인덱스'라는 데이터로 변환하여 파악.", "정화의 영역: 생체 리듬을 동기화하여 특정 구역 내에 강력한 치유 필드를 생성."],
+          "skills": [
+            "생명 데이터화: 접촉 시 센티넬의 생체 조건을 '라이프 인덱스'라는 데이터로 변환하여 파악.",
+            "정화의 영역: 생체 리듬을 동기화하여 특정 구역 내에 강력한 치유 필드를 생성."
+          ],
           "berserkSign": ""
         },
         "appearance": {
@@ -129,24 +211,57 @@
           "outfit": "검은 터틀넥 위에 흰색 의사 가운, 단정한 흰 바지와 구두."
         },
         "tmi": [
-          { "title": "워커홀릭", "text": "극도로 바쁜 업무와 본인의 철칙으로 인해 전담 파트너(Pair)를 두지 않는다. 커피와 에너지 드링크를 달고 산다. 비혼, 비연애주의." },
-          { "title": "강아지", "text": "강아지를 키우고 싶지만 시간이 없어, 매일 강아지 영상을 몰래 보며 힐링한다." },
-          { "title": "취미", "text": "연구실에서 식물을 키우는 취미가 있다." },
-          { "title": "평판", "text": "직장 내 이미지가 차가워서 안 좋다. 내심 상처받는다." },
-          { "title": "HATE", "text": "무식함, 말이 통하지 않는 상대, 원치 않는 스킨십"},
-          { "title": "ETC", "text": "술/담배 안 함. 시력이 매우 안 좋음." }
+          {
+            "title": "워커홀릭",
+            "text": "극도로 바쁜 업무와 본인의 철칙으로 인해 전담 파트너(Pair)를 두지 않는다. 커피와 에너지 드링크를 달고 산다. 비혼, 비연애주의."
+          },
+          {
+            "title": "강아지",
+            "text": "강아지를 키우고 싶지만 시간이 없어, 매일 강아지 영상을 몰래 보며 힐링한다."
+          },
+          {
+            "title": "취미",
+            "text": "연구실에서 식물을 키우는 취미가 있다."
+          },
+          {
+            "title": "평판",
+            "text": "직장 내 이미지가 차가워서 안 좋다. 내심 상처받는다."
+          },
+          {
+            "title": "HATE",
+            "text": "무식함, 말이 통하지 않는 상대, 원치 않는 스킨십"
+          },
+          {
+            "title": "ETC",
+            "text": "술/담배 안 함. 시력이 매우 안 좋음."
+          }
         ],
         "relations": [
-          { "name": "Signal", "relation": "옆집 살던 동생", "description": "시그널이 5살 때부터 밴스의 집에 맡겨질 때가 많아 매우 가깝게 지냈던 옆집 동생. 밴스의 기억 속에서는 어린애였다." },
-          { "name": "Zaian", "relation": "동료", "description": "같은 S급 풀속성 가이드라는 공통점을 가진 동료. 친구라고 부를 수 있을 만한 유일한 인물." },
-          { "name": "Pure", "relation": "부하", "description": "의무실 소속의 메딕이자, 신뢰할 수 있는 부하 직원." }
+          {
+            "name": "Signal",
+            "relation": "옆집 살던 동생",
+            "description": "시그널이 5살 때부터 밴스의 집에 맡겨질 때가 많아 매우 가깝게 지냈던 옆집 동생. 밴스의 기억 속에서는 어린애였다."
+          },
+          {
+            "name": "Zaian",
+            "relation": "동료",
+            "description": "같은 S급 풀속성 가이드라는 공통점을 가진 동료. 친구라고 부를 수 있을 만한 유일한 인물."
+          },
+          {
+            "name": "Pure",
+            "relation": "부하",
+            "description": "의무실 소속의 메딕이자, 신뢰할 수 있는 부하 직원."
+          }
         ]
       }
     },
     {
       "id": "signal-4",
       "name": "Signal",
-      "description": ["S-Class Guide", "Support (Vanguard Team 1)"],
+      "description": [
+        "S-Class Guide",
+        "Support (Vanguard Team 1)"
+      ],
       "imageUrl": "/images/agents/signal.png",
       "category": "VS",
       "detail": {
@@ -166,7 +281,10 @@
         },
         "ability": {
           "overview": "신호 처리 (Signal Processing)",
-          "skills": ["블루투스 통신 (Bluetooth Communication): 깊은 교감을 나눈 센티넬에게 자신의 생각을 단방향으로 전달.", "일렉트릭 펄스 (Electric Pulse): 대상의 신경계를 자극해 순간적인 각성 효과를 부여."],
+          "skills": [
+            "블루투스 통신 (Bluetooth Communication): 깊은 교감을 나눈 센티넬에게 자신의 생각을 단방향으로 전달.",
+            "일렉트릭 펄스 (Electric Pulse): 대상의 신경계를 자극해 순간적인 각성 효과를 부여."
+          ],
           "berserkSign": ""
         },
         "appearance": {
@@ -175,29 +293,71 @@
           "outfit": "흰색 목폴라와 캐주얼한 흰색 자켓, 검은 데님 스커트. 무릎까지 오는 흰 양말과 검은색 플랫폼 슈즈."
         },
         "tmi": [
-          { "title": "LIKE", "text": "초콜릿, 홍차, 포근한 것, 침대" },
-          { "title": "HATE", "text": "카레, 브로콜리, 잘난 척하는 사람, 답답함" },
-          { "title": "취미", "text": "각종 게임과 독서. 드라마 시청 및 연극 관람." },
-          { "title": "평판", "text": "밝고 붙임성이 좋아 대부분의 S급 가이드들과 친하며 대외적인 평판도 좋음." },
-          { "title": "ETC", "text": "파장이 빠르고 자극적인 편이다. 체력이 좋지 않은 편이라 개인 단련을 열심히 하지만, 개선이 잘 되지 않는 듯."}
+          {
+            "title": "LIKE",
+            "text": "초콜릿, 홍차, 포근한 것, 침대"
+          },
+          {
+            "title": "HATE",
+            "text": "카레, 브로콜리, 잘난 척하는 사람, 답답함"
+          },
+          {
+            "title": "취미",
+            "text": "각종 게임과 독서. 드라마 시청 및 연극 관람."
+          },
+          {
+            "title": "평판",
+            "text": "밝고 붙임성이 좋아 대부분의 S급 가이드들과 친하며 대외적인 평판도 좋음."
+          },
+          {
+            "title": "ETC",
+            "text": "파장이 빠르고 자극적인 편이다. 체력이 좋지 않은 편이라 개인 단련을 열심히 하지만, 개선이 잘 되지 않는 듯."
+          }
         ],
         "relations": [
-          { "name": "Vance", "relation": "옆집 살던 오빠", "description": "시그널이 5살 때부터 밴스의 집에 맡겨질 때가 많아 매우 가깝게 지냈던 옆집 동생. 잘생기고 똑똑하고 다정한 오빠로 기억하고 있다. 시그널의 첫사랑이었음." },
-          { "name": "Pure", "relation": "친구", "description": "심심할 때마다 의무실에 들러 노닥거리다보니 친해졌다." },
-          { "name": "Ash", "relation": "-", "description": "추가 예정" },
-          { "name": "Shane", "relation": "-", "description": "추가 예정" },
-          { "name": "Overload", "relation": "-", "description": "추가 예정" },
-          { "name": "Noah", "relation": "-", "description": "추가 예정" },
-          { "name": "Amore", "relation": "-", "description": "추가 예정" },
-          { "name": "Lime", "relation": "-", "description": "추가 예정" }
+          {
+            "name": "Vance",
+            "relation": "옆집 살던 오빠",
+            "description": "시그널이 5살 때부터 밴스의 집에 맡겨질 때가 많아 매우 가깝게 지냈던 옆집 동생. 잘생기고 똑똑하고 다정한 오빠로 기억하고 있다. 시그널의 첫사랑이었음."
+          },
+          {
+            "name": "Pure",
+            "relation": "친구",
+            "description": "심심할 때마다 의무실에 들러 노닥거리다보니 친해졌다."
+          },
+          {
+            "name": "Ash",
+            "relation": "-",
+            "description": "추가 예정"
+          },
+          {
+            "name": "Shane",
+            "relation": "-",
+            "description": "추가 예정"
+          },
+          {
+            "name": "Overload",
+            "relation": "-",
+            "description": "추가 예정"
+          },
+          {
+            "name": "Noah",
+            "relation": "-",
+            "description": "추가 예정"
+          },
+          {
+            "name": "Amore",
+            "relation": "-",
+            "description": "추가 예정"
+          },
+          {
+            "name": "Lime",
+            "relation": "-",
+            "description": "추가 예정"
+          }
         ]
       }
     }
-  ],
-  "notices": [],
-  "disciplinary": [
-    { "id": "disc-1", "subject": "BLANC", "reason": "개인 훈련 중 훈련실 전체를 얼려 시설 및 장비 파손.", "date": "2025-12-22", "level": "CRITICAL", "category": "VB" },
-    { "id": "disc-4", "subject": "SIGNAL", "reason": "센티넬(전 남자친구)의 얼굴에 주먹을 날리는 폭력 행위 적발.", "date": "2026-04-08", "level": "WARNING", "category": "VS" }
   ],
   "au": [
     {
@@ -206,18 +366,56 @@
       "description": "과학 교사 변정원 X 고등학생 김연수",
       "imageUrl": "/images/au/au-1.png",
       "imagePosition": "center 30%",
-      "tags": ["NSFW", "현대", "고등학교", "선생제자"],
+      "tags": [
+        "NSFW",
+        "현대",
+        "고등학교",
+        "선생제자"
+      ],
       "section": "main",
       "members": [
-        { "name": "변정원", "role": "해성고등학교 과학 교사", "imageUrl": "", "descriptions": ["28세. 3년차 과학 교사.", "교내에서 학생들이 부르는 별명은 '독사'."], "note": "의대 졸업 후 트라우마로 인해 임용고시를 치른 뒤 교사가 되었다. 방과 후에도 매일 같이 찾아와 질문을 하는 연수를 귀찮아하면서도, 꼬박꼬박 질문에 대답해준다." },
-        { "name": "김연수", "role": "해성고등학교 2학년", "imageUrl": "", "descriptions": ["18세. 2학년 4반.", "연극부 '희다' 소속. 학생회 총무부 부장."], "note": "좀처럼 곁을 내어주지 않는 교사 정원에게 호기심을 가지고 매일 같이 과학실을 찾아간다. 겸사겸사 질문도 할 수 있으니까." }
+        {
+          "name": "변정원",
+          "role": "해성고등학교 과학 교사",
+          "imageUrl": "",
+          "descriptions": [
+            "28세. 3년차 과학 교사.",
+            "교내에서 학생들이 부르는 별명은 '독사'."
+          ],
+          "note": "의대 졸업 후 트라우마로 인해 임용고시를 치른 뒤 교사가 되었다. 방과 후에도 매일 같이 찾아와 질문을 하는 연수를 귀찮아하면서도, 꼬박꼬박 질문에 대답해준다."
+        },
+        {
+          "name": "김연수",
+          "role": "해성고등학교 2학년",
+          "imageUrl": "",
+          "descriptions": [
+            "18세. 2학년 4반.",
+            "연극부 '희다' 소속. 학생회 총무부 부장."
+          ],
+          "note": "좀처럼 곁을 내어주지 않는 교사 정원에게 호기심을 가지고 매일 같이 과학실을 찾아간다. 겸사겸사 질문도 할 수 있으니까."
+        }
       ],
       "quotes": [
-        { "memberIndex": 0, "text": "다시 해." },
-        { "memberIndex": 0, "text": "네가 끝낸 거, 다시 시작해. 줄리엣." },
-        { "memberIndex": 1, "text": "저랑 있는 게 죄책감만 들 것 같으시면, 그냥 여기까지만 해요." },
-        { "memberIndex": 0, "text": "아니. 여기까지가 아닌데. 어떻게, 여기가 끝이야." },
-        { "memberIndex": 0, "text": "죄책감? 평생 안고 갈게. 벌? 무슨 벌이든 받을게. 네가 내 옆에만 있어준다면. 그러니까… 버리지 마. 나." }
+        {
+          "memberIndex": 0,
+          "text": "다시 해."
+        },
+        {
+          "memberIndex": 0,
+          "text": "네가 끝낸 거, 다시 시작해. 줄리엣."
+        },
+        {
+          "memberIndex": 1,
+          "text": "저랑 있는 게 죄책감만 들 것 같으시면, 그냥 여기까지만 해요."
+        },
+        {
+          "memberIndex": 0,
+          "text": "아니. 여기까지가 아닌데. 어떻게, 여기가 끝이야."
+        },
+        {
+          "memberIndex": 0,
+          "text": "죄책감? 평생 안고 갈게. 벌? 무슨 벌이든 받을게. 네가 내 옆에만 있어준다면. 그러니까… 버리지 마. 나."
+        }
       ],
       "content": "추가 예정"
     },
@@ -227,17 +425,50 @@
       "description": "소속사 이사 변정원 X 싱어송라이터 김연수",
       "imageUrl": "/images/au/au-2.png",
       "imagePosition": "center top",
-      "tags": ["현대", "연예계"],
+      "tags": [
+        "현대",
+        "연예계"
+      ],
       "section": "sub",
       "members": [
-        { "name": "변정원", "role": "ARCH 엔터테인먼트 이사", "imageUrl": "", "descriptions": ["35세. 소속사 이사 겸 프로듀서.", "프로듀서 활동명은 '닥터 밴스'."], "note": "소속사 이사로서 뿐만 아니라 프로듀서로서의 역량도 매우 뛰어난 것으로 유명하다. 연수의 축제 영상을 보고 러브콜을 보낸 뒤, 현재까지도 연수가 앨범을 낼 때 프로듀서로서 그녀를 돕고 있다." },
-        { "name": "김연수", "role": "3년차 싱어송라이터", "imageUrl": "", "descriptions": ["25세. ARCH 엔터테인먼트 소속 싱어송라이터.", "변정원이 프로듀싱 하고 있음."], "note": "대학 축제에서 부른 자작곡이 알고리즘을 탄 것을 계기로 데뷔하게 되었다. 작사, 작곡, 노래 모두 본인이 하고 있으며 맑고 서늘한 음색이 특징." }
+        {
+          "name": "변정원",
+          "role": "ARCH 엔터테인먼트 이사",
+          "imageUrl": "",
+          "descriptions": [
+            "35세. 소속사 이사 겸 프로듀서.",
+            "프로듀서 활동명은 '닥터 밴스'."
+          ],
+          "note": "소속사 이사로서 뿐만 아니라 프로듀서로서의 역량도 매우 뛰어난 것으로 유명하다. 연수의 축제 영상을 보고 러브콜을 보낸 뒤, 현재까지도 연수가 앨범을 낼 때 프로듀서로서 그녀를 돕고 있다."
+        },
+        {
+          "name": "김연수",
+          "role": "3년차 싱어송라이터",
+          "imageUrl": "",
+          "descriptions": [
+            "25세. ARCH 엔터테인먼트 소속 싱어송라이터.",
+            "변정원이 프로듀싱 하고 있음."
+          ],
+          "note": "대학 축제에서 부른 자작곡이 알고리즘을 탄 것을 계기로 데뷔하게 되었다. 작사, 작곡, 노래 모두 본인이 하고 있으며 맑고 서늘한 음색이 특징."
+        }
       ],
       "quotes": [
-        { "memberIndex": 0, "text": "12분 지났습니다. 이제 정말로 가봐야 합니다." },
-        { "memberIndex": 1, "text": "……가지 마세요, 이사님." },
-        { "memberIndex": 0, "text": "업무 시간입니다, 김연수 씨. 그리고 나는 당신의 상사야. 공과 사는 구분해야 한다는 걸, 내가 몇 번이나…" },
-        { "memberIndex": 0, "text": "…알겠습니다. 가지 않겠습니다." }
+        {
+          "memberIndex": 0,
+          "text": "12분 지났습니다. 이제 정말로 가봐야 합니다."
+        },
+        {
+          "memberIndex": 1,
+          "text": "……가지 마세요, 이사님."
+        },
+        {
+          "memberIndex": 0,
+          "text": "업무 시간입니다, 김연수 씨. 그리고 나는 당신의 상사야. 공과 사는 구분해야 한다는 걸, 내가 몇 번이나…"
+        },
+        {
+          "memberIndex": 0,
+          "text": "…알겠습니다. 가지 않겠습니다."
+        }
       ],
       "content": "추가 예정"
     },
@@ -247,11 +478,32 @@
       "description": "조교 변정원 X 학부생 김연수",
       "imageUrl": "/images/au/au-4.png",
       "imagePosition": "center top",
-      "tags": ["현대", "대학교"],
+      "tags": [
+        "현대",
+        "대학교"
+      ],
       "section": "main",
       "members": [
-        { "name": "변정원", "role": "박사과정 2년차", "imageUrl": "", "descriptions": ["29세. 한국대학교 뇌인지컴퓨터융합학과 석박통합과정 7학기.", "<인공지능>, <인지신경과학> 과목 조교."], "note": "'걸어다니는 논문 생성기'라는 별명이 있을 정도의 천재. 학부생들 사이에서는 '절대 웃지 않는 조교', '채점의 신', '변정원 조교님한테 질문하면 되려 과제가 늘어난다'는 도시전설이 떠돌고 있다." },
-        { "name": "김연수", "role": "학부 3학년", "imageUrl": "", "descriptions": ["22세. 한국대학교 뇌인지컴퓨터융합학과 3학년.", "과 수석. 밴드동아리 '얼리버드' 보컬."], "note": "과제와 술자리 모두 절대 빼먹지 않는 성실한 학생. 1학년 전공 필수 강의인 <인지신경과학> 수강을 계기로, 아무도 가까이 하려 하지 않는 변 조교와 친한 유일한 학부생으로 거듭났다." }
+        {
+          "name": "변정원",
+          "role": "박사과정 2년차",
+          "imageUrl": "",
+          "descriptions": [
+            "29세. 한국대학교 뇌인지컴퓨터융합학과 석박통합과정 7학기.",
+            "<인공지능>, <인지신경과학> 과목 조교."
+          ],
+          "note": "'걸어다니는 논문 생성기'라는 별명이 있을 정도의 천재. 학부생들 사이에서는 '절대 웃지 않는 조교', '채점의 신', '변정원 조교님한테 질문하면 되려 과제가 늘어난다'는 도시전설이 떠돌고 있다."
+        },
+        {
+          "name": "김연수",
+          "role": "학부 3학년",
+          "imageUrl": "",
+          "descriptions": [
+            "22세. 한국대학교 뇌인지컴퓨터융합학과 3학년.",
+            "과 수석. 밴드동아리 '얼리버드' 보컬."
+          ],
+          "note": "과제와 술자리 모두 절대 빼먹지 않는 성실한 학생. 1학년 전공 필수 강의인 <인지신경과학> 수강을 계기로, 아무도 가까이 하려 하지 않는 변 조교와 친한 유일한 학부생으로 거듭났다."
+        }
       ],
       "content": "추가 예정"
     },
@@ -261,11 +513,33 @@
       "description": "총독부 의원 변정원 X 신흥 자산가 딸 김연수",
       "imageUrl": "/images/au/au-6.png",
       "imagePosition": "center top",
-      "tags": ["시대극", "경성", "정략혼"],
+      "tags": [
+        "시대극",
+        "경성",
+        "정략혼"
+      ],
       "section": "sub",
       "members": [
-        { "name": "변정원", "role": "총독부 의원", "imageUrl": "", "descriptions": ["35세. 경성의전 출신 총독부 의원.", "아버지가 친일파이나, 아버지를 매우 싫어함."], "note": "추가 예정" },
-        { "name": "김연수", "role": "신흥 자산가의 딸", "imageUrl": "", "descriptions": ["25세. 경성 신흥 자산가 집안의 장녀.", "동경에 유학을 다녀왔으며, 자유로운 삶을 꿈꾼다."], "note": "추가 예정" }
+        {
+          "name": "변정원",
+          "role": "총독부 의원",
+          "imageUrl": "",
+          "descriptions": [
+            "35세. 경성의전 출신 총독부 의원.",
+            "아버지가 친일파이나, 아버지를 매우 싫어함."
+          ],
+          "note": "추가 예정"
+        },
+        {
+          "name": "김연수",
+          "role": "신흥 자산가의 딸",
+          "imageUrl": "",
+          "descriptions": [
+            "25세. 경성 신흥 자산가 집안의 장녀.",
+            "동경에 유학을 다녀왔으며, 자유로운 삶을 꿈꾼다."
+          ],
+          "note": "추가 예정"
+        }
       ],
       "content": "추가 예정"
     },
@@ -275,11 +549,31 @@
       "description": "몰락 귀족 영애 블랑 X 외사촌 밴스",
       "imageUrl": "",
       "imagePosition": "center top",
-      "tags": ["NSFW", "시대극", "통속극"],
+      "tags": [
+        "NSFW",
+        "시대극",
+        "통속극"
+      ],
       "section": "sub",
       "members": [
-        { "name": "밴스 드 마르슈", "role": "마르슈 자작", "imageUrl": "", "descriptions": ["추가 예정"], "note": "추가 예정" },
-        { "name": "블랑쉐 드 로페즈", "role": "로페즈 백작 영애", "imageUrl": "", "descriptions": ["추가 예정"], "note": "추가 예정" }
+        {
+          "name": "밴스 드 마르슈",
+          "role": "마르슈 자작",
+          "imageUrl": "",
+          "descriptions": [
+            "추가 예정"
+          ],
+          "note": "추가 예정"
+        },
+        {
+          "name": "블랑쉐 드 로페즈",
+          "role": "로페즈 백작 영애",
+          "imageUrl": "",
+          "descriptions": [
+            "추가 예정"
+          ],
+          "note": "추가 예정"
+        }
       ],
       "content": "추가 예정"
     },
@@ -289,10 +583,22 @@
       "description": "혁명군 스파이 밴스 X 후작가 영애 블랑",
       "imageUrl": "",
       "imagePosition": "center top",
-      "tags": ["시대극", "혁명군", "밀정"],
+      "tags": [
+        "시대극",
+        "혁명군",
+        "밀정"
+      ],
       "section": "sub",
       "members": [
-        { "name": "추가 예정", "role": "추가 예정", "imageUrl": "", "descriptions": ["추가 예정"], "note": "추가 예정" }
+        {
+          "name": "추가 예정",
+          "role": "추가 예정",
+          "imageUrl": "",
+          "descriptions": [
+            "추가 예정"
+          ],
+          "note": "추가 예정"
+        }
       ],
       "content": "추가 예정"
     },
@@ -302,11 +608,31 @@
       "description": "의관 변정원 X 양반집 규수 김연수",
       "imageUrl": "/images/au/au-7.png",
       "imagePosition": "center top",
-      "tags": ["시대극", "조선 후기", "정략혼"],
+      "tags": [
+        "시대극",
+        "조선 후기",
+        "정략혼"
+      ],
       "section": "sub",
       "members": [
-        { "name": "변정원", "role": "내의원 소속 의관", "imageUrl": "", "descriptions": ["추가 예정"], "note": "추가 예정" },
-        { "name": "김연수", "role": "병조판서 댁 둘째 규수", "imageUrl": "", "descriptions": ["추가 예정"], "note": "추가 예정" }
+        {
+          "name": "변정원",
+          "role": "내의원 소속 의관",
+          "imageUrl": "",
+          "descriptions": [
+            "추가 예정"
+          ],
+          "note": "추가 예정"
+        },
+        {
+          "name": "김연수",
+          "role": "병조판서 댁 둘째 규수",
+          "imageUrl": "",
+          "descriptions": [
+            "추가 예정"
+          ],
+          "note": "추가 예정"
+        }
       ],
       "content": "추가 예정"
     },
@@ -316,11 +642,31 @@
       "description": "반장 밴스 X 수색꾼 블랑",
       "imageUrl": "/images/au/au-3.png",
       "imagePosition": "center 40%",
-      "tags": ["장르 기반", "Harry Potter"],
+      "tags": [
+        "장르 기반",
+        "Harry Potter"
+      ],
       "section": "sub",
       "members": [
-        { "name": "밴스", "role": "래번클로 7학년", "imageUrl": "", "descriptions": ["래번클로 7학년 반장."], "note": "추가 예정"},
-        { "name": "블랑", "role": "래번클로 4학년", "imageUrl": "", "descriptions": ["래번클로 4학년.", "기숙사 퀴디치 팀에서 2년 째 수색꾼을 맡고 있다."], "note": "추가 예정" }
+        {
+          "name": "밴스",
+          "role": "래번클로 7학년",
+          "imageUrl": "",
+          "descriptions": [
+            "래번클로 7학년 반장."
+          ],
+          "note": "추가 예정"
+        },
+        {
+          "name": "블랑",
+          "role": "래번클로 4학년",
+          "imageUrl": "",
+          "descriptions": [
+            "래번클로 4학년.",
+            "기숙사 퀴디치 팀에서 2년 째 수색꾼을 맡고 있다."
+          ],
+          "note": "추가 예정"
+        }
       ],
       "content": "추가 예정"
     },
@@ -329,11 +675,31 @@
       "title": "카메라를 멈추지 마!",
       "description": "배우 변정원 X 아이돌 출신 배우 김연수",
       "imageUrl": "",
-      "tags": ["현대", "연예계"],
+      "tags": [
+        "현대",
+        "연예계"
+      ],
       "section": "main",
       "members": [
-        { "name": "변정원", "role": "배우", "imageUrl": "", "descriptions": ["35세."], "note": "추가 예정" },
-        { "name": "김연수", "role": "배우", "imageUrl": "", "descriptions": ["25세.", "아이돌 출신 배우."], "note": "추가 예정" }
+        {
+          "name": "변정원",
+          "role": "배우",
+          "imageUrl": "",
+          "descriptions": [
+            "35세."
+          ],
+          "note": "추가 예정"
+        },
+        {
+          "name": "김연수",
+          "role": "배우",
+          "imageUrl": "",
+          "descriptions": [
+            "25세.",
+            "아이돌 출신 배우."
+          ],
+          "note": "추가 예정"
+        }
       ],
       "content": "추가 예정"
     },
@@ -342,11 +708,31 @@
       "title": "의대 교수들은 원래 다 이런가요?",
       "description": "외과 교수 변정원 X 학부 연구생 김연수",
       "imageUrl": "",
-      "tags": ["현대", "대학교"],
+      "tags": [
+        "현대",
+        "대학교"
+      ],
       "section": "main",
       "members": [
-        { "name": "변정원", "role": "대학병원 외과 교수", "imageUrl": "", "descriptions": ["35세."], "note": "추가 예정" },
-        { "name": "김연수", "role": "의료 AI 연구실 인턴", "imageUrl": "", "descriptions": ["25세.", "학부 연구생"], "note": "추가 예정" }
+        {
+          "name": "변정원",
+          "role": "대학병원 외과 교수",
+          "imageUrl": "",
+          "descriptions": [
+            "35세."
+          ],
+          "note": "추가 예정"
+        },
+        {
+          "name": "김연수",
+          "role": "의료 AI 연구실 인턴",
+          "imageUrl": "",
+          "descriptions": [
+            "25세.",
+            "학부 연구생"
+          ],
+          "note": "추가 예정"
+        }
       ],
       "content": "추가 예정"
     },
@@ -355,11 +741,31 @@
       "title": "떡볶이를 좋아하는 나의 작은 용의자",
       "description": "경찰 변정원 X 용의자 김연수",
       "imageUrl": "",
-      "tags": ["NSFW", "현대"],
+      "tags": [
+        "NSFW",
+        "현대"
+      ],
       "section": "sub",
       "members": [
-        { "name": "변정원", "role": "경찰", "imageUrl": "", "descriptions": ["29세."], "note": "추가 예정" },
-        { "name": "김연수", "role": "용의자", "imageUrl": "", "descriptions": ["19세.", "고등학교 3학년."], "note": "추가 예정" }
+        {
+          "name": "변정원",
+          "role": "경찰",
+          "imageUrl": "",
+          "descriptions": [
+            "29세."
+          ],
+          "note": "추가 예정"
+        },
+        {
+          "name": "김연수",
+          "role": "용의자",
+          "imageUrl": "",
+          "descriptions": [
+            "19세.",
+            "고등학교 3학년."
+          ],
+          "note": "추가 예정"
+        }
       ],
       "content": "추가 예정"
     },
@@ -368,11 +774,30 @@
       "title": "교양 수업은 원래 연애의 성지라서",
       "description": "의대생 변정원 X 공대생 김연수",
       "imageUrl": "",
-      "tags": ["현대", "대학교"],
+      "tags": [
+        "현대",
+        "대학교"
+      ],
       "section": "sub",
       "members": [
-        { "name": "변정원", "role": "의예과 4학년", "imageUrl": "", "descriptions": ["23세."], "note": "추가 예정" },
-        { "name": "김연수", "role": "컴퓨터공학과 2학년", "imageUrl": "", "descriptions": ["21세."], "note": "추가 예정" }
+        {
+          "name": "변정원",
+          "role": "의예과 4학년",
+          "imageUrl": "",
+          "descriptions": [
+            "23세."
+          ],
+          "note": "추가 예정"
+        },
+        {
+          "name": "김연수",
+          "role": "컴퓨터공학과 2학년",
+          "imageUrl": "",
+          "descriptions": [
+            "21세."
+          ],
+          "note": "추가 예정"
+        }
       ],
       "content": "추가 예정"
     },
@@ -381,11 +806,30 @@
       "title": "사내연애 절대금지",
       "description": "팀장 변정원 X 신입 사원 김연수",
       "imageUrl": "",
-      "tags": ["현대", "오피스"],
+      "tags": [
+        "현대",
+        "오피스"
+      ],
       "section": "sub",
       "members": [
-        { "name": "변정원", "role": "(주)아크 연구개발팀 팀장", "imageUrl": "", "descriptions": ["35세. 수석 연구원"], "note": "추가 예정" },
-        { "name": "김연수", "role": "(주)아크 연구개발팀 신입", "imageUrl": "", "descriptions": ["25세. 신입 연구원"], "note": "추가 예정" }
+        {
+          "name": "변정원",
+          "role": "(주)아크 연구개발팀 팀장",
+          "imageUrl": "",
+          "descriptions": [
+            "35세. 수석 연구원"
+          ],
+          "note": "추가 예정"
+        },
+        {
+          "name": "김연수",
+          "role": "(주)아크 연구개발팀 신입",
+          "imageUrl": "",
+          "descriptions": [
+            "25세. 신입 연구원"
+          ],
+          "note": "추가 예정"
+        }
       ],
       "content": "추가 예정"
     },
@@ -394,17 +838,31 @@
       "title": "옆집 이웃이 매일 밤마다 개가 된다",
       "description": "수의사 변정원 X 강아지 수인 김연수",
       "imageUrl": "",
-      "tags": ["현대"],
+      "tags": [
+        "현대"
+      ],
       "section": "sub",
       "members": [
-        { "name": "변정원", "role": "한빛 오피스텔 201호", "imageUrl": "", "descriptions": ["35세. 수의사"], "note": "추가 예정" },
-        { "name": "김연수", "role": "한빛 오피스텔 202호", "imageUrl": "", "descriptions": ["25세. 강아지 수인(?)"], "note": "추가 예정" }
+        {
+          "name": "변정원",
+          "role": "한빛 오피스텔 201호",
+          "imageUrl": "",
+          "descriptions": [
+            "35세. 수의사"
+          ],
+          "note": "추가 예정"
+        },
+        {
+          "name": "김연수",
+          "role": "한빛 오피스텔 202호",
+          "imageUrl": "",
+          "descriptions": [
+            "25세. 강아지 수인(?)"
+          ],
+          "note": "추가 예정"
+        }
       ],
       "content": "추가 예정"
     }
-  ],
-  "youtube": [
-  { "id": "yt-1", "videoId": "JGmUQcjr3EI", "title": "BLANC THEME SONG - OVERCLOCK", "category": "VB" },
-  { "id": "yt-2", "videoId": "MAIXamDVxLg", "title": "BLANC THEME SONG - OVERCLOCK (prototype)", "category": "VB" }
-]
+  ]
 }

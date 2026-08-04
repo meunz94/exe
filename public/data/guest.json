@@ -17,7 +17,10 @@
     {
       "id": "guest-agent-1",
       "name": "SAMPLE A",
-      "description": ["Sample Div.", "더미 프로필"],
+      "description": [
+        "Sample Div.",
+        "더미 프로필"
+      ],
       "imageUrl": "https://placehold.co/400x520/2a2a3a/9999bb?text=SAMPLE+A",
       "category": "G1",
       "detail": {
@@ -49,7 +52,12 @@
           "hair & eyes": "더미 헤어 / 더미 눈동자.",
           "outfit": "더미 복장 설명이 들어가는 자리입니다."
         },
-        "tmi": [{ "title": "TMI", "text": "이 항목은 더미 데이터입니다." }],
+        "tmi": [
+          {
+            "title": "TMI",
+            "text": "이 항목은 더미 데이터입니다."
+          }
+        ],
         "relations": [
           {
             "name": "SAMPLE B",
@@ -62,7 +70,10 @@
     {
       "id": "guest-agent-2",
       "name": "SAMPLE B",
-      "description": ["Sample Div.", "더미 프로필"],
+      "description": [
+        "Sample Div.",
+        "더미 프로필"
+      ],
       "imageUrl": "https://placehold.co/400x520/3a2a2a/bb9999?text=SAMPLE+B",
       "category": "G1",
       "detail": {
@@ -82,7 +93,9 @@
         },
         "ability": {
           "overview": "샘플 능력 (Sample Ability)",
-          "skills": ["더미 스킬 1: 예시 설명이 들어가는 자리입니다."],
+          "skills": [
+            "더미 스킬 1: 예시 설명이 들어가는 자리입니다."
+          ],
           "berserkSign": ""
         },
         "appearance": {
@@ -102,7 +115,10 @@
     {
       "id": "guest-agent-3",
       "name": "SAMPLE C",
-      "description": ["Sample Div.", "더미 프로필"],
+      "description": [
+        "Sample Div.",
+        "더미 프로필"
+      ],
       "imageUrl": "https://placehold.co/400x520/2a3a2a/99bb99?text=SAMPLE+C",
       "category": "G2",
       "detail": {
@@ -122,7 +138,9 @@
         },
         "ability": {
           "overview": "샘플 능력 (Sample Ability)",
-          "skills": ["더미 스킬 1: 예시 설명이 들어가는 자리입니다."],
+          "skills": [
+            "더미 스킬 1: 예시 설명이 들어가는 자리입니다."
+          ],
           "berserkSign": ""
         },
         "appearance": {
@@ -134,8 +152,5 @@
       }
     }
   ],
-  "notices": [],
-  "disciplinary": [],
-  "au": [],
-  "youtube": []
+  "au": []
 }

@@ -1,0 +1,481 @@
+/* ---------------------------------------------------------------------------
+ * Music: a row of CDs you scrub left/right, lyrics alongside.
+ *
+ * The disc is drawn in CSS — a conic sheen for the iridescence, radial rings
+ * for the pressing, and a punched hub. It spins while the track plays.
+ * ------------------------------------------------------------------------- */
+
+.wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 11fr);
+  gap: 2.4rem;
+  align-items: start;
+  --edge: 3px solid var(--px-primary);
+  --edge-thin: 1px solid var(--px-rule);
+}
+
+/* --- lyrics --------------------------------------------------------------- */
+
+.lyrics {
+  display: flex;
+  flex-direction: column;
+  min-height: 26rem;
+  max-height: 34rem;
+  padding: 1.5rem;
+  border: var(--edge);
+}
+
+.lyricsHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1em;
+  padding-bottom: 0.8em;
+  margin-bottom: 1.4em;
+  border-bottom: var(--edge-thin);
+  font-family: var(--font-pixel);
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.lyricsBody {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  font-size: 0.92rem;
+  line-height: 2;
+  white-space: pre-line;
+  word-break: keep-all;
+  opacity: 0.88;
+}
+
+.lyricsEmpty {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+/* --- deck ----------------------------------------------------------------- */
+
+.deck {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  /* without this the deck grows to its scroller's content width */
+  min-width: 0;
+}
+
+/* A native horizontal scroller with snapping, rather than a JS-driven rail:
+   trackpad swipes, shift+wheel, touch and the keyboard all work for free, and
+   the page keeps its own vertical scroll. A plain vertical wheel is mapped onto
+   it in MusicSection, but only while it can still move — see the comment there. */
+.stage {
+  position: relative;
+  height: 20rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  cursor: grab;
+}
+
+/* Snapping has to be off while dragging: with `mandatory` on, every scrollLeft
+   write gets pulled straight back to the nearest disc and the rail won't move.
+   It's restored on release, which is what settles the disc into place. */
+.stage.dragging {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  cursor: grabbing;
+  user-select: none;
+}
+
+.stage.dragging img,
+.stage.dragging iframe {
+  pointer-events: none;
+}
+
+.stage::-webkit-scrollbar {
+  display: none;
+}
+
+.stage:focus-visible {
+  outline: 2px solid var(--px-green);
+  outline-offset: -4px;
+}
+
+/* Edge feathering sits in a wrapper *outside* the scroller. Putting it inside
+   as flex pseudo-elements perturbed the rail's own layout, which threw the
+   first and last snap positions off centre. */
+.stageWrap {
+  position: relative;
+  min-width: 0;
+  border: var(--edge);
+}
+
+.stageWrap::before,
+.stageWrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  z-index: 6;
+  width: 5rem;
+  height: 100%;
+  pointer-events: none;
+}
+
+.stageWrap::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--px-bg), transparent);
+}
+
+.stageWrap::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--px-bg), transparent);
+}
+
+/* The side padding is what lets the first and last disc reach the centre line.
+   As a percentage it resolves against the scroller's content box — doing this
+   in JS meant reading a layout value and then writing one that changed it,
+   which ran away to a 134,000px rail on mobile. */
+.rail {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+  height: 100%;
+  width: max-content;
+  padding-inline: calc(50% - 6.5rem);
+}
+
+/* --- the disc ------------------------------------------------------------- */
+
+.disc {
+  position: relative;
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  width: 13rem;
+  height: 13rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.34;
+  transform: scale(0.74);
+  transition: opacity 520ms ease, transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.discActive {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.discFace {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  /* iridescent pressing: a colour sweep under fine concentric rings */
+  background:
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.05) 0 1px,
+      transparent 1px 4px
+    ),
+    conic-gradient(
+      from 210deg,
+      #1c1f26 0deg,
+      var(--px-green) 40deg,
+      #2a2f3a 95deg,
+      var(--px-lightblue) 150deg,
+      #1c1f26 200deg,
+      var(--px-blue) 250deg,
+      #2a2f3a 300deg,
+      var(--px-green) 340deg,
+      #1c1f26 360deg
+    );
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+    0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* The video reflection: circular-clipped, blurred and screen-blended so it
+   reads as light caught in the plastic rather than a video in a hole. Sits
+   above the pressing and below the gloss. `pointer-events: none` keeps clicks
+   on the disc button instead of the YouTube frame. */
+.discVideo {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  filter: blur(6px) saturate(1.5);
+}
+
+.discVideo iframe {
+  /* Overscaled so the 16:9 frame covers the circle with no letterbox bars,
+     and so the blur has material past the edge to smear. */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180%;
+  height: 180%;
+  translate: -50% -50%;
+  border: 0;
+  pointer-events: none;
+}
+
+/* rotating specular sweep, above the reflection */
+.discGloss {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 255, 255, 0.5) 24deg,
+    transparent 60deg,
+    transparent 180deg,
+    rgba(255, 255, 255, 0.34) 204deg,
+    transparent 240deg,
+    transparent 360deg
+  );
+}
+
+/* label ring + spindle hole — always upright, always on top */
+.discHub {
+  position: absolute;
+  inset: 30%;
+  z-index: 3;
+  border-radius: 50%;
+  pointer-events: none;
+  background: #14161b;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+}
+
+.discHub::after {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background: var(--px-bg);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.discSpin {
+  animation: spin 3.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* index number sitting on the label */
+.discNum {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--px-primary);
+  pointer-events: none;
+}
+
+/* play glyph over the active disc */
+.discPlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  color: var(--px-bg);
+  background: rgba(0, 212, 82, 0.9);
+  opacity: 0;
+  transition: opacity 200ms ease;
+  pointer-events: none;
+}
+
+.disc:hover .discPlay,
+.disc:focus-visible .discPlay {
+  opacity: 1;
+}
+
+.discMuted {
+  position: absolute;
+  bottom: -1.6em;
+  left: 50%;
+  translate: -50% 0;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.62;
+}
+
+/* --- now playing ---------------------------------------------------------- */
+
+.meta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: var(--edge-thin);
+}
+
+.metaMain {
+  min-width: 0;
+}
+
+.trackTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(26px, 2.7vw, 50px);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  word-break: keep-all;
+}
+
+.trackSub {
+  display: block;
+  margin-top: 0.5em;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.counter {
+  flex-shrink: 0;
+  font-family: var(--font-pixel);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  opacity: 0.6;
+}
+
+/* --- controls ------------------------------------------------------------- */
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* This is the affordance explanation — it has to be legible, so it stays above
+   a 3:1 ratio rather than fading into the background. */
+.hint {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.62;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.72em 1.2em;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--px-primary);
+  color: var(--px-bg);
+}
+
+/* Disabled still has to be readable — you need to know what the control says
+   before you know why it's off. 0.32 dropped it under a 2.5 contrast ratio. */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.btnPrimary {
+  border-color: var(--px-green);
+  color: var(--px-green);
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background: var(--px-green);
+  color: var(--px-bg);
+}
+
+/* --- responsive ---------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .wrap {
+    /* minmax(0, …), not 1fr: a bare 1fr keeps min-width:auto and the track
+       stretches to the rail's full content width. */
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+  }
+
+  .lyrics {
+    order: 2;
+    min-height: 0;
+    max-height: 24rem;
+  }
+
+  .deck {
+    order: 1;
+  }
+
+  .stage {
+    height: 15rem;
+  }
+
+  .disc {
+    width: 9.5rem;
+    height: 9.5rem;
+  }
+
+  .rail {
+    gap: 1.4rem;
+    padding-inline: calc(50% - 4.75rem);
+  }
+
+  .hint {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disc {
+    transition: none;
+  }
+
+  .stage {
+    scroll-behavior: auto;
+  }
+
+  .discSpin {
+    animation: none;
+  }
+}

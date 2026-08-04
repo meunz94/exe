@@ -1,23 +1,4 @@
 {
-  "notices": [],
-  "disciplinary": [
-    {
-      "id": "disc-1",
-      "subject": "BLANC",
-      "reason": "개인 훈련 중 훈련실 전체를 얼려 시설 및 장비 파손.",
-      "date": "2025-12-22",
-      "level": "CRITICAL",
-      "category": "VB"
-    },
-    {
-      "id": "disc-2",
-      "subject": "SIGNAL",
-      "reason": "센티넬(전 남자친구)의 얼굴에 주먹을 날리는 폭력 행위 적발.",
-      "date": "2026-04-08",
-      "level": "WARNING",
-      "category": "VS"
-    }
-  ],
   "youtube": [
     {
       "id": "yt-1",

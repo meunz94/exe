@@ -62,7 +62,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--px-green);
-  --rec-glow: rgba(60, 255, 123, 0.25);
+  --rec-glow: rgba(0, 255, 95, 0.28);
   text-shadow: 0 0 0.15em var(--rec-glow), 0 0 0.5em var(--rec-glow);
 }
 

@@ -1,5 +1,12 @@
 import { useCallback, useMemo, useState } from "react";
-import type { AppData, Post, PostWithContent, SidebarItem } from "../types";
+import type {
+  AppData,
+  AuPost,
+  AuPostWithContent,
+  Post,
+  PostWithContent,
+  SidebarItem,
+} from "../types";
 import { useFilteredData } from "../data/useAppData";
 import WordWipe from "../components/Transition/WordWipe";
 import { WIPE_INKS } from "../components/Transition/wipeInks";
@@ -7,16 +14,20 @@ import ProfileSection from "./entry/ProfileSection";
 import ArchiveSection from "./entry/ArchiveSection";
 import MusicSection from "./entry/MusicSection";
 import GallerySection from "./entry/GallerySection";
+import AuSection from "./entry/AuSection";
 import styles from "./EntryPage.module.css";
 
-export type SectionId = "profile" | "archive" | "music" | "gallery";
+export type SectionId = "profile" | "archive" | "music" | "gallery" | "au";
 
-const SECTIONS: { id: SectionId; label: string }[] = [
+const BASE_SECTIONS: { id: SectionId; label: string }[] = [
   { id: "profile", label: "profile" },
   { id: "archive", label: "archive" },
   { id: "music", label: "music" },
   { id: "gallery", label: "gallery" },
 ];
+
+/** Only the entry that owns the alternate-universe set gets this tab. */
+const AU_SECTION = { id: "au" as SectionId, label: "au" };
 
 interface EntryPageProps {
   data: AppData;
@@ -24,7 +35,9 @@ interface EntryPageProps {
   /** 1-based position of this entry on the landing page. */
   index: number;
   loadingPostId: string | null;
+  loadingAuPostId: string | null;
   fetchContent: (post: Post) => Promise<PostWithContent>;
+  fetchAuContent: (post: AuPost) => Promise<AuPostWithContent>;
   onBack: () => void;
 }
 
@@ -40,10 +53,17 @@ export default function EntryPage({
   item,
   index,
   loadingPostId,
+  loadingAuPostId,
   fetchContent,
+  fetchAuContent,
   onBack,
 }: EntryPageProps) {
   const f = useFilteredData(data, item.category);
+
+  const sections = useMemo(
+    () => (item.hasAu ? [...BASE_SECTIONS, AU_SECTION] : BASE_SECTIONS),
+    [item.hasAu]
+  );
 
   const [section, setSection] = useState<SectionId>("profile");
   /** Non-null while a transition is running; carries the destination. */
@@ -53,12 +73,13 @@ export default function EntryPage({
 
   const counts = useMemo<Record<SectionId, number>>(
     () => ({
-      profile: f.agents.length + f.timeline.length + f.disciplinary.length,
+      profile: f.agents.length + f.timeline.length,
       archive: f.posts.length,
       music: f.playlist.length + f.youtube.length,
       gallery: f.gallery.length,
+      au: item.hasAu ? data.au.length : 0,
     }),
-    [f]
+    [f, item.hasAu, data.au.length]
   );
 
   const go = useCallback(
@@ -91,7 +112,7 @@ export default function EntryPage({
       </header>
 
       <nav className={styles.nav}>
-        {SECTIONS.map((s) => (
+        {sections.map((s) => (
           <button
             key={s.id}
             type="button"
@@ -120,11 +141,7 @@ export default function EntryPage({
         </div>
 
         {section === "profile" && (
-          <ProfileSection
-            agents={f.agents}
-            timeline={f.timeline}
-            disciplinary={f.disciplinary}
-          />
+          <ProfileSection agents={f.agents} timeline={f.timeline} />
         )}
         {section === "archive" && (
           <ArchiveSection
@@ -138,6 +155,14 @@ export default function EntryPage({
           <MusicSection playlist={f.playlist} videos={f.youtube} />
         )}
         {section === "gallery" && <GallerySection images={f.gallery} />}
+        {section === "au" && (
+          <AuSection
+            items={data.au}
+            auPosts={data.auPosts}
+            loadingAuPostId={loadingAuPostId}
+            fetchAuContent={fetchAuContent}
+          />
+        )}
       </div>
 
       {wiping && (

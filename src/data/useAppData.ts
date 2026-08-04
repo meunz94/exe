@@ -5,7 +5,6 @@ import type {
   Post,
   PostWithContent,
   Board,
-  Notice,
   PlaylistItem,
   TimelineEvent,
   AuItem,
@@ -14,7 +13,6 @@ import type {
   AuGalleryImage,
   GalleryImage,
   SidebarItem,
-  DisciplinaryRecord,
   YoutubeVideo,
 } from "../types";
 import { publicUrl } from "../utils/publicUrl";
@@ -24,12 +22,10 @@ const EMPTY: AppData = {
   agents: [],
   posts: [],
   boards: [],
-  notices: [],
   au: [],
   auPosts: [],
   playlist: [],
   timeline: [],
-  disciplinary: [],
   gallery: [],
   youtube: [],
 };
@@ -82,7 +78,7 @@ export function useAppData() {
       // 담고 있는 키(notices 등)가 계정 파일의 같은 키를 통째로 대체한다.
       // 아직 동기화 전이라 파일이 없으면 조용히 무시.
       fetch(publicUrl("data/notion.json"))
-        .then((r) => (r.ok ? (r.json() as Promise<RawDb>) : {}))
+        .then((r) => (r.ok ? (r.json() as Promise<RawDb>) : ({} as RawDb)))
         .catch(() => ({} as RawDb)),
       fetch(publicUrl("data/playlist.json")).then((r) => {
         if (!r.ok) throw new Error(`playlist.json: HTTP ${r.status} (${publicUrl("data/playlist.json")})`);
@@ -111,7 +107,9 @@ export function useAppData() {
     ])
       .then(([db, notionDb, playlist, timeline, postsData, auPostsData, galleryData, auGalleryData]) => {
         if (!cancelled) {
-          const auWithGallery: AuItem[] = (db.au ?? []).map((item: AuItem) => ({
+          // AU 는 노션 동기화본(notion.json)이 있으면 그것이 원본.
+          const auSource = (notionDb.au ?? db.au ?? []) as AuItem[];
+          const auWithGallery: AuItem[] = auSource.map((item: AuItem) => ({
             ...item,
             gallery: auGalleryData[item.id] ?? item.gallery ?? [],
           }));
@@ -174,10 +172,6 @@ export function useFilteredData(data: AppData, activeCategory: string) {
     () => filterByCategory<Board>(data.boards, activeCategory),
     [data.boards, activeCategory]
   );
-  const notices = useMemo(
-    () => filterByCategory<Notice>(data.notices, activeCategory),
-    [data.notices, activeCategory]
-  );
   const playlist = useMemo(
     () => filterByCategory<PlaylistItem>(data.playlist, activeCategory),
     [data.playlist, activeCategory]
@@ -185,10 +179,6 @@ export function useFilteredData(data: AppData, activeCategory: string) {
   const timeline = useMemo(
     () => filterByCategory<TimelineEvent>(data.timeline, activeCategory),
     [data.timeline, activeCategory]
-  );
-  const disciplinary = useMemo(
-    () => filterByCategory<DisciplinaryRecord>(data.disciplinary, activeCategory),
-    [data.disciplinary, activeCategory]
   );
   const gallery = useMemo(
     () => filterByCategory<GalleryImage>(data.gallery, activeCategory),
@@ -201,7 +191,7 @@ export function useFilteredData(data: AppData, activeCategory: string) {
   const au: AuItem[] = data.au;
   const sidebarItems: SidebarItem[] = data.sidebarItems;
 
-  return { sidebarItems, agents, posts, boards, notices, playlist, timeline, disciplinary, gallery, youtube, au };
+  return { sidebarItems, agents, posts, boards, playlist, timeline, gallery, youtube, au };
 }
 
 export function useFetchPostContent() {

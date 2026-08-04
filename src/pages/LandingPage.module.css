@@ -80,9 +80,9 @@
 .heroTitle {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(64px, 13vw, 300px);
-  line-height: 0.92;
-  letter-spacing: -0.035em;
+  font-size: clamp(56px, 12vw, 250px);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
   margin: 0;
 }
@@ -153,9 +153,9 @@
 .entryTitle {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(52px, 11vw, 260px);
-  line-height: 0.84;
-  letter-spacing: -0.03em;
+  font-size: clamp(38px, 7.6vw, 160px);
+  line-height: 0.96;
+  letter-spacing: -0.025em;
   text-transform: uppercase;
   margin: 0;
 }
@@ -303,7 +303,7 @@
   }
 
   .heroTitle {
-    font-size: 24vw;
+    font-size: 19vw;
   }
 
   .section {

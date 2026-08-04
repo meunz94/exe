@@ -158,6 +158,10 @@ export function getUrl(page, name) {
   return prop(page, name)?.url ?? "";
 }
 
+export function getMultiSelect(page, name) {
+  return (prop(page, name)?.multi_select ?? []).map((o) => o.name);
+}
+
 /** files 속성 → [{ name, url, external }] */
 export function getFiles(page, name) {
   return (prop(page, name)?.files ?? []).map((f) => ({
@@ -552,4 +556,11 @@ export function extFromUrl(url, fallback = ".png") {
 
 export function shortId(notionId) {
   return notionId.replace(/-/g, "").slice(0, 8);
+}
+
+/** 유튜브 URL 또는 맨 ID → 11자 영상 ID. URL 형태가 아니면 입력 그대로 돌려준다. */
+export function youtubeId(input) {
+  const s = (input ?? "").trim();
+  const m = s.match(/(?:youtu\.be\/|[?&]v=|\/shorts\/|\/embed\/|\/live\/)([\w-]{11})/);
+  return m ? m[1] : s;
 }
