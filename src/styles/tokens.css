@@ -72,6 +72,12 @@
   --color-text-muted: var(--px-lightgrey);
   --color-border: #3a3a3a;
 
+  /* Part of the content authoring API, not just the stylesheet: notice.md and
+     memo.md write `<span style="color: var(--color-accent)">` inline, and
+     docs/NOTION.md documents it for whoever is editing in Notion. Grepping only
+     src/ makes this look unused — it is not. Do not remove. */
+  --color-accent: var(--px-green);
+
   --radius-md: 4px;
   --radius-lg: 8px;
 
