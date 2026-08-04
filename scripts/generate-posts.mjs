@@ -25,6 +25,13 @@ function scanPosts() {
   const posts = [];
   const boardSet = new Map();
 
+  // No posts directory is a legitimate state, not an error: notion-sync's
+  // `cleanTree` removes the tree entirely when every row in the Notion database
+  // is unpublished. Crashing here used to take the whole deploy down with it.
+  if (!fs.existsSync(POSTS_DIR)) {
+    return { posts, boards: [] };
+  }
+
   const categories = fs
     .readdirSync(POSTS_DIR, { withFileTypes: true })
     .filter((d) => d.isDirectory());
