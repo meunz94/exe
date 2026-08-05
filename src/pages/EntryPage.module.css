@@ -81,6 +81,11 @@
   text-transform: uppercase;
 }
 
+/* Long titles arrive pre-broken from titleLines() — one span per line. */
+.titleLine {
+  display: block;
+}
+
 .synopsis {
   max-width: 66ch;
   margin-top: 2.2em;

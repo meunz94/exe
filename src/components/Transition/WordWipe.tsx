@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { DEFAULT_INK, type WipeInk } from "./wipeInks";
+import { titleLines } from "../../utils/text";
 import styles from "./WordWipe.module.css";
 
 /** Cover + stack-in. The swap happens as soon as the plate is opaque. */
@@ -47,21 +48,37 @@ export default function WordWipe({ word, ink, note, onCovered, onDone }: WordWip
   const [stretch, setStretch] = useState(1);
   const probeRef = useRef<HTMLSpanElement>(null);
 
+  // Long multi-word labels break in two so they don't shrink to a sliver
+  // trying to fit one line. Fewer rows then keep the stack around five lines
+  // of type overall instead of doubling it.
+  const lines = useMemo(() => titleLines(word), [word]);
+  const rowCount = lines.length > 1 ? 3 : ROWS;
+
+  // The wordmark, line-broken; reused by the probe and every row so the
+  // measurement can never drift from what's rendered.
+  const mark = lines.map((line, i) => (
+    <Fragment key={line}>
+      {i > 0 && <br />}
+      {line}
+    </Fragment>
+  ));
+
   // Scale the wordmark to span the viewport. Words differ in length per
   // destination ("music" vs "403 NOSTELGIA FORBIDDEN"), so a fixed size would
   // either overflow or leave the fill half empty. Height is the other bound:
-  // five rows still have to fit.
+  // every line of every row still has to fit.
   useEffect(() => {
     const probe = probeRef.current;
     if (!probe) return;
 
     const fit = () => {
+      // The probe breaks like the rows do, so this is the widest line's width.
       const natural = probe.getBoundingClientRect().width;
       if (!natural) return;
 
       const target = window.innerWidth * FILL;
-      // Height comes first: five rows have to fill the viewport.
-      const size = window.innerHeight / ROWS / LINE_HEIGHT;
+      // Height comes first: the full stack of lines has to fill the viewport.
+      const size = window.innerHeight / (rowCount * lines.length) / LINE_HEIGHT;
       const widthAtSize = (natural / MEASURE_PX) * size;
 
       if (widthAtSize > target) {
@@ -78,7 +95,7 @@ export default function WordWipe({ word, ink, note, onCovered, onDone }: WordWip
     fit();
     window.addEventListener("resize", fit);
     return () => window.removeEventListener("resize", fit);
-  }, [word]);
+  }, [lines, rowCount]);
 
   // The callbacks are read through refs so the timeline effect can depend on
   // nothing. Callers pass inline arrows, so their identity changes on every
@@ -125,11 +142,11 @@ export default function WordWipe({ word, ink, note, onCovered, onDone }: WordWip
       {/* Off-screen probe: word widths differ per destination, so the display
           size is derived from the real measured width rather than guessed. */}
       <span className={styles.probe} ref={probeRef} style={{ fontSize: MEASURE_PX }}>
-        {word}
+        {mark}
       </span>
 
       <div className={styles.sheet}>
-        {Array.from({ length: ROWS }, (_, i) => (
+        {Array.from({ length: rowCount }, (_, i) => (
           <span
             key={i}
             className={styles.row}
@@ -141,7 +158,7 @@ export default function WordWipe({ word, ink, note, onCovered, onDone }: WordWip
               className={styles.rowInner}
               style={{ transform: `scaleX(${stretch})` }}
             >
-              {word}
+              {mark}
             </span>
           </span>
         ))}

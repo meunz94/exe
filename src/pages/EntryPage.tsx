@@ -8,6 +8,7 @@ import type {
   SidebarItem,
 } from "../types";
 import { useFilteredData } from "../data/useAppData";
+import { titleLines } from "../utils/text";
 import WordWipe from "../components/Transition/WordWipe";
 import { WIPE_INKS } from "../components/Transition/wipeInks";
 import ProfileSection from "./entry/ProfileSection";
@@ -107,7 +108,13 @@ export default function EntryPage({
         <span className={styles.index}>
           {String(index).padStart(8, "0")}
         </span>
-        <h1 className={styles.title}>{item.label}</h1>
+        <h1 className={styles.title}>
+          {titleLines(item.label).map((line) => (
+            <span key={line} className={styles.titleLine}>
+              {line}
+            </span>
+          ))}
+        </h1>
         {item.synopsis && <p className={styles.synopsis}>{item.synopsis}</p>}
       </header>
 

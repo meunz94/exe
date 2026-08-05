@@ -1,5 +1,6 @@
 import type { SidebarItem } from "../../types";
 import { useRevealOnScroll } from "../../hooks/useSplitReveal";
+import { titleLines } from "../../utils/text";
 import styles from "../../pages/LandingPage.module.css";
 
 /**
@@ -44,7 +45,13 @@ export default function EntrySection({ item, index, counts, onEnter }: EntrySect
           <span className={styles.bullet}>⬤</span>
         </div>
 
-        <h2 className={styles.entryTitle}>{item.label}</h2>
+        <h2 className={styles.entryTitle}>
+          {titleLines(item.label).map((line) => (
+            <span key={line} className={styles.entryTitleLine}>
+              {line}
+            </span>
+          ))}
+        </h2>
 
         <div className={styles.entryBody}>
           <p className={styles.entrySynopsis} ref={synopsisRef}>

@@ -160,6 +160,11 @@
   margin: 0;
 }
 
+/* Long titles arrive pre-broken from titleLines() — one span per line. */
+.entryTitleLine {
+  display: block;
+}
+
 .entryBody {
   display: grid;
   grid-template-columns: 1fr 1fr;
