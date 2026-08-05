@@ -25,3 +25,9 @@ dist-ssr
 
 # generated gallery thumbnails (rebuilt by scripts/generate-gallery.mjs)
 public/images/thumbs
+
+# build-time outputs of scripts/generate-*.mjs (rebuilt on every npm run dev/build)
+public/data/gallery.json
+public/data/au-gallery.json
+public/data/posts.json
+public/data/au-posts.json
