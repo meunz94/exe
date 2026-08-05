@@ -43,23 +43,22 @@
   --glass-cx: calc(var(--glass-left) + var(--glass-width) / 2);
   --glass-cy: calc(var(--glass-top) + var(--glass-height) / 2);
 
-  /* Centring is folded into `transform` rather than using the standalone
+  /* Every state frames the *glass* centre — not the photo centre — on the
+     viewport centre. The glass is ~1.5% left / ~2% up of the photo's middle,
+     and on portrait phones the photo is far wider than the viewport, so
+     centring the photo left the monitor visibly off-centre.
+
+     Centring is folded into `transform` rather than using the standalone
      `translate` property. Per spec the two compose, but CSS minifiers see a
      later `transform` in the same rule and drop the `translate` as redundant —
      which silently un-centred the whole scene in production builds. Keeping it
      in a variable means every zoom state below reuses the same offset. */
-  --center: translate(-50%, -50%);
-
-  /* Powered-on framing: pan so the *glass* centre — not the photo centre —
-     sits on the viewport centre. The glass is ~1.5% left / ~2% up of the
-     photo's middle, and on portrait phones the photo is far wider than the
-     viewport, so centring the photo left the icons visibly off-centre. */
   --center-glass: translate(calc(-1 * var(--glass-cx)), calc(-1 * var(--glass-cy)));
 
   /* The camera. Origin is the centre of the glass so every zoom stays framed
      on the monitor — scale() holds that point wherever the pan put it. */
   transform-origin: var(--glass-cx) var(--glass-cy);
-  transform: var(--center) scale(1);
+  transform: var(--center-glass) scale(1);
   transition: transform 1200ms cubic-bezier(0.22, 1, 0.28, 1), filter 900ms ease;
   will-change: transform;
 }
