@@ -14,7 +14,7 @@ function stamp() {
 export function identityHead(node: string): FloodHead {
   return {
     left: [
-      ["SYS.NAME", "LIMBIC_SYSTEM v0.2"],
+      ["SYS.NAME", "LIMBIC_SYSTEM v1.0.0-beta"],
       ["SYS.NODE", node],
     ],
     right: [
@@ -28,7 +28,7 @@ export function identityLines(node: "INFO" | "PROMPT"): FloodLine[] {
   const label = node === "INFO" ? "index of neighbours & notices" : "generation prompt archive";
 
   return [
-    { text: `LIMBIC SYSTEM ACCESS SEQUENCE v1.3`, dim: true },
+    { text: `LIMBIC SYSTEM ACCESS SEQUENCE - RESTRICTED ACCESS`, dim: true },
     { hr: true },
     { text: "IDENTITY PROTOCOL" },
     { hr: true },
@@ -50,7 +50,7 @@ export function identityLines(node: "INFO" | "PROMPT"): FloodLine[] {
 export function bootHead(entries: number, frames: number): FloodHead {
   return {
     left: [
-      ["SYS.NAME", "LIMBIC_SYSTEM v0.2"],
+      ["SYS.NAME", "LIMBIC_SYSTEM v1.0.0-alpha"],
       ["SYS.AUTH", "ACCESS_GRANTED"],
       ["SYS.NODE", "limbic.system"],
     ],
@@ -75,7 +75,7 @@ export function bootLines(opts: {
   const { entries, posts, frames, tracks } = opts;
 
   return [
-    { text: "LIMBIC_SYSTEM v0.2 -- booting…", dim: true },
+    { text: "LIMBIC_SYSTEM LOVE_SEQUENCE -- booting…", dim: true },
     { text: "Loading kernel.pkg", leader: true, tag: "OK" },
     { text: "Loading crt_display.pkg", leader: true, tag: "OK" },
     { text: "Loading archive_index.pkg", leader: true, tag: "OK" },
