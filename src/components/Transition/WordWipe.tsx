@@ -53,6 +53,10 @@ export default function WordWipe({ word, ink, note, onCovered, onDone }: WordWip
   // of type overall instead of doubling it.
   const lines = useMemo(() => titleLines(word), [word]);
   const rowCount = lines.length > 1 ? 3 : ROWS;
+  /* Two-line marks run big already, and at that size the scaleX assist reads
+     as squashed letterforms rather than width — keep them near-natural and
+     let short single words ("music") keep the full stretch. */
+  const maxStretch = lines.length > 1 ? 1.06 : MAX_STRETCH;
 
   // The wordmark, line-broken; reused by the probe and every row so the
   // measurement can never drift from what's rendered.
@@ -88,14 +92,14 @@ export default function WordWipe({ word, ink, note, onCovered, onDone }: WordWip
         setStretch(1);
       } else {
         setFontSize(size);
-        setStretch(Math.min(MAX_STRETCH, target / widthAtSize));
+        setStretch(Math.min(maxStretch, target / widthAtSize));
       }
     };
 
     fit();
     window.addEventListener("resize", fit);
     return () => window.removeEventListener("resize", fit);
-  }, [lines, rowCount]);
+  }, [lines, rowCount, maxStretch]);
 
   // The callbacks are read through refs so the timeline effect can depend on
   // nothing. Callers pass inline arrows, so their identity changes on every
