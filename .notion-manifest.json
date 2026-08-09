@@ -57,7 +57,7 @@
   },
   "3b15a6bf-c773-81c3-b322-d4799a118149": {
     "ds": "neighbors",
-    "edited": "2026-08-03T12:32:00.000Z",
+    "edited": "2026-08-09T05:07:00.000Z",
     "files": [
       "public/images/notion/neighbors/unfrozen.jpg"
     ]
@@ -228,6 +228,13 @@
     "edited": "2026-08-03T12:32:00.000Z",
     "files": [
       "public/images/notion/neighbors/dive.jpeg"
+    ]
+  },
+  "3b75a6bf-c773-80c0-8ef5-f8da46075b52": {
+    "ds": "neighbors",
+    "edited": "2026-08-09T05:07:00.000Z",
+    "files": [
+      "public/images/notion/neighbors/jaeyeon banner.png"
     ]
   }
 }

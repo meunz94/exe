@@ -27,9 +27,7 @@
   {
     "name": "unfrozen salvation",
     "image": "images/notion/neighbors/unfrozen.jpg",
-    "url": "https://koiu.luv3r.me",
-    "crop": 40,
-    "cropPosition": 25
+    "url": "https://koiu.luv3r.me"
   },
   {
     "name": "The Thirsty Thorn",
@@ -150,5 +148,10 @@
     "name": "Red Promise",
     "image": "images/notion/neighbors/dive.jpeg",
     "url": "https://inhyeok-hari.luv3r.me"
+  },
+  {
+    "name": "sempre",
+    "image": "images/notion/neighbors/jaeyeon banner.png",
+    "url": "https://차재현.com/"
   }
 ]
