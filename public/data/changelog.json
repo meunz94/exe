@@ -1,5 +1,12 @@
 [
   {
+    "hash": "a86de81",
+    "date": "2026-08-22",
+    "tag": "EDIT",
+    "text": "Rebuild the site around a 3D desk and move all content into Notion",
+    "count": 1
+  },
+  {
     "hash": "0382a8e",
     "date": "2026-08-16",
     "tag": "SYNC",
@@ -90,13 +97,6 @@
     "date": "2026-08-04",
     "tag": "SYNC",
     "text": "sync content from Notion",
-    "count": 1
-  },
-  {
-    "hash": "3ceb8d8",
-    "date": "2026-08-04",
-    "tag": "EDIT",
-    "text": "Redesign entry pages, add CD music deck, and purge dead assets",
     "count": 1
   }
 ]

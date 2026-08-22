@@ -63,15 +63,6 @@ interface Modules {
 }
 
 const WEEKDAYS: Weekday[] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
-const WEEKDAY_KR: Record<Weekday, string> = {
-  MON: "월",
-  TUE: "화",
-  WED: "수",
-  THU: "목",
-  FRI: "금",
-  SAT: "토",
-  SUN: "일",
-};
 const WEEKDAY_FULL: Record<Weekday, string> = {
   MON: "MONDAY",
   TUE: "TUESDAY",
@@ -717,7 +708,6 @@ export default function PcPage({ data, onBack }: PcPageProps) {
 
               <section className={styles.card}>
                 <h2 className={styles.cardTitle}>ARCHIVE</h2>
-                <p className={styles.cardCopy}>You relax, we'll do the math. Here's your recap.</p>
                 <BarRow label="CHIPS" sub="Cartridges on shelf" value={chips} max={20} />
                 <BarRow label="SCRIPTS" sub="Papers, flowing" value={scriptCount} max={100} />
                 <BarRow label="TRACKS" sub="On the walkman" value={data.playlist.length} max={30} />
@@ -740,9 +730,6 @@ export default function PcPage({ data, onBack }: PcPageProps) {
                   <h2 className={styles.cardTitle}>ROUTINE</h2>
                   <span className={styles.cardBadge}>{WEEKDAY_FULL[day]}</span>
                 </div>
-                <p className={styles.cardCopy}>
-                  {WEEKDAY_KR[day]}요일 · 파란 테두리가 현재 진행 중인 일과입니다.
-                </p>
                 <div className={styles.routines}>
                   {(modules.schedule[day] ?? []).map((lane) => (
                     <RoutineTimeline
@@ -765,7 +752,6 @@ export default function PcPage({ data, onBack }: PcPageProps) {
                     <h2 className={styles.cardTitle}>HEART RATE — {modules.heart.agent.toUpperCase()}</h2>
                     <span className={styles.cardBadge}>● LIVE</span>
                   </div>
-                  <p className={styles.cardCopy}>{modules.heart.note}</p>
                   <HeartMonitor config={modules.heart} load={heartLoad} />
                 </section>
               )}
@@ -776,7 +762,6 @@ export default function PcPage({ data, onBack }: PcPageProps) {
 
               <section className={`${styles.card} ${styles.cardWide}`}>
                 <h2 className={styles.cardTitle}>SYSTEM UPDATES</h2>
-                <p className={styles.cardCopy}>최근 변경 사항 — 커밋 기록에서 자동 생성됩니다.</p>
                 <ol className={styles.changes}>
                   {changes.map((c) => (
                     <li key={c.hash}>

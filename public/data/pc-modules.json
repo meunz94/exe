@@ -12,7 +12,7 @@
   "heart": {
     "agent": "Blanc",
     "unit": "bpm",
-    "note": "일정 부하도에 따라 실시간으로 갱신됩니다.",
+    "note": "",
     "restBpm": 52,
     "perLoad": 0.92,
     "jitter": 5,
