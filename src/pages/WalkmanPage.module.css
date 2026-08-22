@@ -1,0 +1,353 @@
+/* WALKMAN — music streaming page after the reference layout: ivory ground,
+   editorial black type, blue accent; cassette stands in for the vinyl. */
+
+.page {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #f1efe8;
+  color: #101014;
+  --accent: #1a2ec8;
+}
+
+.empty {
+  margin: auto;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+/* --- header ------------------------------------------------------------------ */
+
+.top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 16px clamp(18px, 3.5vw, 48px);
+  border-bottom: 1px solid rgba(16, 16, 20, 0.35);
+}
+
+.back {
+  justify-self: start;
+  border: 1px solid #101014;
+  background: none;
+  color: inherit;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.back:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.masthead {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-mono);
+}
+
+.masthead strong {
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+}
+
+.masthead span {
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: rgba(16, 16, 20, 0.5);
+}
+
+.cats {
+  justify-self: end;
+  display: flex;
+  gap: 1.6em;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  color: rgba(16, 16, 20, 0.6);
+}
+
+/* --- split ------------------------------------------------------------------- */
+
+.split {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(20px, 4vw, 70px);
+  padding: clamp(20px, 4vh, 48px) clamp(18px, 3.5vw, 48px);
+}
+
+/* --- media (left) -------------------------------------------------------------- */
+
+.media {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 0;
+}
+
+.discRing {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: min(38vh, 30vw, 420px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 9%;
+}
+
+.discRingOn {
+  box-shadow: none;
+}
+
+/* the ring itself is the transport dial */
+.dial {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.dialTrack {
+  fill: none;
+  stroke: rgba(16, 16, 20, 0.35);
+  stroke-width: 0.8;
+}
+
+.dialProgress {
+  fill: none;
+  stroke: rgba(16, 16, 20, 0.25);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.dialOn {
+  stroke: var(--accent);
+}
+
+.dialKnob {
+  fill: var(--accent);
+}
+
+.dialHit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 10;
+  pointer-events: stroke;
+  cursor: grab;
+}
+
+.dialHit:active {
+  cursor: grabbing;
+}
+
+.cassette {
+  width: 100%;
+  color: #101014;
+}
+
+.reel {
+  transform-box: view-box;
+}
+
+.reelSpin {
+  animation: reelSpin 2.4s linear infinite;
+}
+
+@keyframes reelSpin {
+  to { transform: rotate(360deg); }
+}
+
+.lyrics {
+  width: min(38vh, 30vw, 420px);
+  max-height: 22vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 2;
+  color: rgba(16, 16, 20, 0.7);
+  text-align: center;
+}
+
+.lyrics pre {
+  font: inherit;
+  white-space: pre-wrap;
+  word-break: keep-all;
+}
+
+.lyricsEmpty {
+  color: rgba(16, 16, 20, 0.4);
+  letter-spacing: 0.12em;
+  font-size: 0.64rem;
+}
+
+.mediaTime {
+  display: flex;
+  gap: 0.7em;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+
+.mediaTime span:last-child {
+  color: rgba(16, 16, 20, 0.45);
+}
+
+/* --- list (right) --------------------------------------------------------------- */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.bigTitle {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(34px, 5.4vw, 84px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  word-break: keep-all;
+}
+
+.bigSub {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(16, 16, 20, 0.55);
+}
+
+.listLabel {
+  margin: clamp(16px, 3.5vh, 36px) 0 8px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+}
+
+.tracks {
+  list-style: none;
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+.track {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 1.4em;
+  width: 100%;
+  padding: 10px 6px;
+  border: none;
+  border-bottom: 1px solid rgba(16, 16, 20, 0.15);
+  background: none;
+  color: inherit;
+  font-family: var(--font-mono);
+  text-align: left;
+  cursor: pointer;
+}
+
+.track:hover {
+  background: rgba(26, 46, 200, 0.06);
+}
+
+.trackActive {
+  background: rgba(26, 46, 200, 0.09);
+}
+
+.trackNum {
+  font-size: 0.66rem;
+  color: rgba(16, 16, 20, 0.45);
+}
+
+.trackActive .trackNum {
+  color: var(--accent);
+}
+
+.trackMain {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.trackTitle {
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trackState {
+  margin-left: 0.8em;
+  font-style: normal;
+  font-size: 0.62rem;
+  color: var(--accent);
+}
+
+.trackArtist {
+  font-size: 0.64rem;
+  color: rgba(16, 16, 20, 0.5);
+}
+
+.trackTime {
+  font-size: 0.68rem;
+  color: rgba(16, 16, 20, 0.5);
+}
+
+/* --- hidden audio ---------------------------------------------------------------- */
+
+.audio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0.01;
+  pointer-events: none;
+}
+
+.audio iframe {
+  width: 320px;
+  height: 180px;
+  border: 0;
+}
+
+@media (max-width: 860px) {
+  .split {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+  }
+
+  .tracks {
+    overflow: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reelSpin {
+    animation-duration: 30s;
+  }
+}

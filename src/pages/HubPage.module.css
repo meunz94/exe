@@ -1,0 +1,58 @@
+.hub {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  /* retro white → blue → black; the kitsch backdrop the devices float over */
+  background:
+    radial-gradient(ellipse 90% 55% at 50% -10%, rgba(255, 255, 255, 0.9) 0%, transparent 60%),
+    linear-gradient(180deg, #e8e6df 0%, #98a8e8 34%, #2438c8 62%, #05050f 100%);
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: rgba(10, 15, 60, 0.65);
+}
+
+.top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 18px clamp(18px, 3vw, 40px);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: #0a0f3c;
+  pointer-events: none;
+}
+
+.logo {
+  font-weight: 700;
+}
+
+.status {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px clamp(18px, 3vw, 40px);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+}

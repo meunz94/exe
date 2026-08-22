@@ -1,46 +1,53 @@
-import { useState, useEffect, useCallback } from "react";
-import { useAppData, useFetchPostContent, useFetchAuPostContent } from "./data/useAppData";
-import BootScreen from "./components/Boot/BootScreen";
-import SitePage from "./pages/SitePage";
+import { useState, useEffect } from "react";
+import { useAppData } from "./data/useAppData";
 import TerminalFlood from "./components/Boot/TerminalFlood";
-import {
-  bootHead,
-  bootLines,
-  identityHead,
-  identityLines,
-} from "./components/Boot/floodScripts";
-import InfoPage from "./pages/InfoPage";
-import PromptPage from "./pages/PromptPage";
+import { loadLines } from "./components/Boot/floodScripts";
 import CRTOverlay from "./components/CRT/CRTOverlay";
+import EntryScreen from "./pages/EntryScreen";
+import HubPage from "./pages/HubPage";
+import FloppyPage from "./pages/FloppyPage";
+import WalkmanPage from "./pages/WalkmanPage";
+import PapersPage from "./pages/PapersPage";
+import NintendoPage from "./pages/NintendoPage";
+import PcPage from "./pages/PcPage";
+import { HUB_SECTIONS, type HubSection } from "./types/screens";
 import "./index.css";
 
 /**
- * boot   — the desk; pick an icon
- * flood  — a terminal readout covering the cut to `pending`
- * info   — the notice + neighbours document
- * prompt — the generation-prompt document
- * site   — the archive itself
+ * entry   — dark room, the warning label; click to boot
+ * loading — Win98-blue load readout covering the cut to the hub
+ * hub     — the 3D desk; pick a device
+ * <section> — one per device (placeholders until their builds land)
  */
-type Screen = "boot" | "flood" | "info" | "prompt" | "site";
+type Screen = "entry" | "loading" | "hub" | HubSection;
 
-/** URL → screen. The inverse of the sync effect below; used on load and popstate. */
 function screenFromPath(pathname: string): Screen {
-  if (pathname.startsWith("/main")) return "site";
-  if (pathname.startsWith("/info")) return "info";
-  if (pathname.startsWith("/prompt")) return "prompt";
-  return "boot";
+  const seg = pathname.replace(/^\/+/, "").split("/")[0];
+  if (seg === "hub") return "hub";
+  if ((HUB_SECTIONS as string[]).includes(seg)) return seg as HubSection;
+  return "entry";
+}
+
+function formatClock(d: Date): string {
+  return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+}
+
+function useClock(): string {
+  const [clock, setClock] = useState(() => formatClock(new Date()));
+  useEffect(() => {
+    const id = window.setInterval(() => setClock(formatClock(new Date())), 15_000);
+    return () => window.clearInterval(id);
+  }, []);
+  return clock;
 }
 
 export default function App() {
-  const { data, loading, error } = useAppData();
-  const { fetchContent, loadingPostId } = useFetchPostContent();
-  const { fetchAuContent, loadingAuPostId } = useFetchAuPostContent();
+  const { data } = useAppData();
+  const clock = useClock();
 
-  const [screen, setScreen] = useState<Screen>(() => screenFromPath(window.location.pathname));
-  /** Where the running flood is headed. */
-  const [pending, setPending] = useState<Exclude<Screen, "boot" | "flood">>("site");
-  /** Once the machine has been switched on, it stays on for the session. */
-  const [booted, setBooted] = useState(() => screenFromPath(window.location.pathname) !== "boot");
+  const [screen, setScreen] = useState<Screen>(() =>
+    screenFromPath(window.location.pathname)
+  );
 
   useEffect(() => {
     const block = (e: MouseEvent) => e.preventDefault();
@@ -48,100 +55,59 @@ export default function App() {
     return () => document.removeEventListener("contextmenu", block);
   }, []);
 
-  // Each screen is its own history entry, so the browser's back button walks
-  // back through the site instead of leaving it. `pushState` (not replace) is
-  // what builds the stack; the popstate listener below is what unwinds it.
+  // Each screen is its own history entry so the browser back button walks
+  // the site instead of leaving it. `loading` is transient and never gets an
+  // entry of its own.
   useEffect(() => {
-    const path =
-      screen === "site" ? "/main" : screen === "boot" || screen === "flood" ? "/" : `/${screen}`;
+    if (screen === "loading") return;
+    const path = screen === "entry" ? "/" : `/${screen}`;
+    // /nintendo/<chipId> deep paths belong to NintendoPage — don't clobber
+    // them from here.
     const current = window.location.pathname;
-    // `/main/...` deep paths belong to SitePage — don't clobber them from here.
-    const covered = screen === "site" ? current.startsWith("/main") : current === path;
+    const covered =
+      screen === "nintendo" || screen === "papers" || screen === "pc"
+        ? current.startsWith(path)
+        : current === path;
     if (!covered) {
       window.history.pushState(null, "", path);
     }
   }, [screen]);
 
-  // Browser back/forward: restore whichever screen the URL now points at.
   useEffect(() => {
-    const onPop = () => {
-      const next = screenFromPath(window.location.pathname);
-      if (next !== "boot") setBooted(true);
-      setScreen(next);
-    };
+    const onPop = () => setScreen(screenFromPath(window.location.pathname));
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
   }, []);
 
-  const runFlood = useCallback((to: Exclude<Screen, "boot" | "flood">) => {
-    setBooted(true);
-    setPending(to);
-    setScreen("flood");
-  }, []);
-
-  const backToDesk = useCallback(() => setScreen("boot"), []);
-
-  if (screen === "flood") {
-    const toSite = pending === "site";
-    return (
-      <>
-        <TerminalFlood
-          skin={toSite ? "green" : "amber"}
-          head={
-            toSite
-              ? bootHead(data.sidebarItems.length, data.gallery.length)
-              : identityHead(pending.toUpperCase())
-          }
-          lines={
-            toSite
-              ? bootLines({
-                  entries: data.sidebarItems.map((s) => ({
-                    label: s.label,
-                    category: s.category,
-                  })),
-                  posts: data.posts.length,
-                  frames: data.gallery.length,
-                  tracks: data.playlist.length,
-                })
-              : identityLines(pending === "info" ? "INFO" : "PROMPT")
-          }
-          speed={toSite ? 85 : 95}
-          onDone={() => setScreen(pending)}
-        />
-        <CRTOverlay />
-      </>
-    );
-  }
-
   let content;
-  if (screen === "boot") {
+  if (screen === "entry") {
+    content = <EntryScreen onEnter={() => setScreen("loading")} />;
+  } else if (screen === "loading") {
     content = (
-      <BootScreen
-        alreadyOn={booted}
-        // LOVE dives through the glass, then the boot log plays.
-        onEnter={() => runFlood("site")}
-        onOpenDoc={runFlood}
+      <TerminalFlood
+        skin="blue"
+        lines={loadLines({
+          chips: data.sidebarItems.length + data.au.length,
+          tracks: data.playlist.length,
+          frames: data.gallery.length,
+          posts: data.posts.length,
+        })}
+        speed={80}
+        onDone={() => setScreen("hub")}
       />
     );
-  } else if (screen === "info") {
-    content = <InfoPage onBack={backToDesk} />;
-  } else if (screen === "prompt") {
-    content = <PromptPage onBack={backToDesk} />;
-  } else if (loading) {
-    content = <StatusScreen>불러오는 중...</StatusScreen>;
-  } else if (error) {
-    content = <StatusScreen tone="error">데이터 로드 실패: {error}</StatusScreen>;
+  } else if (screen === "hub") {
+    content = <HubPage clock={clock} onOpen={setScreen} />;
+  } else if (screen === "floppy") {
+    content = <FloppyPage onBack={() => setScreen("hub")} />;
+  } else if (screen === "walkman") {
+    content = <WalkmanPage playlist={data.playlist} onBack={() => setScreen("hub")} />;
+  } else if (screen === "papers") {
+    content = <PapersPage onBack={() => setScreen("hub")} />;
+  } else if (screen === "nintendo") {
+    content = <NintendoPage data={data} onBack={() => setScreen("hub")} />;
   } else {
-    content = (
-      <SitePage
-        data={data}
-        loadingPostId={loadingPostId}
-        loadingAuPostId={loadingAuPostId}
-        fetchContent={fetchContent}
-        fetchAuContent={fetchAuContent}
-        onBackToDesk={backToDesk}
-      />
-    );
+    content = <PcPage data={data} onBack={() => setScreen("hub")} />;
   }
 
   return (
@@ -149,31 +115,5 @@ export default function App() {
       {content}
       <CRTOverlay />
     </>
-  );
-}
-
-function StatusScreen({
-  children,
-  tone = "muted",
-}: {
-  children: React.ReactNode;
-  tone?: "muted" | "error";
-}) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        fontFamily: "var(--font-mono)",
-        textTransform: "uppercase",
-        letterSpacing: "0.08em",
-        fontSize: "0.75rem",
-        color: tone === "error" ? "var(--px-red)" : "var(--color-text-muted)",
-      }}
-    >
-      {children}
-    </div>
   );
 }

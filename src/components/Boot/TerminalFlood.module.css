@@ -50,6 +50,35 @@
   --glowc: rgba(0, 255, 95, 0.14);
 }
 
+/* DOS-on-blue: used booting from the entry label into the hub. Pixel face,
+   no header bar, no phosphor dressing — just the readout. */
+.blue {
+  --ink: #e6e9ff;
+  --ink-dim: rgba(205, 210, 255, 0.6);
+  --ink-hot: #ffffff;
+  --glowc: transparent;
+  background: #0000a8;
+  font-family: var(--font-pixel);
+  font-size: clamp(14px, 1.25vw, 19px);
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.blue::before {
+  content: none;
+}
+
+.blue .big {
+  font-size: 1.45em;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.blue .skip {
+  border-radius: 0;
+  font-family: inherit;
+}
+
 .flood {
   color: var(--ink);
 }

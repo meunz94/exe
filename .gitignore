@@ -1,3 +1,16 @@
+.env
+
+# 3D/이미지 원본 — 빌드에는 최적화본만 쓴다 (public/models/*.glb, src/assets/pc-screen.webp).
+# 원본은 각자 로컬에 두고, 필요할 때 npm run models 로 다시 굽는다.
+src/assets/*.glb
+src/assets/image.png
+src/assets/image2.png
+src/assets/*.jpeg
+# 칩 라벨 원본(4K PNG) — 커밋되는 것은 같은 이름의 .webp
+public/images/chips/*.png
+public/images/boxes/*.png
+ascii.txt
+
 # Logs
 logs
 *.log

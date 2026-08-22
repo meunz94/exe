@@ -1,5 +1,21 @@
 @import "./styles/tokens.css";
 
+/* Galmuri 11 — the bitmap-style pixel face behind --font-pixel. Self-hosted
+   (copied from the `galmuri` npm package into public/fonts). */
+@font-face {
+  font-family: "Galmuri11";
+  src: url("/fonts/Galmuri11.woff2") format("woff2");
+  font-weight: 400;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Galmuri11";
+  src: url("/fonts/Galmuri11-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: block;
+}
+
 *,
 *::before,
 *::after {

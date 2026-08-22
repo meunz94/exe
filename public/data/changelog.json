@@ -1,0 +1,102 @@
+[
+  {
+    "hash": "0382a8e",
+    "date": "2026-08-16",
+    "tag": "SYNC",
+    "text": "sync content from Notion",
+    "count": 7,
+    "since": "2026-08-06"
+  },
+  {
+    "hash": "9af3a24",
+    "date": "2026-08-06",
+    "tag": "EDIT",
+    "text": "Update boot flood copy and swap blanc portrait to jpeg",
+    "count": 1
+  },
+  {
+    "hash": "89d7bd4",
+    "date": "2026-08-06",
+    "tag": "EDIT",
+    "text": "Keep two-line wipe marks at natural letter proportions",
+    "count": 1
+  },
+  {
+    "hash": "f36b726",
+    "date": "2026-08-06",
+    "tag": "SYNC",
+    "text": "sync content from Notion",
+    "count": 1
+  },
+  {
+    "hash": "af7ee82",
+    "date": "2026-08-05",
+    "tag": "EDIT",
+    "text": "Break long multi-word titles into two balanced lines",
+    "count": 1
+  },
+  {
+    "hash": "537db21",
+    "date": "2026-08-05",
+    "tag": "SYNC",
+    "text": "sync content from Notion",
+    "count": 2,
+    "since": "2026-08-05"
+  },
+  {
+    "hash": "96918c8",
+    "date": "2026-08-05",
+    "tag": "EDIT",
+    "text": "Untrack build-generated data files and register AU Notion databases",
+    "count": 1
+  },
+  {
+    "hash": "74bb5be",
+    "date": "2026-08-05",
+    "tag": "EDIT",
+    "text": "Center the glass in the viewport from the very first frame",
+    "count": 1
+  },
+  {
+    "hash": "71c8265",
+    "date": "2026-08-04",
+    "tag": "SYNC",
+    "text": "sync content from Notion",
+    "count": 1
+  },
+  {
+    "hash": "4b324c1",
+    "date": "2026-08-04",
+    "tag": "EDIT",
+    "text": "Restore --color-accent: content markdown depends on it",
+    "count": 1
+  },
+  {
+    "hash": "a54b5dd",
+    "date": "2026-08-04",
+    "tag": "SYNC",
+    "text": "sync content from Notion",
+    "count": 1
+  },
+  {
+    "hash": "eae8cf3",
+    "date": "2026-08-04",
+    "tag": "EDIT",
+    "text": "Don't crash the build when every post is unpublished",
+    "count": 1
+  },
+  {
+    "hash": "1b0213c",
+    "date": "2026-08-04",
+    "tag": "SYNC",
+    "text": "sync content from Notion",
+    "count": 1
+  },
+  {
+    "hash": "3ceb8d8",
+    "date": "2026-08-04",
+    "tag": "EDIT",
+    "text": "Redesign entry pages, add CD music deck, and purge dead assets",
+    "count": 1
+  }
+]

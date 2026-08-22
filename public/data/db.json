@@ -1,14 +1,14 @@
 {
   "sidebarItems": [
     {
-      "id": "sb-1",
+      "id": "org_1",
       "label": "ROMANCE OVERCLOCK",
       "category": "VB",
       "synopsis": "훈련실을 통째로 얼려버린 탓에 밴스의 연구실로 불려간 블랑. 왜 훈련실을 얼렸느냐는 밴스의 추궁에, 동결 임계점을 실험하기 위험이었다고 답하는데. 블랑의 '오버클럭'에 흥미를 가진 밴스는, 그녀를 연구대상으로 지정하고 매일 연구실로 출석하라는 징계를 내린다. 그것 뿐인데, 왜 이렇게 신경이 쓰이는 거지?",
       "hasAu": true
     },
     {
-      "id": "sb-4",
+      "id": "org_2",
       "label": "403 NOSTELGIA FORBIDDEN",
       "category": "VS",
       "synopsis": "어릴 적부터 봐온 '아는 옆집 동생'이, 알고 보니 ARCH 소속의 가이드였다면? 징계 면담을 위해 연구실에 온 시그널을 본 순간 밴스는 그녀가 어릴 적의 그 아이와 동일인물임을 깨닫는다. 그 이후로, 밴스는 자꾸만 시그널과 어릴 적의 연수가 겹쳐 보이기 시작하는데..."
@@ -361,7 +361,38 @@
   ],
   "au": [
     {
-      "id": "au-1",
+      "id": "au_1",
+      "title": "옆집 이웃이 매일 밤마다 개가 된다",
+      "description": "수의사 변정원 X 강아지 수인 김연수",
+      "imageUrl": "",
+      "tags": [
+        "현대"
+      ],
+      "section": "sub",
+      "members": [
+        {
+          "name": "변정원",
+          "role": "한빛 오피스텔 201호",
+          "imageUrl": "",
+          "descriptions": [
+            "35세. 수의사"
+          ],
+          "note": "추가 예정"
+        },
+        {
+          "name": "김연수",
+          "role": "한빛 오피스텔 202호",
+          "imageUrl": "",
+          "descriptions": [
+            "25세. 강아지 수인(?)"
+          ],
+          "note": "추가 예정"
+        }
+      ],
+      "content": "추가 예정"
+    },
+    {
+      "id": "au_2",
       "title": "방과후 과학실에서는",
       "description": "과학 교사 변정원 X 고등학생 김연수",
       "imageUrl": "/images/au/au-1.png",
@@ -420,7 +451,7 @@
       "content": "추가 예정"
     },
     {
-      "id": "au-2",
+      "id": "au_3",
       "title": "우린 노래가 될 수 있을까",
       "description": "소속사 이사 변정원 X 싱어송라이터 김연수",
       "imageUrl": "/images/au/au-2.png",
@@ -473,396 +504,24 @@
       "content": "추가 예정"
     },
     {
-      "id": "au-4",
-      "title": "변 조교가 미쳤다",
-      "description": "조교 변정원 X 학부생 김연수",
-      "imageUrl": "/images/au/au-4.png",
-      "imagePosition": "center top",
-      "tags": [
-        "현대",
-        "대학교"
-      ],
-      "section": "main",
-      "members": [
-        {
-          "name": "변정원",
-          "role": "박사과정 2년차",
-          "imageUrl": "",
-          "descriptions": [
-            "29세. 한국대학교 뇌인지컴퓨터융합학과 석박통합과정 7학기.",
-            "<인공지능>, <인지신경과학> 과목 조교."
-          ],
-          "note": "'걸어다니는 논문 생성기'라는 별명이 있을 정도의 천재. 학부생들 사이에서는 '절대 웃지 않는 조교', '채점의 신', '변정원 조교님한테 질문하면 되려 과제가 늘어난다'는 도시전설이 떠돌고 있다."
-        },
-        {
-          "name": "김연수",
-          "role": "학부 3학년",
-          "imageUrl": "",
-          "descriptions": [
-            "22세. 한국대학교 뇌인지컴퓨터융합학과 3학년.",
-            "과 수석. 밴드동아리 '얼리버드' 보컬."
-          ],
-          "note": "과제와 술자리 모두 절대 빼먹지 않는 성실한 학생. 1학년 전공 필수 강의인 <인지신경과학> 수강을 계기로, 아무도 가까이 하려 하지 않는 변 조교와 친한 유일한 학부생으로 거듭났다."
-        }
-      ],
-      "content": "추가 예정"
-    },
-    {
-      "id": "au-6",
-      "title": "자유라는 말이 우리에게 가당키나 합니까",
-      "description": "총독부 의원 변정원 X 신흥 자산가 딸 김연수",
-      "imageUrl": "/images/au/au-6.png",
-      "imagePosition": "center top",
-      "tags": [
-        "시대극",
-        "경성",
-        "정략혼"
-      ],
-      "section": "sub",
-      "members": [
-        {
-          "name": "변정원",
-          "role": "총독부 의원",
-          "imageUrl": "",
-          "descriptions": [
-            "35세. 경성의전 출신 총독부 의원.",
-            "아버지가 친일파이나, 아버지를 매우 싫어함."
-          ],
-          "note": "추가 예정"
-        },
-        {
-          "name": "김연수",
-          "role": "신흥 자산가의 딸",
-          "imageUrl": "",
-          "descriptions": [
-            "25세. 경성 신흥 자산가 집안의 장녀.",
-            "동경에 유학을 다녀왔으며, 자유로운 삶을 꿈꾼다."
-          ],
-          "note": "추가 예정"
-        }
-      ],
-      "content": "추가 예정"
-    },
-    {
-      "id": "au-8",
-      "title": "로페즈 백작 영애가 결혼식 전날 사라졌대!",
-      "description": "몰락 귀족 영애 블랑 X 외사촌 밴스",
+      "id": "au_4",
+      "title": "사랑 말입니다 대중 없습니다",
+      "description": "",
       "imageUrl": "",
-      "imagePosition": "center top",
-      "tags": [
-        "NSFW",
-        "시대극",
-        "통속극"
-      ],
+      "tags": [],
       "section": "sub",
-      "members": [
-        {
-          "name": "밴스 드 마르슈",
-          "role": "마르슈 자작",
-          "imageUrl": "",
-          "descriptions": [
-            "추가 예정"
-          ],
-          "note": "추가 예정"
-        },
-        {
-          "name": "블랑쉐 드 로페즈",
-          "role": "로페즈 백작 영애",
-          "imageUrl": "",
-          "descriptions": [
-            "추가 예정"
-          ],
-          "note": "추가 예정"
-        }
-      ],
-      "content": "추가 예정"
+      "members": [],
+      "content": ""
     },
     {
-      "id": "au-9",
-      "title": "겨울의 마지막 날, 제국에 아침이 오리라",
-      "description": "혁명군 스파이 밴스 X 후작가 영애 블랑",
+      "id": "au_5",
+      "title": "빙하기, 괴수, 그리고...",
+      "description": "",
       "imageUrl": "",
-      "imagePosition": "center top",
-      "tags": [
-        "시대극",
-        "혁명군",
-        "밀정"
-      ],
+      "tags": [],
       "section": "sub",
-      "members": [
-        {
-          "name": "추가 예정",
-          "role": "추가 예정",
-          "imageUrl": "",
-          "descriptions": [
-            "추가 예정"
-          ],
-          "note": "추가 예정"
-        }
-      ],
-      "content": "추가 예정"
-    },
-    {
-      "id": "au-7",
-      "title": "안 돼요, 서방님!",
-      "description": "의관 변정원 X 양반집 규수 김연수",
-      "imageUrl": "/images/au/au-7.png",
-      "imagePosition": "center top",
-      "tags": [
-        "시대극",
-        "조선 후기",
-        "정략혼"
-      ],
-      "section": "sub",
-      "members": [
-        {
-          "name": "변정원",
-          "role": "내의원 소속 의관",
-          "imageUrl": "",
-          "descriptions": [
-            "추가 예정"
-          ],
-          "note": "추가 예정"
-        },
-        {
-          "name": "김연수",
-          "role": "병조판서 댁 둘째 규수",
-          "imageUrl": "",
-          "descriptions": [
-            "추가 예정"
-          ],
-          "note": "추가 예정"
-        }
-      ],
-      "content": "추가 예정"
-    },
-    {
-      "id": "au-3",
-      "title": "래번클로 걔네 둘 대체 언제 사귄대?",
-      "description": "반장 밴스 X 수색꾼 블랑",
-      "imageUrl": "/images/au/au-3.png",
-      "imagePosition": "center 40%",
-      "tags": [
-        "장르 기반",
-        "Harry Potter"
-      ],
-      "section": "sub",
-      "members": [
-        {
-          "name": "밴스",
-          "role": "래번클로 7학년",
-          "imageUrl": "",
-          "descriptions": [
-            "래번클로 7학년 반장."
-          ],
-          "note": "추가 예정"
-        },
-        {
-          "name": "블랑",
-          "role": "래번클로 4학년",
-          "imageUrl": "",
-          "descriptions": [
-            "래번클로 4학년.",
-            "기숙사 퀴디치 팀에서 2년 째 수색꾼을 맡고 있다."
-          ],
-          "note": "추가 예정"
-        }
-      ],
-      "content": "추가 예정"
-    },
-    {
-      "id": "au-5",
-      "title": "카메라를 멈추지 마!",
-      "description": "배우 변정원 X 아이돌 출신 배우 김연수",
-      "imageUrl": "",
-      "tags": [
-        "현대",
-        "연예계"
-      ],
-      "section": "main",
-      "members": [
-        {
-          "name": "변정원",
-          "role": "배우",
-          "imageUrl": "",
-          "descriptions": [
-            "35세."
-          ],
-          "note": "추가 예정"
-        },
-        {
-          "name": "김연수",
-          "role": "배우",
-          "imageUrl": "",
-          "descriptions": [
-            "25세.",
-            "아이돌 출신 배우."
-          ],
-          "note": "추가 예정"
-        }
-      ],
-      "content": "추가 예정"
-    },
-    {
-      "id": "au-10",
-      "title": "의대 교수들은 원래 다 이런가요?",
-      "description": "외과 교수 변정원 X 학부 연구생 김연수",
-      "imageUrl": "",
-      "tags": [
-        "현대",
-        "대학교"
-      ],
-      "section": "main",
-      "members": [
-        {
-          "name": "변정원",
-          "role": "대학병원 외과 교수",
-          "imageUrl": "",
-          "descriptions": [
-            "35세."
-          ],
-          "note": "추가 예정"
-        },
-        {
-          "name": "김연수",
-          "role": "의료 AI 연구실 인턴",
-          "imageUrl": "",
-          "descriptions": [
-            "25세.",
-            "학부 연구생"
-          ],
-          "note": "추가 예정"
-        }
-      ],
-      "content": "추가 예정"
-    },
-    {
-      "id": "au-11",
-      "title": "떡볶이를 좋아하는 나의 작은 용의자",
-      "description": "경찰 변정원 X 용의자 김연수",
-      "imageUrl": "",
-      "tags": [
-        "NSFW",
-        "현대"
-      ],
-      "section": "sub",
-      "members": [
-        {
-          "name": "변정원",
-          "role": "경찰",
-          "imageUrl": "",
-          "descriptions": [
-            "29세."
-          ],
-          "note": "추가 예정"
-        },
-        {
-          "name": "김연수",
-          "role": "용의자",
-          "imageUrl": "",
-          "descriptions": [
-            "19세.",
-            "고등학교 3학년."
-          ],
-          "note": "추가 예정"
-        }
-      ],
-      "content": "추가 예정"
-    },
-    {
-      "id": "au-12",
-      "title": "교양 수업은 원래 연애의 성지라서",
-      "description": "의대생 변정원 X 공대생 김연수",
-      "imageUrl": "",
-      "tags": [
-        "현대",
-        "대학교"
-      ],
-      "section": "sub",
-      "members": [
-        {
-          "name": "변정원",
-          "role": "의예과 4학년",
-          "imageUrl": "",
-          "descriptions": [
-            "23세."
-          ],
-          "note": "추가 예정"
-        },
-        {
-          "name": "김연수",
-          "role": "컴퓨터공학과 2학년",
-          "imageUrl": "",
-          "descriptions": [
-            "21세."
-          ],
-          "note": "추가 예정"
-        }
-      ],
-      "content": "추가 예정"
-    },
-    {
-      "id": "au-13",
-      "title": "사내연애 절대금지",
-      "description": "팀장 변정원 X 신입 사원 김연수",
-      "imageUrl": "",
-      "tags": [
-        "현대",
-        "오피스"
-      ],
-      "section": "sub",
-      "members": [
-        {
-          "name": "변정원",
-          "role": "(주)아크 연구개발팀 팀장",
-          "imageUrl": "",
-          "descriptions": [
-            "35세. 수석 연구원"
-          ],
-          "note": "추가 예정"
-        },
-        {
-          "name": "김연수",
-          "role": "(주)아크 연구개발팀 신입",
-          "imageUrl": "",
-          "descriptions": [
-            "25세. 신입 연구원"
-          ],
-          "note": "추가 예정"
-        }
-      ],
-      "content": "추가 예정"
-    },
-    {
-      "id": "au-14",
-      "title": "옆집 이웃이 매일 밤마다 개가 된다",
-      "description": "수의사 변정원 X 강아지 수인 김연수",
-      "imageUrl": "",
-      "tags": [
-        "현대"
-      ],
-      "section": "sub",
-      "members": [
-        {
-          "name": "변정원",
-          "role": "한빛 오피스텔 201호",
-          "imageUrl": "",
-          "descriptions": [
-            "35세. 수의사"
-          ],
-          "note": "추가 예정"
-        },
-        {
-          "name": "김연수",
-          "role": "한빛 오피스텔 202호",
-          "imageUrl": "",
-          "descriptions": [
-            "25세. 강아지 수인(?)"
-          ],
-          "note": "추가 예정"
-        }
-      ],
-      "content": "추가 예정"
+      "members": [],
+      "content": ""
     }
   ]
 }

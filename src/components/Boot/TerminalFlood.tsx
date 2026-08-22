@@ -20,8 +20,9 @@ export interface FloodHead {
 }
 
 interface TerminalFloodProps {
-  skin: "amber" | "green";
-  head: FloodHead;
+  skin: "amber" | "green" | "blue";
+  /** two-column header bar; omit for the bare DOS look */
+  head?: FloodHead;
   lines: FloodLine[];
   /** ms between lines */
   speed?: number;
@@ -108,22 +109,24 @@ export default function TerminalFlood({
       role="status"
       aria-live="polite"
     >
-      <div className={styles.head}>
-        <div className={styles.headCol}>
-          {head.left.map(([k, v]) => (
-            <span key={k}>
-              {k} : <span className={styles.headVal}>{v}</span>
-            </span>
-          ))}
+      {head && (
+        <div className={styles.head}>
+          <div className={styles.headCol}>
+            {head.left.map(([k, v]) => (
+              <span key={k}>
+                {k} : <span className={styles.headVal}>{v}</span>
+              </span>
+            ))}
+          </div>
+          <div className={`${styles.headCol} ${styles.headRight}`}>
+            {head.right.map(([k, v]) => (
+              <span key={k}>
+                {k} : <span className={styles.headVal}>{v}</span>
+              </span>
+            ))}
+          </div>
         </div>
-        <div className={`${styles.headCol} ${styles.headRight}`}>
-          {head.right.map(([k, v]) => (
-            <span key={k}>
-              {k} : <span className={styles.headVal}>{v}</span>
-            </span>
-          ))}
-        </div>
-      </div>
+      )}
 
       <div className={styles.body} ref={bodyRef}>
         {visible.map((line, i) =>

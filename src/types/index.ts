@@ -56,7 +56,6 @@ export interface Post {
   date: string;
   preview: string;
   author: string;
-  category: string;
   boardId: string;
   imageUrl?: string;
   contentPath?: string;
@@ -70,26 +69,15 @@ export interface Board {
   id: string;
   name: string;
   postCount: number;
-  category: string;
 }
 
 export interface PlaylistItem {
   id: string;
   title: string;
   artist: string;
-  duration: string;
-  category: string;
   lyrics?: string;
   /** YouTube id. Present = the disc is playable; absent = display only. */
   videoId?: string;
-}
-
-export interface TimelineEvent {
-  id: string;
-  date: string;
-  title: string;
-  description: string;
-  category: string;
 }
 
 export interface AuMember {
@@ -171,7 +159,6 @@ export interface AppData {
   au: AuItem[];
   auPosts: AuPost[];
   playlist: PlaylistItem[];
-  timeline: TimelineEvent[];
   gallery: GalleryImage[];
   youtube: YoutubeVideo[];
 }

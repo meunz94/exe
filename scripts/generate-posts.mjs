@@ -8,14 +8,14 @@ const OUTPUT_FILE = path.resolve("public/data/posts.json");
 
 const IMAGE_EXTS = [".jpeg", ".jpg", ".png", ".webp", ".gif", ".avif"];
 
-function findImage(category, boardName, postId) {
-  const dir = path.join(IMAGES_DIR, category, boardName);
+function findImage(boardName, postId) {
+  const dir = path.join(IMAGES_DIR, boardName);
   if (!fs.existsSync(dir)) return "";
 
   for (const ext of IMAGE_EXTS) {
     const candidate = path.join(dir, postId + ext);
     if (fs.existsSync(candidate)) {
-      return `/images/posts/${category}/${boardName}/${postId}${ext}`;
+      return `/images/posts/${boardName}/${postId}${ext}`;
     }
   }
   return "";
@@ -32,51 +32,34 @@ function scanPosts() {
     return { posts, boards: [] };
   }
 
-  const categories = fs
+  // 게시판 한 단계만 — 카테고리(VB/VS) 구분은 더 쓰지 않는다.
+  const boards = fs
     .readdirSync(POSTS_DIR, { withFileTypes: true })
     .filter((d) => d.isDirectory());
 
-  for (const catDir of categories) {
-    const category = catDir.name;
-    const catPath = path.join(POSTS_DIR, category);
+  for (const boardDir of boards) {
+    const boardName = boardDir.name;
+    const boardPath = path.join(POSTS_DIR, boardName);
 
-    const boards = fs
-      .readdirSync(catPath, { withFileTypes: true })
-      .filter((d) => d.isDirectory());
+    if (!boardSet.has(boardName)) {
+      boardSet.set(boardName, { id: boardName, name: boardName });
+    }
 
-    for (const boardDir of boards) {
-      const boardName = boardDir.name;
-      const boardId = `${category}-${boardName}`;
-      const boardPath = path.join(catPath, boardName);
+    for (const file of fs.readdirSync(boardPath).filter((f) => f.endsWith(".md"))) {
+      const raw = fs.readFileSync(path.join(boardPath, file), "utf-8");
+      const { data: meta } = matter(raw);
+      const id = path.basename(file, ".md");
+      const imageUrl = meta.imageUrl || findImage(boardName, id);
 
-      if (!boardSet.has(boardId)) {
-        boardSet.set(boardId, { id: boardId, name: boardName, category });
-      }
-
-      const files = fs
-        .readdirSync(boardPath)
-        .filter((f) => f.endsWith(".md"));
-
-      for (const file of files) {
-        const filePath = path.join(boardPath, file);
-        const raw = fs.readFileSync(filePath, "utf-8");
-        const { data: meta } = matter(raw);
-        const id = path.basename(file, ".md");
-
-        const autoImage = findImage(category, boardName, id);
-        const imageUrl = meta.imageUrl || autoImage;
-
-        posts.push({
-          id,
-          title: meta.title || id,
-          date: meta.date || "",
-          preview: meta.preview || "",
-          imageUrl,
-          category,
-          boardId,
-          contentPath: `posts/${category}/${boardName}/${file}`,
-        });
-      }
+      posts.push({
+        id,
+        title: meta.title || id,
+        date: meta.date || "",
+        preview: meta.preview || "",
+        imageUrl,
+        boardId: boardName,
+        contentPath: `posts/${boardName}/${file}`,
+      });
     }
   }
 

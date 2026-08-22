@@ -1,19 +1,15 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import type {
   AppData,
-  Agent,
   Post,
   PostWithContent,
   Board,
   PlaylistItem,
-  TimelineEvent,
   AuItem,
   AuPost,
   AuPostWithContent,
   AuGalleryImage,
   GalleryImage,
-  SidebarItem,
-  YoutubeVideo,
 } from "../types";
 import { publicUrl } from "../utils/publicUrl";
 
@@ -25,7 +21,6 @@ const EMPTY: AppData = {
   au: [],
   auPosts: [],
   playlist: [],
-  timeline: [],
   gallery: [],
   youtube: [],
 };
@@ -35,13 +30,15 @@ const EMPTY: AppData = {
  *
  * These used to be separate logins (vance / guest) rendering separate
  * desktops. They're now one continuous page, so their entries are simply
- * concatenated — the shared files (posts, gallery, timeline, playlist) already
+ * concatenated — the shared files (posts, gallery, playlist) already
  * tag every row with its category, so the existing per-category filtering does
  * the rest without changes.
  *
  * Later files win on scalar fields; array fields are appended in order.
  */
-const DB_FILES = ["data/db.json", "data/guest.json"];
+// guest.json (SONGBIRD / Yeonsu is on Sale!) was dropped in the 3D revamp —
+// only entries with real profiles become cartridges.
+const DB_FILES = ["data/db.json"];
 
 type RawDb = Partial<AppData> & Record<string, unknown>;
 
@@ -84,10 +81,6 @@ export function useAppData() {
         if (!r.ok) throw new Error(`playlist.json: HTTP ${r.status} (${publicUrl("data/playlist.json")})`);
         return r.json() as Promise<PlaylistItem[]>;
       }),
-      fetch(publicUrl("data/timeline.json")).then((r) => {
-        if (!r.ok) throw new Error(`timeline.json: HTTP ${r.status} (${publicUrl("data/timeline.json")})`);
-        return r.json() as Promise<TimelineEvent[]>;
-      }),
       fetch(publicUrl("data/posts.json")).then((r) => {
         if (!r.ok) throw new Error(`posts.json: HTTP ${r.status} (${publicUrl("data/posts.json")})`);
         return r.json() as Promise<{ posts: Post[]; boards: Board[] }>;
@@ -105,10 +98,12 @@ export function useAppData() {
         return r.json() as Promise<Record<string, AuGalleryImage[]>>;
       }),
     ])
-      .then(([db, notionDb, playlist, timeline, postsData, auPostsData, galleryData, auGalleryData]) => {
+      .then(([db, notionDb, playlist, postsData, auPostsData, galleryData, auGalleryData]) => {
         if (!cancelled) {
-          // AU 는 노션 동기화본(notion.json)이 있으면 그것이 원본.
-          const auSource = (notionDb.au ?? db.au ?? []) as AuItem[];
+          // AU 는 노션 동기화본(notion.json)이 있으면 그것이 원본 — 단, 아직
+          // 비어 있는 동기화본이 db.json의 목록을 지우면 안 된다.
+          const notionAu = notionDb.au as AuItem[] | undefined;
+          const auSource = (notionAu?.length ? notionAu : (db.au as AuItem[])) ?? [];
           const auWithGallery: AuItem[] = auSource.map((item: AuItem) => ({
             ...item,
             gallery: auGalleryData[item.id] ?? item.gallery ?? [],
@@ -122,7 +117,6 @@ export function useAppData() {
             ...notionDb,
             au: auWithGallery,
             playlist,
-            timeline,
             posts: postsData.posts.map((p) => ({
               ...p,
               id: `${p.boardId}-${p.id}`,
@@ -150,48 +144,6 @@ export function useAppData() {
   }, []);
 
   return { data, loading, error };
-}
-
-export function filterByCategory<T extends { category?: string }>(
-  items: T[],
-  category: string
-): T[] {
-  return items.filter((item) => item.category === category);
-}
-
-export function useFilteredData(data: AppData, activeCategory: string) {
-  const agents = useMemo(
-    () => filterByCategory<Agent>(data.agents, activeCategory),
-    [data.agents, activeCategory]
-  );
-  const posts = useMemo(
-    () => filterByCategory<Post>(data.posts, activeCategory),
-    [data.posts, activeCategory]
-  );
-  const boards = useMemo(
-    () => filterByCategory<Board>(data.boards, activeCategory),
-    [data.boards, activeCategory]
-  );
-  const playlist = useMemo(
-    () => filterByCategory<PlaylistItem>(data.playlist, activeCategory),
-    [data.playlist, activeCategory]
-  );
-  const timeline = useMemo(
-    () => filterByCategory<TimelineEvent>(data.timeline, activeCategory),
-    [data.timeline, activeCategory]
-  );
-  const gallery = useMemo(
-    () => filterByCategory<GalleryImage>(data.gallery, activeCategory),
-    [data.gallery, activeCategory]
-  );
-  const youtube = useMemo(
-    () => filterByCategory<YoutubeVideo>(data.youtube, activeCategory),
-    [data.youtube, activeCategory]
-  );
-  const au: AuItem[] = data.au;
-  const sidebarItems: SidebarItem[] = data.sidebarItems;
-
-  return { sidebarItems, agents, posts, boards, playlist, timeline, gallery, youtube, au };
 }
 
 export function useFetchPostContent() {
