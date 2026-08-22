@@ -1,5 +1,12 @@
 [
   {
+    "hash": "13de975",
+    "date": "2026-08-22",
+    "tag": "EDIT",
+    "text": "Drop the explanatory captions from the PC dashboard cards",
+    "count": 1
+  },
+  {
     "hash": "a86de81",
     "date": "2026-08-22",
     "tag": "EDIT",
@@ -90,13 +97,6 @@
     "date": "2026-08-04",
     "tag": "EDIT",
     "text": "Don't crash the build when every post is unpublished",
-    "count": 1
-  },
-  {
-    "hash": "1b0213c",
-    "date": "2026-08-04",
-    "tag": "SYNC",
-    "text": "sync content from Notion",
     "count": 1
   }
 ]

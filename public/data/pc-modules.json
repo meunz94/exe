@@ -1,14 +1,204 @@
 {
   "schedule": {
-    "MON": [],
-    "TUE": [],
-    "WED": [],
-    "THU": [],
-    "FRI": [],
-    "SAT": [],
-    "SUN": []
+    "MON": [
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
+          }
+        ]
+      },
+      {
+        "agent": "Blanc",
+        "blocks": [
+          {
+            "start": 14,
+            "end": 17,
+            "label": "(예시) 훈련",
+            "place": "훈련장 A",
+            "load": 90
+          }
+        ]
+      }
+    ],
+    "TUE": [
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
+          }
+        ]
+      },
+      {
+        "agent": "Blanc",
+        "blocks": [
+          {
+            "start": 14,
+            "end": 17,
+            "label": "(예시) 훈련",
+            "place": "훈련장 A",
+            "load": 90
+          }
+        ]
+      }
+    ],
+    "WED": [
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
+          }
+        ]
+      },
+      {
+        "agent": "Blanc",
+        "blocks": [
+          {
+            "start": 14,
+            "end": 17,
+            "label": "(예시) 훈련",
+            "place": "훈련장 A",
+            "load": 90
+          }
+        ]
+      }
+    ],
+    "THU": [
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
+          }
+        ]
+      },
+      {
+        "agent": "Blanc",
+        "blocks": [
+          {
+            "start": 14,
+            "end": 17,
+            "label": "(예시) 훈련",
+            "place": "훈련장 A",
+            "load": 90
+          }
+        ]
+      }
+    ],
+    "FRI": [
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
+          }
+        ]
+      },
+      {
+        "agent": "Blanc",
+        "blocks": [
+          {
+            "start": 14,
+            "end": 17,
+            "label": "(예시) 훈련",
+            "place": "훈련장 A",
+            "load": 90
+          }
+        ]
+      }
+    ],
+    "SAT": [
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
+          }
+        ]
+      },
+      {
+        "agent": "Blanc",
+        "blocks": [
+          {
+            "start": 14,
+            "end": 17,
+            "label": "(예시) 훈련",
+            "place": "훈련장 A",
+            "load": 90
+          }
+        ]
+      }
+    ],
+    "SUN": [
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
+          }
+        ]
+      },
+      {
+        "agent": "Blanc",
+        "blocks": [
+          {
+            "start": 14,
+            "end": 17,
+            "label": "(예시) 훈련",
+            "place": "훈련장 A",
+            "load": 90
+          }
+        ]
+      }
+    ]
   },
-  "stations": [],
+  "stations": [
+    {
+      "freq": 98.4,
+      "name": "(예시) NIGHT SHIFT",
+      "lines": [
+        {
+          "who": "V",
+          "text": "이 시간에 왜 안 자."
+        },
+        {
+          "who": "B",
+          "text": "선생님도 안 주무시잖아요."
+        }
+      ]
+    }
+  ],
   "heart": {
     "agent": "Blanc",
     "unit": "bpm",
