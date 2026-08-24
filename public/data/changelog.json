@@ -1,5 +1,12 @@
 [
   {
+    "hash": "6f1a2a5",
+    "date": "2026-08-24",
+    "tag": "EDIT",
+    "text": "Seed the example rows into Notion and keep playlist links through a sync",
+    "count": 1
+  },
+  {
     "hash": "80b0060",
     "date": "2026-08-22",
     "tag": "EDIT",
@@ -90,13 +97,6 @@
     "date": "2026-08-04",
     "tag": "EDIT",
     "text": "Restore --color-accent: content markdown depends on it",
-    "count": 1
-  },
-  {
-    "hash": "a54b5dd",
-    "date": "2026-08-04",
-    "tag": "SYNC",
-    "text": "sync content from Notion",
     "count": 1
   }
 ]

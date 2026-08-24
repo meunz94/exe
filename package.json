@@ -9,6 +9,7 @@
     "gallery": "node scripts/generate-gallery.mjs",
     "scripts-index": "node scripts/generate-scripts.mjs",
     "changelog": "node scripts/generate-changelog.mjs",
+    "images": "node scripts/optimize-images.mjs",
     "dev": "npm run posts && npm run au-posts && npm run gallery && npm run scripts-index && npm run changelog && vite",
     "build": "npm run posts && npm run au-posts && npm run gallery && npm run scripts-index && npm run changelog && tsc -b && vite build",
     "lint": "eslint .",
@@ -16,7 +17,7 @@
     "prepare": "husky",
     "models": "node scripts/optimize-models.mjs",
     "boot-scene": "node scripts/boot-scene.mjs",
-    "notion:sync": "node --env-file-if-exists=.env scripts/notion-sync.mjs",
+    "notion:sync": "node --env-file-if-exists=.env scripts/notion-sync.mjs && npm run images",
     "notion:push": "node --env-file-if-exists=.env scripts/notion-push.mjs",
     "notion:bootstrap": "node --env-file-if-exists=.env scripts/notion-bootstrap.mjs"
   },

@@ -152,6 +152,20 @@ URL 에 `https://<worker>.workers.dev/?key=<WEBHOOK_KEY>` 입력.
 | Notice `pages.notice` | `public/data/notice.md` |
 | Memo `pages.memo` | `public/data/memo.md` |
 
+## 3-0. 이미지 자동 최적화
+
+`npm run notion:sync` 는 동기화 직후 `npm run images` 를 이어서 돌린다.
+노션 원본이 4K PNG 나 10MB GIF 여도 방문자에게는 가벼운 webp 만 나간다.
+
+- 대상: `public/images/notion/**` 의 120KB 이상 png · jpg · gif
+- 긴 변 1600px 로 줄이고 webp(품질 82) 로 변환, 원본은 삭제
+- 애니메이션 GIF 는 프레임을 유지한 채 애니메이션 webp 로 변환
+- webp 가 원본보다 크면 원본을 그대로 둔다
+- 데이터 JSON · 게시글 frontmatter · **동기화 매니페스트**의 경로까지 함께 고친다
+  (매니페스트를 고치지 않으면 다음 동기화의 정리 단계가 webp 를 지운다)
+
+수동으로 다시 돌려도 안전하다 (이미 변환된 파일은 건너뜀).
+
 ## 3-1. repo 쪽에서 데이터를 고쳤을 때 (역방향 반영)
 
 평소 흐름은 **노션 → repo** 한 방향이다. repo 에서 직접 데이터를 손봤다면
