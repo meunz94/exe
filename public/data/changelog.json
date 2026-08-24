@@ -1,5 +1,12 @@
 [
   {
+    "hash": "80b0060",
+    "date": "2026-08-22",
+    "tag": "EDIT",
+    "text": "Seed one example row in each empty dataset",
+    "count": 1
+  },
+  {
     "hash": "13de975",
     "date": "2026-08-22",
     "tag": "EDIT",
@@ -90,13 +97,6 @@
     "date": "2026-08-04",
     "tag": "SYNC",
     "text": "sync content from Notion",
-    "count": 1
-  },
-  {
-    "hash": "eae8cf3",
-    "date": "2026-08-04",
-    "tag": "EDIT",
-    "text": "Don't crash the build when every post is unpublished",
     "count": 1
   }
 ]

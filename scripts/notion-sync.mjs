@@ -234,8 +234,6 @@ async function syncPlaylist() {
         id: `pl-${i + 1}`,
         title: getTitle(page, "제목"),
         artist: getText(page, "아티스트"),
-        duration: getText(page, "길이"),
-        category: getSelect(page, "카테고리"),
         ...(lyrics ? { lyrics } : {}),
         ...(videoId ? { videoId } : {}),
       };
