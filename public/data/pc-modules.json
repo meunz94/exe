@@ -2,18 +2,6 @@
   "schedule": {
     "MON": [
       {
-        "agent": "Dr. Vance",
-        "blocks": [
-          {
-            "start": 9,
-            "end": 12,
-            "label": "(예시) 의무실 진료",
-            "place": "의무실",
-            "load": 45
-          }
-        ]
-      },
-      {
         "agent": "Blanc",
         "blocks": [
           {
@@ -22,24 +10,24 @@
             "label": "(예시) 훈련",
             "place": "훈련장 A",
             "load": 90
+          }
+        ]
+      },
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
           }
         ]
       }
     ],
     "TUE": [
       {
-        "agent": "Dr. Vance",
-        "blocks": [
-          {
-            "start": 9,
-            "end": 12,
-            "label": "(예시) 의무실 진료",
-            "place": "의무실",
-            "load": 45
-          }
-        ]
-      },
-      {
         "agent": "Blanc",
         "blocks": [
           {
@@ -48,24 +36,24 @@
             "label": "(예시) 훈련",
             "place": "훈련장 A",
             "load": 90
+          }
+        ]
+      },
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
           }
         ]
       }
     ],
     "WED": [
       {
-        "agent": "Dr. Vance",
-        "blocks": [
-          {
-            "start": 9,
-            "end": 12,
-            "label": "(예시) 의무실 진료",
-            "place": "의무실",
-            "load": 45
-          }
-        ]
-      },
-      {
         "agent": "Blanc",
         "blocks": [
           {
@@ -74,24 +62,24 @@
             "label": "(예시) 훈련",
             "place": "훈련장 A",
             "load": 90
+          }
+        ]
+      },
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
           }
         ]
       }
     ],
     "THU": [
       {
-        "agent": "Dr. Vance",
-        "blocks": [
-          {
-            "start": 9,
-            "end": 12,
-            "label": "(예시) 의무실 진료",
-            "place": "의무실",
-            "load": 45
-          }
-        ]
-      },
-      {
         "agent": "Blanc",
         "blocks": [
           {
@@ -100,24 +88,24 @@
             "label": "(예시) 훈련",
             "place": "훈련장 A",
             "load": 90
+          }
+        ]
+      },
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
           }
         ]
       }
     ],
     "FRI": [
       {
-        "agent": "Dr. Vance",
-        "blocks": [
-          {
-            "start": 9,
-            "end": 12,
-            "label": "(예시) 의무실 진료",
-            "place": "의무실",
-            "load": 45
-          }
-        ]
-      },
-      {
         "agent": "Blanc",
         "blocks": [
           {
@@ -126,24 +114,24 @@
             "label": "(예시) 훈련",
             "place": "훈련장 A",
             "load": 90
+          }
+        ]
+      },
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
           }
         ]
       }
     ],
     "SAT": [
       {
-        "agent": "Dr. Vance",
-        "blocks": [
-          {
-            "start": 9,
-            "end": 12,
-            "label": "(예시) 의무실 진료",
-            "place": "의무실",
-            "load": 45
-          }
-        ]
-      },
-      {
         "agent": "Blanc",
         "blocks": [
           {
@@ -152,24 +140,24 @@
             "label": "(예시) 훈련",
             "place": "훈련장 A",
             "load": 90
+          }
+        ]
+      },
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
           }
         ]
       }
     ],
     "SUN": [
       {
-        "agent": "Dr. Vance",
-        "blocks": [
-          {
-            "start": 9,
-            "end": 12,
-            "label": "(예시) 의무실 진료",
-            "place": "의무실",
-            "load": 45
-          }
-        ]
-      },
-      {
         "agent": "Blanc",
         "blocks": [
           {
@@ -178,6 +166,18 @@
             "label": "(예시) 훈련",
             "place": "훈련장 A",
             "load": 90
+          }
+        ]
+      },
+      {
+        "agent": "Dr. Vance",
+        "blocks": [
+          {
+            "start": 9,
+            "end": 12,
+            "label": "(예시) 의무실 진료",
+            "place": "의무실",
+            "load": 45
           }
         ]
       }
