@@ -187,10 +187,10 @@
         "Harmony Div.",
         "Head of Harmony"
       ],
-      "imageUrl": "images/notion/agents/vance.jpeg",
+      "imageUrl": "",
       "category": "VB",
       "detail": {
-        "heroImageUrl": "images/notion/agents/vance-bg.jpeg",
+        "heroImageUrl": "",
         "subtitle": "S-Class Guide",
         "title": "Dr. Vance",
         "descriptions": [
@@ -268,10 +268,10 @@
         "S-Class Sentinel",
         "Vanguard (Team 4)"
       ],
-      "imageUrl": "images/notion/agents/blanc.jpeg",
+      "imageUrl": "",
       "category": "VB",
       "detail": {
-        "heroImageUrl": "images/notion/agents/blanc-bg.png",
+        "heroImageUrl": "",
         "subtitle": "S-Class Sentinel",
         "title": "Blanc",
         "descriptions": [
@@ -342,10 +342,10 @@
         "Harmony Div.",
         "Head of Harmony"
       ],
-      "imageUrl": "images/notion/agents/vance.jpeg",
+      "imageUrl": "",
       "category": "VS",
       "detail": {
-        "heroImageUrl": "images/notion/agents/vance-bg.jpeg",
+        "heroImageUrl": "",
         "subtitle": "S-Class Guide",
         "title": "Dr. Vance",
         "descriptions": [
@@ -423,10 +423,10 @@
         "S-Class Guide",
         "Support (Vanguard Team 1)"
       ],
-      "imageUrl": "images/notion/agents/signal.png",
+      "imageUrl": "",
       "category": "VS",
       "detail": {
-        "heroImageUrl": "images/notion/agents/signal-bg.png",
+        "heroImageUrl": "",
         "subtitle": "S-Class Guide",
         "title": "Signal",
         "descriptions": [
