@@ -1,0 +1,205 @@
+{
+  "subjects": [
+    {
+      "id": "vance",
+      "no": "01",
+      "name": "Dr. Vance",
+      "big": "Vance",
+      "label": "Observer",
+      "role": "Reason of ARCH, Head of Harmony",
+      "color": "#4F8721",
+      "colorDark": "#BEE95A",
+      "keywords": [
+        "통제광",
+        "책임감",
+        "방어기제",
+        "의외로여린"
+      ],
+      "image": "/images/notion/4dc3608c/portrait.webp",
+      "specs": [
+        {
+          "k": "NAME",
+          "v": "변정원"
+        },
+        {
+          "k": "AGE",
+          "v": "35Y"
+        },
+        {
+          "k": "HEIGHT",
+          "v": "186CM"
+        },
+        {
+          "k": "CLASS",
+          "v": "S Guide"
+        },
+        {
+          "k": "ELEMENT",
+          "v": "Verde"
+        },
+        {
+          "k": "AFFIL.",
+          "v": "Harmony Div."
+        }
+      ],
+      "call": "블랑 요원, 김연수 요원, 연수 씨.",
+      "quotes": [
+        [
+          "방금 그 말, 책임질 수 있습니까?"
+        ],
+        [
+          "하아……"
+        ],
+        [
+          "해당 요청에 대한 반려 근거는 서면으로 전달했습니다만.",
+          "이의가 있다면, 마찬가지로 서면으로 제기하세요.",
+          "업무에 차질이 생깁니다."
+        ]
+      ],
+      "sections": [
+        {
+          "no": "01",
+          "en": "Appearance",
+          "ko": "외형",
+          "md": ""
+        },
+        {
+          "no": "02",
+          "en": "Personality",
+          "ko": "성격",
+          "md": ""
+        },
+        {
+          "no": "03",
+          "en": "Ability",
+          "ko": "능력",
+          "md": ""
+        },
+        {
+          "no": "04",
+          "en": "Backstory",
+          "ko": "백스토리",
+          "md": ""
+        }
+      ]
+    },
+    {
+      "id": "blanc",
+      "no": "02",
+      "name": "Blanc",
+      "big": "Blanc",
+      "label": "Subject",
+      "role": "Master of Snowscape",
+      "color": "#083AD2",
+      "colorDark": "#3F72FF",
+      "keywords": [
+        "예측불허",
+        "강철멘탈",
+        "장난꾸러기",
+        "의외로어른"
+      ],
+      "image": "/images/notion/b999cfbe/portrait.webp",
+      "specs": [
+        {
+          "k": "NAME",
+          "v": "김연수"
+        },
+        {
+          "k": "AGE",
+          "v": "25Y"
+        },
+        {
+          "k": "HEIGHT",
+          "v": "162CM"
+        },
+        {
+          "k": "CLASS",
+          "v": "S Sentinel"
+        },
+        {
+          "k": "ELEMENT",
+          "v": "Glacies"
+        },
+        {
+          "k": "AFFIL.",
+          "v": "Vanguard Team 4"
+        }
+      ],
+      "call": "책임자님, 선생님, 정원 씨!",
+      "quotes": [
+        [
+          "그냥 다 얼려버리면 안 돼?",
+          "안 된다고?",
+          "왜?"
+        ],
+        [
+          "아~ 어디 재미 있는 일 없나."
+        ],
+        [
+          "하루 정도는 훈련 안 해도 되지 않을까?",
+          "…라고 책임자님 앞에서 말했다가 혼났어."
+        ]
+      ],
+      "sections": [
+        {
+          "no": "01",
+          "en": "Appearance",
+          "ko": "외형",
+          "md": ""
+        },
+        {
+          "no": "02",
+          "en": "Personality",
+          "ko": "성격",
+          "md": ""
+        },
+        {
+          "no": "03",
+          "en": "Ability",
+          "ko": "능력",
+          "md": ""
+        },
+        {
+          "no": "04",
+          "en": "Backstory",
+          "ko": "백스토리",
+          "md": ""
+        }
+      ]
+    }
+  ],
+  "people": [
+    {
+      "id": "b4b2aa55",
+      "name": "자이안",
+      "relation": "",
+      "image": "",
+      "md": "하모니 부서 서포트 팀 소속 S급 풀속성 가이드.",
+      "with": "A"
+    },
+    {
+      "id": "b4b2aa55",
+      "name": "자이안",
+      "relation": "",
+      "image": "",
+      "md": "하모니 부서 서포트 팀 소속 S급 풀속성 가이드.",
+      "with": "B"
+    },
+    {
+      "id": "c57ebe32",
+      "name": "퓨어",
+      "relation": "",
+      "image": "",
+      "md": "하모니 부서 소속 무속성 A급 가이드, 수석 메딕. 특유의 다정하고 붙임성 좋은 성격으로 많은 요원들과 우호적인 관계를 유지하고 있음.",
+      "with": "A"
+    },
+    {
+      "id": "c57ebe32",
+      "name": "퓨어",
+      "relation": "",
+      "image": "",
+      "md": "하모니 부서 소속 무속성 A급 가이드, 수석 메딕. 특유의 다정하고 붙임성 좋은 성격으로 많은 요원들과 우호적인 관계를 유지하고 있음.",
+      "with": "B"
+    }
+  ]
+}

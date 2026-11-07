@@ -1,0 +1,22 @@
+[
+  {
+    "name": "prompt",
+    "desc": "캐릭터 프롬프트",
+    "url": "vance.love/prompt"
+  },
+  {
+    "name": "account",
+    "desc": "@L1MB1CSYST3M",
+    "url": "https://x.com/L1MB1CSYST3M"
+  },
+  {
+    "name": "luvinfo",
+    "desc": "러브인포 성향글",
+    "url": "luvinfo.me/vance"
+  },
+  {
+    "name": "luvlog",
+    "desc": "러브로그 페어홈",
+    "url": "luvlog.me/vance"
+  }
+]

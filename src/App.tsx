@@ -1,119 +1,125 @@
-import { useState, useEffect } from "react";
-import { useAppData } from "./data/useAppData";
-import TerminalFlood from "./components/Boot/TerminalFlood";
-import { loadLines } from "./components/Boot/floodScripts";
-import CRTOverlay from "./components/CRT/CRTOverlay";
-import EntryScreen from "./pages/EntryScreen";
-import HubPage from "./pages/HubPage";
-import FloppyPage from "./pages/FloppyPage";
-import WalkmanPage from "./pages/WalkmanPage";
-import PapersPage from "./pages/PapersPage";
-import NintendoPage from "./pages/NintendoPage";
-import PcPage from "./pages/PcPage";
-import { HUB_SECTIONS, type HubSection } from "./types/screens";
-import "./index.css";
-
-/**
- * entry   — dark room, the warning label; click to boot
- * loading — Win98-blue load readout covering the cut to the hub
- * hub     — the 3D desk; pick a device
- * <section> — one per device (placeholders until their builds land)
- */
-type Screen = "entry" | "loading" | "hub" | HubSection;
-
-function screenFromPath(pathname: string): Screen {
-  const seg = pathname.replace(/^\/+/, "").split("/")[0];
-  if (seg === "hub") return "hub";
-  if ((HUB_SECTIONS as string[]).includes(seg)) return seg as HubSection;
-  return "entry";
-}
-
-function formatClock(d: Date): string {
-  return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
-}
-
-function useClock(): string {
-  const [clock, setClock] = useState(() => formatClock(new Date()));
-  useEffect(() => {
-    const id = window.setInterval(() => setClock(formatClock(new Date())), 15_000);
-    return () => window.clearInterval(id);
-  }, []);
-  return clock;
-}
+import { useEffect, useMemo, useState } from "react";
+import { PairRippleProvider, usePairRipple } from "./components/PairRipple";
+import { BgmProvider } from "./lib/bgm";
+import { useJson } from "./lib/data";
+import { pairPath } from "./lib/site";
+import type { Track } from "./lib/types";
+import { loadJson } from "./lib/data";
+import { RouterProvider, useRouter } from "./lib/router";
+import { SiteProvider, useSite } from "./lib/site";
+import { useTheme } from "./lib/theme";
+import type { Pair, Site } from "./lib/types";
+import { Landing } from "./pages/Landing";
+import { Profile } from "./pages/Profile";
+import { SubjectPage } from "./pages/Subject";
+import { Timeline } from "./pages/Timeline";
+import { Story } from "./pages/Story";
+import { StoryView } from "./pages/StoryView";
+import { Log } from "./pages/Log";
+import { LogView } from "./pages/LogView";
+import { Diary } from "./pages/Diary";
+import { Au } from "./pages/Au";
+import { AuChips } from "./pages/AuChips";
+import { Gallery } from "./pages/Gallery";
+import { Links } from "./pages/Links";
 
 export default function App() {
-  const { data } = useAppData();
-  const clock = useClock();
+  const [site, setSite] = useState<Site | null>(null);
+  const [pairs, setPairs] = useState<Pair[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [theme, toggleTheme] = useTheme();
 
-  const [screen, setScreen] = useState<Screen>(() =>
-    screenFromPath(window.location.pathname)
+  useEffect(() => {
+    Promise.all([loadJson<Site>("site.json"), loadJson<Pair[]>("pairs.json")])
+      .then(([s, p]) => {
+        setSite(s);
+        setPairs(p);
+      })
+      .catch((e) => setError(String(e)));
+  }, []);
+
+  const pairIds = useMemo(() => (pairs ?? []).map((p) => p.id), [pairs]);
+
+  if (error) return <p className="mono" style={{ padding: 48 }}>데이터를 불러오지 못했어요 — {error}</p>;
+  if (!site || !pairs || pairs.length === 0) return null;
+
+  return (
+    <RouterProvider pairIds={pairIds} defaultPair={site.defaultPair}>
+      <SiteProvider site={site} pairs={pairs} theme={theme} toggleTheme={toggleTheme}>
+        <Shell />
+      </SiteProvider>
+    </RouterProvider>
   );
+}
 
-  useEffect(() => {
-    const block = (e: MouseEvent) => e.preventDefault();
-    document.addEventListener("contextmenu", block);
-    return () => document.removeEventListener("contextmenu", block);
-  }, []);
+function Shell() {
+  const { route } = useRouter();
+  const { pair, theme } = useSite();
+  const accent = theme === "dark" ? pair.accentDark : pair.accent;
+  // BGM 은 앱 전체에서 하나 — 페이지를 옮겨도 이어지고, 페어가 바뀌면 그 페어의 목록으로 넘어간다
+  const playlist = useJson<Track[]>(pairPath(pair, "playlist.json"), []);
 
-  // Each screen is its own history entry so the browser back button walks
-  // the site instead of leaving it. `loading` is transient and never gets an
-  // entry of its own.
-  useEffect(() => {
-    if (screen === "loading") return;
-    const path = screen === "entry" ? "/" : `/${screen}`;
-    // /nintendo/<chipId> deep paths belong to NintendoPage — don't clobber
-    // them from here.
-    const current = window.location.pathname;
-    const covered =
-      screen === "nintendo" || screen === "papers" || screen === "pc"
-        ? current.startsWith(path)
-        : current === path;
-    if (!covered) {
-      window.history.pushState(null, "", path);
-    }
-  }, [screen]);
-
-  useEffect(() => {
-    const onPop = () => setScreen(screenFromPath(window.location.pathname));
-    window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
-  }, []);
-
-  let content;
-  if (screen === "entry") {
-    content = <EntryScreen onEnter={() => setScreen("loading")} />;
-  } else if (screen === "loading") {
-    content = (
-      <TerminalFlood
-        skin="blue"
-        lines={loadLines({
-          chips: data.sidebarItems.length + data.au.length,
-          tracks: data.playlist.length,
-          frames: data.gallery.length,
-          posts: data.posts.length,
-        })}
-        speed={80}
-        onDone={() => setScreen("hub")}
-      />
-    );
-  } else if (screen === "hub") {
-    content = <HubPage clock={clock} onOpen={setScreen} />;
-  } else if (screen === "floppy") {
-    content = <FloppyPage onBack={() => setScreen("hub")} />;
-  } else if (screen === "walkman") {
-    content = <WalkmanPage playlist={data.playlist} onBack={() => setScreen("hub")} />;
-  } else if (screen === "papers") {
-    content = <PapersPage onBack={() => setScreen("hub")} />;
-  } else if (screen === "nintendo") {
-    content = <NintendoPage data={data} onBack={() => setScreen("hub")} />;
-  } else {
-    content = <PcPage data={data} onBack={() => setScreen("hub")} />;
+  let page: React.ReactNode;
+  switch (route.section) {
+    case "":
+      page = <Landing key={pair.id} />;
+      break;
+    case "profile":
+      page = route.id ? <SubjectPage key={route.id} id={route.id} /> : <Profile />;
+      break;
+    case "timeline":
+      page = <Timeline />;
+      break;
+    case "story":
+      page = route.id ? <StoryView id={route.id} /> : <Story />;
+      break;
+    case "log":
+      page = route.id ? <LogView id={route.id} /> : <Log />;
+      break;
+    case "diary":
+      page = <Diary id={route.id} />;
+      break;
+    case "au":
+      page = route.id === "chips" ? <AuChips chipId={route.sub} /> : <Au />;
+      break;
+    case "gallery":
+      page = <Gallery />;
+      break;
+    case "links":
+      page = <Links />;
+      break;
+    default:
+      page = <NotFound />;
   }
 
   return (
-    <>
-      {content}
-      <CRTOverlay />
-    </>
+    <BgmProvider tracks={playlist}>
+      <PairRippleProvider>
+        <div className="app" style={{ "--accent": accent } as React.CSSProperties} data-section={route.section || "landing"}>
+          <PageFade routeKey={`${route.pairId}/${route.section}/${route.id}`} path={route.path}>
+            {page}
+          </PageFade>
+        </div>
+      </PairRippleProvider>
+    </BgmProvider>
+  );
+}
+
+/** 페이지 전환 페이드인. 페어 전환 파동으로 들어온 페이지는 파동이 대신하므로 페이드하지 않는다 */
+function PageFade({ routeKey, path, children }: { routeKey: string; path: string; children: React.ReactNode }) {
+  const { noFadePath } = usePairRipple();
+  return (
+    <div key={routeKey} className={noFadePath === path ? "page-fade no-fade" : "page-fade"}>
+      {children}
+    </div>
+  );
+}
+
+function NotFound() {
+  return (
+    <div className="page center-page">
+      <h1 className="page-title">404</h1>
+      <span className="page-sub">없는 페이지예요.</span>
+    </div>
   );
 }

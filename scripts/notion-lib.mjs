@@ -180,7 +180,7 @@ export function richTextToPlain(richText = []) {
 /**
  * 리치 텍스트 → 마크다운(+HTML).
  * 사이트가 react-markdown + rehype-raw 로 렌더링하므로 인라인 HTML 이 허용된다.
- * 노션에서 색을 입힌 텍스트는 전부 사이트의 강조색(var(--color-accent))으로 매핑한다.
+ * 노션에서 글자색을 입힌 텍스트는 사이트의 강조색(var(--accent))으로, 배경색(형광펜)은 <mark> 로 매핑한다.
  */
 export function richTextToMd(richText = []) {
   return richText
@@ -197,8 +197,9 @@ export function richTextToMd(richText = []) {
         if (a.underline) s = `<u>${s}</u>`;
       }
       if (t.href) s = `[${s}](${t.href})`;
-      if (a.color && a.color !== "default" && !a.color.endsWith("_background")) {
-        s = `<span style="color: var(--color-accent)">${s}</span>`;
+      if (a.color && a.color !== "default") {
+        if (a.color.endsWith("_background")) s = `<mark>${s}</mark>`;
+        else s = `<span class="ink">${s}</span>`;
       }
       return s;
     })
@@ -555,7 +556,8 @@ export function extFromUrl(url, fallback = ".png") {
 }
 
 export function shortId(notionId) {
-  return notionId.replace(/-/g, "").slice(0, 8);
+  // 노션 ID 는 앞부분이 시간 기반이라 같은 날 만든 페이지끼리 겹친다 → 뒷부분을 쓴다
+  return notionId.replace(/-/g, "").slice(-8);
 }
 
 /** 유튜브 URL 또는 맨 ID → 11자 영상 ID. URL 형태가 아니면 입력 그대로 돌려준다. */
@@ -563,4 +565,25 @@ export function youtubeId(input) {
   const s = (input ?? "").trim();
   const m = s.match(/(?:youtu\.be\/|[?&]v=|\/shorts\/|\/embed\/|\/live\/)([\w-]{11})/);
   return m ? m[1] : s;
+}
+
+/* ------------------------------------------------------------- 잠금 글 암호화 */
+
+const LOCK_ITER = 200_000;
+
+/**
+ * 비밀번호로 본문을 암호화한다 (PBKDF2-SHA256 → AES-256-GCM).
+ * 결과는 base64( salt16 | iv12 | ciphertext ). 복호화는 src/lib/lock.ts 와 같은 형식.
+ */
+export async function encryptText(text, password) {
+  const subtle = globalThis.crypto.subtle;
+  const enc = new TextEncoder();
+  const salt = globalThis.crypto.getRandomValues(new Uint8Array(16));
+  const iv = globalThis.crypto.getRandomValues(new Uint8Array(12));
+  const base = await subtle.importKey("raw", enc.encode(password), "PBKDF2", false, ["deriveKey"]);
+  const key = await subtle.deriveKey({ name: "PBKDF2", salt, iterations: LOCK_ITER, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["encrypt"]);
+  const ct = new Uint8Array(await subtle.encrypt({ name: "AES-GCM", iv }, key, enc.encode(text)));
+  const out = new Uint8Array(salt.length + iv.length + ct.length);
+  out.set(salt, 0); out.set(iv, salt.length); out.set(ct, salt.length + iv.length);
+  return Buffer.from(out).toString("base64");
 }

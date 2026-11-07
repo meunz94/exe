@@ -1,20 +1,20 @@
 {
-  "pages": {
-    "notice": "3b15a6bf-c773-81dd-b7f7-edca04a00c72",
-    "memo": "3b15a6bf-c773-81e1-93f1-e33e297707fd"
-  },
   "databases": {
-    "posts": "3b15a6bf-c773-81a4-82e0-c253282c72f8",
-    "auPosts": "3b15a6bf-c773-81a4-9dd7-e191869a8d2b",
-    "neighbors": "3b15a6bf-c773-8140-9521-dc173ef40d27",
-    "playlist": "3b15a6bf-c773-81b1-b476-ffc26b863419",
-    "gallery": "3b15a6bf-c773-811e-b2c0-ce6fc7d7248b",
-    "youtube": "3b15a6bf-c773-8192-921f-ca48c934d14b",
-    "au": "3b35a6bf-c773-818c-8554-d70e9d972cb8",
-    "auMembers": "3b35a6bf-c773-8122-a8bf-e2cfe5aefc2f",
-    "scripts": "3c45a6bf-c773-816f-bc30-d768ba20095b",
-    "routine": "3c45a6bf-c773-8188-b8c9-d0f0ac6cd2bb",
-    "radio": "3c45a6bf-c773-8135-996e-c8697e54aa74",
-    "agents": "3c45a6bf-c773-81ac-8dd0-c025f7d7653a"
+    "site": "4105a6bf-c773-81d6-9182-c2b6b94b99b8",
+    "pairs": "4105a6bf-c773-8148-ba9d-e1de6e7d64db",
+    "slides": "4105a6bf-c773-81ff-93f5-c969a6b2ee02",
+    "subjects": "4105a6bf-c773-813c-a329-ca24b84eac2a",
+    "people": "4105a6bf-c773-8115-81bb-d0dc5d62e2bf",
+    "timeline": "4105a6bf-c773-8187-87fe-e1f10ad4f7af",
+    "stories": "4105a6bf-c773-813c-8e58-d66aa69f9ad4",
+    "logs": "4105a6bf-c773-813a-a2e9-ffe2838f84f2",
+    "diary": "4105a6bf-c773-81c1-8a4c-e12feaf7315b",
+    "comments": "4105a6bf-c773-815a-af47-f69e17481065",
+    "guestbook": "4105a6bf-c773-815f-a45c-efe5020f0861",
+    "au": "4105a6bf-c773-813e-b861-d91af81ee63a",
+    "links": "4105a6bf-c773-81ff-a2b8-d6ee55f5e463",
+    "neighbors": "4105a6bf-c773-8154-88be-dee04777cd4a",
+    "playlist": "4105a6bf-c773-812e-8b33-c549bd7b0033",
+    "gallery": "4105a6bf-c773-81d4-8aaf-e3d1a36f6b09"
   }
 }

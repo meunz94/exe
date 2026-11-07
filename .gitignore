@@ -1,46 +1,22 @@
 .env
 
-# 3D/이미지 원본 — 빌드에는 최적화본만 쓴다 (public/models/*.glb, src/assets/pc-screen.webp).
-# 원본은 각자 로컬에 두고, 필요할 때 npm run models 로 다시 굽는다.
-src/assets/*.glb
-src/assets/image.png
-src/assets/image2.png
-src/assets/*.jpeg
-# 칩 라벨 원본(4K PNG) — 커밋되는 것은 같은 이름의 .webp
-public/images/chips/*.png
-public/images/boxes/*.png
-ascii.txt
-
 # Logs
 logs
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
 node_modules
 dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# Editor
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
 
-# generated gallery thumbnails (rebuilt by scripts/generate-gallery.mjs)
-public/images/thumbs
-
-# build-time outputs of scripts/generate-*.mjs (rebuilt on every npm run dev/build)
-public/data/gallery.json
-public/data/au-gallery.json
-public/data/posts.json
-public/data/au-posts.json
+# 빌드 때 scripts/build-content.mjs 가 md 를 훑어 다시 만드는 색인
+public/data/*/logs.json
+public/data/*/stories.json
+public/data/*/diary.json

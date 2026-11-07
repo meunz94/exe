@@ -1,0 +1,86 @@
+[
+  {
+    "id": "by",
+    "code": "LS",
+    "name": "LIMBIC SYSTEM",
+    "tagline": "ARCH @CherryMango",
+    "titleTop": "Limbic",
+    "titleBottom": "System",
+    "accent": "#083AD2",
+    "accentDark": "#6DEE00",
+    "abstractTitle": "A Longitudinal Study of the Only Exception in a Deterministic World",
+    "abstractSub": "The Unpredictable, Unexplained, and Unrepeatable Subject",
+    "synopsis": "",
+    "subjectsLine": "Dr. 밴스 X 블랑",
+    "slides": [
+      {
+        "left": "",
+        "right": "/images/notion/9d7a6c52/right.webp",
+        "caption": ""
+      },
+      {
+        "left": "",
+        "right": "/images/notion/8803432b/right.webp",
+        "caption": ""
+      },
+      {
+        "left": "",
+        "right": "/images/notion/0c204414/right.webp",
+        "caption": ""
+      },
+      {
+        "left": "",
+        "right": "/images/notion/200241da/right.webp",
+        "caption": ""
+      }
+    ],
+    "relation": {
+      "keywords": [
+        "연상연하",
+        "회피형안정형",
+        "개그로코",
+        "종단연구",
+        "논증적 사랑"
+      ],
+      "text": "뭐 쓸지 모르겠다… to be continue"
+    }
+  },
+  {
+    "id": "kizu",
+    "code": "KM",
+    "name": "KISS ME THIS IS ME",
+    "tagline": "OC PAIR",
+    "titleTop": "Kiss me",
+    "titleBottom": "This is me",
+    "accent": "#DC1C1C",
+    "accentDark": "#FFE000",
+    "abstractTitle": "2023년, 일본 도쿄.",
+    "abstractSub": "다정하고 사랑스러운 내 연인이 알고 보니 모럴리스 쓰레기인 건에 대하여……",
+    "synopsis": "",
+    "subjectsLine": "히가타 키요시 X 미카게 이즈미",
+    "slides": [
+      {
+        "left": "",
+        "right": "/images/notion/d6452b22/right.webp",
+        "caption": ""
+      },
+      {
+        "left": "",
+        "right": "/images/notion/f3483d47/right.webp",
+        "caption": ""
+      },
+      {
+        "left": "",
+        "right": "/images/notion/0e43a309/right.webp",
+        "caption": ""
+      }
+    ],
+    "relation": {
+      "keywords": [
+        "고양이와쥐",
+        "가스라이팅?"
+      ],
+      "text": "잘생긴 편의점 단골 손님 번호를 따서 사귀게 되었는데 알고보니 그분이 젠틀한 일수꾼이라네요 이거 사기 아닌가요"
+    }
+  }
+]

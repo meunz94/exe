@@ -1,0 +1,23 @@
+{
+  "notion": {
+    "diaryDb": "4105a6bf-c773-81c1-8a4c-e12feaf7315b",
+    "commentsDb": "4105a6bf-c773-815a-af47-f69e17481065",
+    "guestbookDb": "4105a6bf-c773-815f-a45c-efe5020f0861"
+  },
+  "marinara": { "baseUrl": "http://127.0.0.1:7860", "timeoutSec": 300 },
+  "github": { "repo": "meunz94/exe", "event": "notion-sync" },
+  "characters": [
+    {
+      "name": "Dr. 밴스",
+      "pair": "by",
+      "human": "블랑",
+      "chatId": "ZE-EraWzGlZXhZuCYDwzQ",
+      "lorebookId": "5N1iOGs1N4MaVn380RrAu",
+      "readPosts": 3,
+      "maxFootnotes": 3,
+      "replyToHumanComments": true,
+      "guestbook": { "enabled": true },
+      "post": { "enabled": true, "afterHourKst": 21, "everyNDays": 1, "prompt": "오늘 일기를 써라." }
+    }
+  ]
+}

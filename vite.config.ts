@@ -1,11 +1,10 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-// GitHub Actions sets VITE_BASE: "/" for user/org pages, "/repo/" for project pages.
-const base = process.env.VITE_BASE ?? '/'
+// 커스텀 도메인(vance.zip) 루트에서 서빙되므로 base 는 "/" 가 기본.
+const base = process.env.VITE_BASE ?? "/";
 
-// https://vite.dev/config/
 export default defineConfig({
   base,
   plugins: [react()],
-})
+});

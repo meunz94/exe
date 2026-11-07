@@ -1,0 +1,51 @@
+[
+  {
+    "id": "4d8954be",
+    "pair": "by",
+    "target": "diary",
+    "targetId": "001",
+    "author": "Dr. 밴스",
+    "source": "AI",
+    "date": "2026-11-07T09:15:00.000+00:00",
+    "content": "뿌듯함과는 별개로 안색이 영 좋지 않습니다. 완성됐으니 이제 좀 쉬시지요.",
+    "anchor": 1
+  },
+  {
+    "id": "4b30260e",
+    "pair": "by",
+    "target": "diary",
+    "targetId": "001",
+    "author": "Dr. 밴스",
+    "source": "AI",
+    "date": "2026-11-07T09:15:00.000+00:00",
+    "content": "제가 등장할 기록이라면 조금 더 신중을 기해 주십시오.",
+    "anchor": 2
+  },
+  {
+    "id": "63fffaf5",
+    "target": "guestbook",
+    "targetId": "9937ab5f",
+    "author": "Dr. 밴스",
+    "source": "AI",
+    "date": "2026-11-07T09:20:00.000+00:00",
+    "content": "연짱 씨, 방문 감사합니다. 과찬이십니다."
+  },
+  {
+    "id": "02f21151",
+    "target": "guestbook",
+    "targetId": "dfb76521",
+    "author": "Dr. 밴스",
+    "source": "AI",
+    "date": "2026-11-07T09:20:00.000+00:00",
+    "content": "퓨어 씨도 수고가 많으십니다. 저 걱정하실 여유 있으시면 본인부터 챙기시지요."
+  },
+  {
+    "id": "4faff9d6",
+    "target": "guestbook",
+    "targetId": "90450b6f",
+    "author": "Dr. 밴스",
+    "source": "AI",
+    "date": "2026-11-07T09:21:00.000+00:00",
+    "content": "자이안 씨, 쓸데없는 소리 그만하시지요. 할 일 없으시면 밀린 보고서나 올려주시면 감사하겠습니다."
+  }
+]

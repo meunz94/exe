@@ -1,0 +1,52 @@
+[
+  {
+    "id": "1",
+    "title": "[시리즈 제목]",
+    "description": "[한 줄 소개]",
+    "synopsis": "[시놉시스]",
+    "members": [
+      {
+        "name": "Dr. Vance",
+        "image": "",
+        "lines": [
+          "[역할]",
+          "[소개]"
+        ]
+      },
+      {
+        "name": "Blanc",
+        "image": "",
+        "lines": [
+          "[역할]",
+          "[소개]"
+        ]
+      }
+    ],
+    "gallery": [],
+    "bg": "",
+    "label": "",
+    "box": ""
+  },
+  {
+    "id": "2",
+    "title": "[AU 제목 1]",
+    "description": "[한 줄 소개]",
+    "synopsis": "[시놉시스]",
+    "members": [],
+    "gallery": [],
+    "bg": "",
+    "label": "",
+    "box": ""
+  },
+  {
+    "id": "3",
+    "title": "[AU 제목 2]",
+    "description": "[한 줄 소개]",
+    "synopsis": "[시놉시스]",
+    "members": [],
+    "gallery": [],
+    "bg": "",
+    "label": "",
+    "box": ""
+  }
+]

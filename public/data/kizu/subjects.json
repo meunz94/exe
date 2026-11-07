@@ -1,0 +1,156 @@
+{
+  "subjects": [
+    {
+      "id": "kiyoshi",
+      "no": "01",
+      "name": "HIGATA KIYOSHI",
+      "big": "樋片清司",
+      "label": "Deceiver",
+      "role": "",
+      "color": "",
+      "colorDark": "",
+      "keywords": [
+        "여유로운",
+        "계산적인",
+        "도덕적결함"
+      ],
+      "image": "/images/notion/30aa5345/portrait.webp",
+      "specs": [
+        {
+          "k": "NAME",
+          "v": "히가타 키요시"
+        },
+        {
+          "k": "AGE",
+          "v": "29Y"
+        },
+        {
+          "k": "HEIGHT",
+          "v": "178CM"
+        },
+        {
+          "k": "CLASS",
+          "v": "특수 채권추심 담당자"
+        }
+      ],
+      "call": "이즈미 씨.",
+      "quotes": [
+        [
+          "많이 기다렸어요?"
+        ],
+        [
+          "…이번 주 일요일, 먹고 싶은 게 있으면 말해봐요.",
+          "뭐든 해줄 수 있으니까."
+        ],
+        [
+          "토에이 파이낸스의 히가타입니다.",
+          "아, 큰 소리는 내지 말아주세요.",
+          "이웃 분들께 실례가 되니까요."
+        ],
+        [
+          "다음 주 얘기는 지난 달에도 들었습니다.",
+          "좋게 말씀드릴 때, 조치해주시면 좋을 텐데…"
+        ]
+      ],
+      "sections": [
+        {
+          "no": "01",
+          "en": "Appearance",
+          "ko": "외형",
+          "md": ""
+        },
+        {
+          "no": "02",
+          "en": "Personality",
+          "ko": "성격",
+          "md": ""
+        },
+        {
+          "no": "03",
+          "en": "Ability",
+          "ko": "능력",
+          "md": ""
+        },
+        {
+          "no": "04",
+          "en": "Backstory",
+          "ko": "백스토리",
+          "md": ""
+        }
+      ]
+    },
+    {
+      "id": "izumi",
+      "no": "02",
+      "name": "MIKAGE IZUMI",
+      "big": "御影泉",
+      "label": "Lover",
+      "role": "",
+      "color": "",
+      "colorDark": "",
+      "keywords": [
+        "상식적인",
+        "고집쟁이",
+        "외유내강"
+      ],
+      "image": "/images/notion/62988fe1/portrait.webp",
+      "specs": [
+        {
+          "k": "NAME",
+          "v": "미카게 이즈미"
+        },
+        {
+          "k": "AGE",
+          "v": "23Y"
+        },
+        {
+          "k": "HEIGHT",
+          "v": "158CM"
+        },
+        {
+          "k": "CLASS",
+          "v": "편의점 아르바이트생"
+        }
+      ],
+      "call": "키요시 씨.",
+      "quotes": [
+        [
+          "총 240엔입니다!",
+          "봉투 필요하실까요?"
+        ],
+        [
+          "앗……",
+          "잠시만요, 이걸 전부……?",
+          "(괜히 말했다…)"
+        ]
+      ],
+      "sections": [
+        {
+          "no": "01",
+          "en": "Appearance",
+          "ko": "외형",
+          "md": ""
+        },
+        {
+          "no": "02",
+          "en": "Personality",
+          "ko": "성격",
+          "md": ""
+        },
+        {
+          "no": "03",
+          "en": "Ability",
+          "ko": "능력",
+          "md": ""
+        },
+        {
+          "no": "04",
+          "en": "Backstory",
+          "ko": "백스토리",
+          "md": ""
+        }
+      ]
+    }
+  ],
+  "people": []
+}

@@ -1,0 +1,12 @@
+{
+  "defaultPair": "by",
+  "banner": {
+    "image": "/images/notion/edad0339/banner-image.webp",
+    "code": ""
+  },
+  "guestbookEndpoint": "https://guestbook-proxy.elisha7716.workers.dev",
+  "aiBoards": [
+    "diary",
+    "guestbook"
+  ]
+}

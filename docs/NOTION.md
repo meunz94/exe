@@ -1,228 +1,175 @@
-# 노션 연동 가이드
+. 각주는 스토리와 같이 `[^1]` / `[^1]: 내용`(정의는 본문 어디에 두어도 챕터 글 아래에 모인다) |# 노션 연동 가이드
 
-사이트 콘텐츠(게시글, 공지, 타임라인, 이웃, 플레이리스트, 갤러리 등)를 노션에서
-관리하고, 노션의 버튼으로 사이트를 배포하는 구성.
+사이트의 글·인물·설정은 전부 노션에서 관리하고, 스크립트가 노션을 읽어 저장소에 JSON·md 로
+내려놓은 뒤 GitHub Pages 로 배포한다. 노션은 **새 페이지에 새 DB** 로 시작한다 —
+이전 사이트(byhome)의 DB 는 스키마가 달라 쓰지 않으며, 데이터 이관도 하지 않는다.
 
 ```
-노션 (원본)
-  │  scripts/notion-sync.mjs        ← GitHub Actions "Sync content from Notion"
+노션 (원본, 새 페이지 아래 DB 16개)
+  │  scripts/notion-sync.mjs      ← 로컬 `npm run notion:sync` 또는 GitHub Actions "Sync content from Notion"
   ▼
-public/data/*, public/images/*      ← 기존 파일 형태 그대로 커밋됨
-  │  npm run build                  ← 기존 generate-* 스크립트가 그대로 동작
+public/data/**, public/images/notion/**
+  │  npm run build  (build-content → vite)
   ▼
-GitHub Pages
+GitHub Pages (vance.zip)
 ```
 
-## 1. 최초 설정
+사이트는 빌드된 파일만 읽는다. 브라우저가 노션 API 를 직접 부르지 않으므로 토큰이 새지 않는다.
+방문자가 사이트에서 쓰는 것은 **방명록뿐**이고, 그것도 별도 프록시(3절)를 거친다.
 
-### 1-1. 노션 연결(connection) 만들기
+---
 
-1. https://app.notion.com/developers/connections → 사이드바 **Build** →
-   **Internal connections** → **Create a new connection** (이름 입력, 워크스페이스 선택)
-2. **Configuration** 탭의 **Installation access token** 이 `NOTION_TOKEN`.
-   같은 탭에서 Read/Update/Insert content 권한이 모두 켜져 있는지 확인
-3. 노션에 콘텐츠를 담을 페이지를 하나 만들고(예: "BYHOME CMS"),
-   페이지 우상단 `•••` → **Connections** → **+ Add connection** 으로 방금 만든
-   연결을 추가 (새 연결은 기본적으로 아무 페이지에도 접근 못 하므로 필수)
+## 1. 최초 설정 (한 번만)
 
-### 1-2. 기존 데이터 이관 (로컬에서 1회)
+1. **통합 토큰** — notion.so/my-integrations 에서 내부 통합을 만들고 토큰을 복사한다.
+   기존 통합(이름 "Github")을 그대로 써도 된다. 토큰은 저장소 루트 `.env` 에 둔다.
+   ```
+   NOTION_TOKEN=secret_xxx
+   ```
+   `.env` 는 gitignore 되어 있다. 커밋하지 말 것.
+2. **상위 페이지** — 노션에 빈 페이지를 하나 만든다 (예: `vance.zip`). 이 페이지 아래에 DB 가 생긴다.
+   페이지 `•••` → *Connections* 에서 1번 통합을 연결한다. 자식 DB 에는 자동으로 상속된다.
+3. **DB 생성** — 페이지 URL 끝의 32자리가 페이지 ID 다 (하이픈 유무 무관).
+   ```bash
+   NOTION_PARENT_PAGE=<페이지ID> npm run notion:bootstrap
+   ```
+   DB 16개가 만들어지고 ID 가 `notion.config.json` 에 기록된다. **이 파일을 커밋한다.**
+   스키마를 나중에 바꾸면 같은 명령을 다시 실행한다 — 빠진 속성만 추가되고 데이터는 건드리지 않는다.
+4. **첫 데이터** — 적어도 페어 DB 에 한 줄(기본 체크), 인물 DB 에 두 줄은 있어야 화면이 그려진다.
+   표 2절을 보고 채운다. 모든 행은 **공개** 를 체크해야 사이트에 나온다.
+5. **동기화 확인**
+   ```bash
+   npm run notion:sync    # .env 의 토큰으로 노션을 읽어 public/data 에 쓴다 (+ 이미지 webp 변환)
+   npm run dev            # http://localhost:5173
+   ```
+   `public/data` 의 샘플은 이때 실제 데이터로 덮어써진다.
+6. **GitHub** — 저장소 *Settings → Secrets → Actions* 에 `NOTION_TOKEN` 을 넣는다.
+   이후로는 Actions 탭의 "Sync content from Notion" 을 수동 실행하거나, 노션 버튼 → 웹훅 프록시 →
+   `repository_dispatch(notion-sync)` 로 호출한다 (프록시는 이전 사이트에서 쓰던 것을 그대로 쓸 수 있다.
+   대상 저장소·이벤트 이름이 같다).
 
-```bash
-NOTION_TOKEN=secret_xxx NOTION_PARENT_PAGE=<페이지ID> npm run notion:bootstrap
-```
+---
 
-- 페이지 ID는 해당 페이지 URL 끝의 32자리 문자열
-- 데이터베이스 9개 + 페이지 2개(Notice/Memo)가 생성되고 현재 repo 데이터가 채워짐
-- 생성된 ID가 `notion.config.json` 에 자동 기록됨 → **커밋 필수**
-- 이미 ID가 채워진 항목은 건너뛰므로 중간에 끊겨도 다시 실행하면 됨
-- notice/memo 는 인라인 HTML이 일반 텍스트로 들어가므로, 노션에서 색 강조·토글로
-  한 번 다듬어 줄 것 (아래 "스타일 매핑" 참고)
+## 2. 데이터베이스
 
-### 1-3. 동기화 확인 (로컬)
+공통 규칙:
 
-```bash
-NOTION_TOKEN=secret_xxx npm run notion:sync
-git diff   # 노션 내용이 기존 파일 형태로 다시 내려왔는지 확인
-```
+- 페어·인물·랜딩 슬라이드·플레이리스트·타임라인·스토리 DB 를 뺀 모든 DB 에 **공개**(체크박스)가 있고 체크된 행만 반영된다. 그 여섯은 전부 나온다.
+- 페어가 여럿일 수 있으므로 글마다 **페어**(선택) 로 어느 페어의 글인지 정한다. 값은 페어 DB 의 `ID` 와
+  같아야 한다 (예: `by`). 비우면 첫 번째 페어로 들어간다. 선택 옵션은 처음 입력할 때 직접 만든다.
+- **정렬**(숫자) 이 있는 DB(슬라이드·인물·플레이리스트)는 오름차순. 비우면 생성 순. 나머지 DB 는 생성 순이거나 번호·날짜순이다 (노션 보기의 수동 순서는 API 로 받을 수 없다).
+- 파일 속성에 올린 이미지는 `public/images/notion/<페이지>/` 로 내려오고 webp 로 변환된다.
+  외부 URL 을 넣으면 그대로 쓴다.
 
-### 1-4. GitHub 설정
+### 2-1. 사이트·페어
 
-- repo → Settings → Secrets and variables → Actions → **NOTION_TOKEN** 시크릿 추가
-- 이후 Actions 탭의 **Sync content from Notion** 워크플로우를 수동 실행해 확인
-
-## 2. 노션에서 배포 버튼 만들기
-
-노션 자동화 웹훅은 GitHub API 가 요구하는 인증 헤더/본문을 보낼 수 없어서,
-중간에 작은 프록시(Cloudflare Worker, 무료)를 하나 둔다.
-
-### 2-1. GitHub 토큰
-
-GitHub → Settings → Developer settings → **Fine-grained personal access token**
-- Repository access: 이 repo 만
-- Permissions: **Contents: Read and write**
-
-### 2-2. Cloudflare Worker
-
-dash.cloudflare.com → Workers → Create Worker, 아래 코드 배포:
-
-```js
-export default {
-  async fetch(req, env) {
-    if (req.method !== "POST") return new Response("nope", { status: 405 });
-    const url = new URL(req.url);
-    if (url.searchParams.get("key") !== env.WEBHOOK_KEY)
-      return new Response("forbidden", { status: 403 });
-
-    const res = await fetch("https://api.github.com/repos/<계정>/<repo>/dispatches", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${env.GITHUB_TOKEN}`,
-        Accept: "application/vnd.github+json",
-        "Content-Type": "application/json",
-        "User-Agent": "notion-deploy",
-      },
-      body: JSON.stringify({ event_type: "notion-sync" }),
-    });
-    return new Response(res.ok ? "deploy triggered" : `github ${res.status}`, {
-      status: res.ok ? 200 : 502,
-    });
-  },
-};
-```
-
-Worker → Settings → Variables and Secrets:
-- `GITHUB_TOKEN`: 2-1 의 토큰
-- `WEBHOOK_KEY`: 아무 긴 랜덤 문자열 (URL 유출 대비 열쇠)
-
-### 2-3. 노션 버튼
-
-CMS 페이지에 **버튼 블록** 추가 → 동작 "웹훅 보내기(Send webhook)" →
-URL 에 `https://<worker>.workers.dev/?key=<WEBHOOK_KEY>` 입력.
-
-버튼 클릭 → Worker → GitHub `repository_dispatch` → 동기화 → 변경 커밋 → 배포.
-(정기 자동 동기화를 원하면 `.github/workflows/notion-sync.yml` 의 schedule 주석 해제)
-
-## 3. 데이터베이스 스키마
-
-속성 이름이 정확히 일치해야 한다. 모든 DB에 **공개**(체크박스)가 있고,
-체크된 행만 사이트에 반영된다. `notion.config.json` 에서 ID 가 빈 항목은
-동기화에서 제외된다 (그 항목은 계속 repo 파일로 관리).
-
-| DB (config 키) | 속성 | 출력 |
+| DB | 속성 | 비고 |
 |---|---|---|
-| 게시글 `posts` | 제목(제목), 날짜(날짜), 게시판(선택: LOG/OOC/ETC), 미리보기(텍스트), 대표이미지(파일), 공개 + **본문 = 페이지 내용** | `public/data/posts/<게시판>/<페이지ID>.md` → PC 대시보드 |
-| 칩 게시글 `auPosts` | 제목, 날짜, AU(선택: **칩 ID** — org_1 · au_1 등), 미리보기, 공개 + 본문 | `public/data/au-posts/<칩 ID>/<페이지ID>.md` → 칩 상세의 로그 |
-| 이웃 `neighbors` | 이름(제목), URL(URL), 배너(파일), 정렬(숫자), 크롭(숫자), 크롭위치(숫자), 공개 | `neighbors.json` + 배너 다운로드 |
-| 플레이리스트 `playlist` | 제목, 아티스트, 길이, 카테고리, 가사(텍스트), 영상ID(텍스트, 유튜브 URL 붙여넣기 가능), 정렬, 공개 | `playlist.json` |
-| 갤러리 `gallery` | 이름(제목), 이미지(파일), 섹션(선택), 캡션(텍스트), 공개 | `public/images/gallery/<섹션>/` (섹션이 `au-*` 면 `au/<섹션>/`) |
-| 유튜브 `youtube` | 제목, 영상ID(텍스트, URL 가능), 카테고리, 정렬, 공개 | `notion.json` |
-| 칩 `au` | 제목(제목), ID(텍스트: org_1 · au_1 등), **종류**(선택: 시리즈/AU), 카테고리(선택: VB/VS — 시리즈용), 시놉시스(시리즈용), AU있음(체크박스), 설명, 대표이미지(파일), 이미지위치, 태그(다중선택), 섹션(선택: main/sub), 정렬, 공개 + 본문 | `notion.json` 의 `sidebarItems`(종류=시리즈) + `au`(종류=AU) |
-| AU 멤버 `auMembers` | 이름(제목), AU(선택: au-1 등), 역할, 이미지(파일), 소개(텍스트, 줄바꿈=항목), 노트, 정렬, 공개 | `notion.json` (AU 에 합쳐짐) |
-| 스크립트 `scripts` | 제목, 날짜, 분류(선택: ORG/AU), 파일명(텍스트, 비우면 페이지ID), 공개 + 본문 | `public/data/scripts/<파일명>.md` → PAPERS |
-| 루틴 `routine` | 일정(제목), 담당(선택: 인물명), 요일(다중선택: 월~일), 시작(숫자, 13.5=13시 30분), 종료(숫자), 장소(텍스트), 부하도(숫자 0-100), 공개 | `pc-modules.json` 의 `schedule` |
-| 라디오 `radio` | 방송국(제목), 주파수(숫자, 예 98.4), 대사(텍스트 — 한 줄에 하나, `V: 내용` 형식), 공개 | `pc-modules.json` 의 `stations` |
-| 인물 `agents` | 이름(제목), ID, 카테고리(선택), 소개(텍스트, 줄바꿈=항목), 이미지·대표이미지(파일), 서브타이틀, 코드네임, 분류, 속성, 나이국적, 평가, 능력개요, 능력스킬(줄바꿈), 버서크, 키체격, 머리눈, 복장, 관계, TMI, 정렬, 공개 | `notion.json` 의 `agents` |
+| **사이트 설정** | 키(제목) · 값 · 파일 | 키-값 한 줄씩. 쓰는 키: `banner.image`(파일 — 이웃 배너용 200×40), `banner.code`(배너 HTML 코드), `guestbookEndpoint`(방명록 프록시 URL), `aiBoards`(AI 참여 표시를 켤 게시판 — `diary,guestbook`) |
+| **페어** | 이름(제목) · ID · 코드 · 태그라인 · 제목위 · 제목아래 · 강조색 · 강조색다크 · 초록제목 · 초록부제 · 시놉시스 · 인물한줄 · 관계키워드 · 관계설명 · 기본 | `ID` = URL 조각(기본 페어 `by` → vance.zip/, 그 외 → vance.zip/`<ID>`/). `코드` = 로그 번호 접두어(LS-042). `제목위/제목아래` = 랜딩 거대 타이포 ("Limbic" / "System", "KISS ME" / "THIS IS ME"). `태그라인` = Abstract 문구·모바일 메뉴 상단 문구. `인물한줄` = 다른 페어 카드의 부제. `기본` 체크 = 루트에서 열리는 페어 (하나만) |
+| **랜딩 슬라이드** | 캡션(제목) · 페어 · 왼쪽 · 오른쪽 · 정렬 | 공개 체크 없이 전부 나온다. 왼쪽/오른쪽 = 인물 투명 PNG. 한쪽만 올리면 2인 합본으로 보고 가운데에 넓게 한 장으로 보여 준다. 스크롤(모바일은 스와이프)로 넘어간다. 캡션은 "Fig. 01 —" 뒤에 붙는다 |
+| **갤러리** | 제목(제목) · 페어 · 이미지 · 설명 · 공개 | 그림 한 장이 한 행. 격자에서 누르면 크게 보이고 `설명` 이 그 아래 붙는다. 생성 순 |
+| **플레이리스트** | 제목(제목) · 아티스트 · 영상ID · 페어 · 정렬 | 공개 체크 없이 전부 나온다. 페어를 비우면 모든 페어. `정렬` 순으로 랜딩 BGM 이 되고, 한 곡이 끝나면 다음 곡으로 넘어간다. 랜딩의 곡 제목을 누르면 목록이 열린다. `영상ID` 가 없는 곡은 목록에만 보인다 |
 
-- 인물의 **관계**는 한 줄에 하나씩 `이름 \| 관계 \| 설명`, **TMI** 는 `제목 \| 내용` 형식.
-- 칩의 **ID** 가 칩 라벨 이미지 파일명과 같아야 한다 (`public/images/chips/<ID>.png`).
-- **게시글 DB 는 PC 대시보드 전용**이다 (게시판 = LOG · OOC · ETC).
-  카테고리(VB/VS) 속성은 더 쓰지 않는다.
-- **칩(시리즈·AU) 로그**는 `auPosts`(칩 게시글) DB 의 **AU** 속성에 칩 ID 를 넣어
-  갈린다 — 시리즈 칩도 `org_1` 처럼 칩 ID 를 그대로 쓴다.
-- **AU 별 갤러리**는
-`gallery` DB 의 **섹션** 을 AU ID(`au_1` 등)로 두면
-  `public/images/gallery/au/<AU ID>/` 로 저장돼 그 AU 에만 붙는다.
-  시리즈 칩은 로그·갤러리 모두 **카테고리**(VB/VS)로 갈린다.
-- `chips`·`agents` 는 `notion.json` 으로 나가고, 사이트는 이 값을 `db.json` 보다
-  우선한다. 즉 노션 DB 를 만든 뒤부터는 노션이 원본이 된다.
+### 2-2. 인물
 
-- **파일명**이 그대로 주소가 된다 (`/papers/<파일명>`, `/pc/<파일명>`). 비워 두면
-  페이지 ID 가 쓰이므로, 공유할 링크를 예쁘게 하려면 채우는 편이 좋다.
-- **담당**의 선택값은 대시보드에 그대로 표시된다. 심박수 그래프는
-  `pc-modules.json` 의 `heart.agent` 와 이름이 같은 인물의 **부하도**를 따라 움직인다
-  (부하도 자체는 화면에 노출되지 않음).
-- **부하도**: 식사·휴식 10~25 / 사무 30~50 / 훈련·실험 80~100 정도가 자연스럽다.
-- 라디오 **주파수**는 87.5~108 범위. 다이얼이 ±0.3MHz 안에 들어오면 잡히므로
-  방송국끼리 0.6MHz 이상 띄울 것.
+| DB | 속성 | 비고 |
+|---|---|---|
+| **인물** | 이름(제목) · 페어 · ID · 큰이름 · 라벨 · 역할 · 테마색 · 테마색다크 · 키워드 · 이미지 · 스펙 · 호칭 · 대사 · 정렬 + **본문** | 페어당 두 명(정렬 1, 2 = A, B — 화면의 01/02 도 이 순서). 공개 체크 없이 전부 나온다. `큰이름` = 프로필 배경 글자(Vance). `라벨` = Observer 같은 한 단어. `테마색`/`테마색다크` = 이 인물의 이름이 들어가는 곳(로그·스토리 대사 이름, 프로필의 호칭 줄, 주변 인물 태그)에 쓰는 색(라이트/다크, `#RRGGBB`). 비우면 기본 규칙 — 라이트 모드는 두 번째 인물, 다크 모드는 첫 번째 인물이 페어 강조색, 나머지는 글자색. `키워드` = 상세 페이지 이름 아래 강조색 칩. `스펙` = 한 줄에 `AGE: 29` 꼴. 상세 페이지 맨 위에는 NAME 칸이 자동으로 붙는다(이름). 다른 값을 쓰려면 스펙 첫 줄에 `NAME: …` 을 적는다. `호칭` = 상대를 부르는 말. `대사` = 한 줄이 말풍선 하나, 빈 줄로 세트 구분. **본문** 은 `## Appearance` 처럼 `##` 제목으로 나눈 섹션이 상세 페이지 탭이 된다 |
+| **주변 인물** | 이름(제목) · 페어 · 관계A · 관계B · 인물(관계→인물) · 이미지 · 공개 + 본문 | `관계A` = 첫 번째 인물(정렬 1)과의 관계, `관계B` = 두 번째 인물과의 관계. 적힌 쪽 인물 상세에만 나오고, 둘 다 적으면 양쪽에 각각의 문구로 나온다. `인물` 은 노션에서 거르기용(선택). 본문은 공용 |
 
-페이지 2개:
+### 2-3. 기록
 
-| 페이지 (config 키) | 출력 |
-|---|---|
-| Notice `pages.notice` | `public/data/notice.md` |
-| Memo `pages.memo` | `public/data/memo.md` |
+| DB | 속성 | 비고 |
+|---|---|---|
+| **타임라인** | 제목(제목) · 페어 · ID · DAY · 강조 · 관련스토리(관계→스토리) + **본문** | 공개 체크 없이 전부 나온다. `DAY` = 번호 아래 라벨("DAY+1"). `강조` 체크 = 주요 사건, 번호(00, 01…)가 강조색으로 나온다. 순서는 노션에서 만든 순(생성순). `ID` 는 URL 해시용(비우면 자동). 관련 스토리는 `관련스토리` 관계로 건다(권·편 순으로 보여 주고, 스토리 상세의 "TIMELINE ↗" 링크도 여기서 나온다). **본문**: 앞부분은 챕터 글, `## SCENE 01 · 장소` 아래는 장면. 장면 안의 `이름: 대사` 줄이 말풍선, 그 외 줄은 지문 |
+| **로그** | 제목(제목) · 페어 · 날짜 · 구분 · 소제목 · 비밀번호 · 태그 · 사진 · 사진설명 · 공개 + 본문 | 번호는 생성 순으로 001 부터 자동(화면의 "No. 001" 과 URL). `구분` = ORIGINAL(본편) / AU — 목록 필터 탭과 라벨 코드 접미어(`LS-001-OR` / `-AU`)에 쓰인다. `소제목` = 뷰어의 제목 아래 한 줄, 목록 NOTES 자리에도 쓴다(없으면 본문 첫 문단 미리보기). `비밀번호` 를 넣으면 **잠금 글** — 본문이 그 비밀번호로 암호화돼 실리고(원문·비밀번호는 사이트에 없음) 읽는 쪽에서 비밀번호를 맞춰야 풀린다. 잠금 글은 사진·소제목·미리보기도 싣지 않으며 제목·날짜·태그만 보인다. 비밀번호를 바꾸면 Sync 를 다시 돌린다. `태그` 는 뷰어 날짜 옆에 `#태그` 로. `사진` 은 라벨 왼쪽 사진(없으면 자리표시). 타임라인 연결은 타임라인 DB 의 `관련로그` 에서 건다. 본문의 `이름: 대사` 문단이 대본 블록. 코드 블록 언어를 **HTML** 로 두면 그 내용이 코드가 아니라 HTML 로 그대로 렌더링된다(`<style>` 포함, `<script>` 는 실행 안 됨) |
+| **스토리** | 제목(제목) · 페어 · 권 · 요약 · 소속 · 쪽 + 본문 | 공개 체크 없이 전부 나온다. `권` 1부터 오름차순, 같은 권이면 `쪽` 시작값("12–34" 의 12) 순. 같은 권에 여러 편을 넣어도 되고(주소는 vol-1-1, vol-1-2 …), 한 편뿐이면 vol-1 이다. `소속` = 줄바꿈으로 인물 순서. 본문 `## 1. 소제목`, 인용문 안 `VANCE: "대사"`, 각주 `[^1]` / `[^1]: 내용` |
+| **일기장** | 제목(제목) · 페어 · 날짜 · 작성자 · AI처리 · 공개 + 본문 | 번호는 날짜순으로 자동(001부터, 화면의 "No.001" 과 URL). `작성자` 는 선택(사용자명/캐릭터명). `AI처리` = 워커가 읽은 시각(사람이 건드리지 않음). 본문 `[^1]` 각주 번호에 코멘트가 붙는다. 마커는 AI 워커가 문장을 골라 본문에 직접 써 넣는다(직접 적어도 된다) |
 
-## 3-0. 이미지 자동 최적화
+### 2-4. 댓글·방명록
 
-`npm run notion:sync` 는 동기화 직후 `npm run images` 를 이어서 돌린다.
-노션 원본이 4K PNG 나 10MB GIF 여도 방문자에게는 가벼운 webp 만 나간다.
+| DB | 속성 | 비고 |
+|---|---|---|
+| **댓글** | 내용(제목) · 일기(관계→일기장) · 방명록(관계→방명록) · 작성자 · 출처 · 날짜 · 각주 · 답글대상(관계→댓글) · 공개 | 일기 여백 코멘트와 방명록 답글. 긴 내용은 페이지 본문에 쓴다. `출처` = AI / 사람. `각주` = 일기 본문의 몇 번 각주에 붙는지. 사람이 직접 써도 되고, AI 워커가 넣기도 한다 |
+| **방명록** | 내용(제목) · 이름 · 페어 · 날짜 · 출처 · AI처리 · 공개 | 사이트 방명록 폼 → 프록시가 여기에 행을 만든다(3절). `공개` 가 꺼진 채 들어오면 노션에서 확인 후 켠다 |
 
-- 대상: `public/images/notion/**` 의 120KB 이상 png · jpg · gif
-- 긴 변 1600px 로 줄이고 webp(품질 82) 로 변환, 원본은 삭제
-- 애니메이션 GIF 는 프레임을 유지한 채 애니메이션 webp 로 변환
-- webp 가 원본보다 크면 원본을 그대로 둔다
-- 데이터 JSON · 게시글 frontmatter · **동기화 매니페스트**의 경로까지 함께 고친다
-  (매니페스트를 고치지 않으면 다음 동기화의 정리 단계가 webp 를 지운다)
+### 2-5. AU
 
-수동으로 다시 돌려도 안전하다 (이미 변환된 파일은 건너뜀).
+| DB | 속성 | 비고 |
+|---|---|---|
+| **AU** | 제목(제목) · 페어 · 설명 · 시놉시스 · 대표이미지 · 라벨 · 박스아트 · 공개 + 본문 | 카트리지 하나가 한 행. `라벨` = 카트리지 스티커(정사각 1024), `박스아트` = 세로 박스(≈1:1.09). 둘 다 비우면 제목으로 만든 목업을 쓴다. `대표이미지` = 상세 화면 배경. 링크(`/au/chips/<번호>`)는 페어 안 생성 순으로 1, 2, 3… 자동 |
 
-## 3-1. repo 쪽에서 데이터를 고쳤을 때 (역방향 반영)
+**본문 규칙** — 프로필과 갤러리는 본문에 쓴다. 첫 `## ` 앞의 글은 시놉시스 뒤에 붙고, `## 이름` 제목 하나가 Profile 탭의 인물 하나다. 섹션 안의 이미지 한 장이 프로필 사진, 나머지 문단이 소개 줄(역할·설명 등 자유). 본문 안에 **"갤러리"** 라는 이름의 하위 페이지를 만들고 이미지를 넣으면 Gallery 탭에 앞 12장이 나온다(하위 페이지 내용은 본문 글에 섞이지 않는다).
 
-평소 흐름은 **노션 → repo** 한 방향이다. repo 에서 직접 데이터를 손봤다면
-(AU 목록 정리, ID 변경 등) 노션이 옛 상태로 남아 있어 다음 동기화가 그것을
-되살릴 수 있다. 이때만 역방향 스크립트를 쓴다.
+```
+(시놉시스에 이어지는 글)
 
-```bash
-NOTION_TOKEN=secret_xxx npm run notion:push            # 미리보기 (변경 없음)
-NOTION_TOKEN=secret_xxx npm run notion:push -- --apply # 실제 반영
+## Dr. Vance
+![](프로필 이미지)
+역할 한 줄
+소개 한 줄
+
+## Blanc
+...
+
+📄 갤러리   ← 하위 페이지, 안에 이미지만
 ```
 
-- 대상: `au`(AU) · `auMembers`(AU 멤버) · `auPosts`(없는 AU 에 달린 행 보관)
-- `db.json` 의 AU 목록이 기준. 노션에만 있는 AU/멤버 행은 **보관(archive)** 되고,
-  없는 행은 새로 만들어지고, 있는 행은 속성만 갱신된다
-- **본문은 건드리지 않는다.** 새로 만드는 행에만 본문이 들어가므로, 노션에서
-  다듬은 서식은 그대로 남는다
-- `sidebarItems`(칩) 와 `agents`(인물) 는 노션에 없고 `db.json` 에서만 관리한다
+### 2-6. 링크
 
-### 새 데이터셋(스크립트 · PC 게시글 · 루틴 · 라디오) 추가하기
+| DB | 속성 | 비고 |
+|---|---|---|
+| **이웃** | 이름(제목) · URL · 배너 · 공개 | 배너 200×40 |
+| **외부 링크** | 이름(제목) · URL · 설명 · 공개 | Links 페이지 상단 목록. 생성 순 |
 
-`notion.config.json` 에 아직 ID 가 없으므로 bootstrap 을 한 번 더 돌리면 된다.
-이미 ID 가 있는 DB 는 건너뛰므로 기존 것에는 영향이 없다.
+### 2-7. 본문 작성 규칙
 
-```bash
-NOTION_TOKEN=secret_xxx NOTION_PARENT_PAGE=<페이지ID> npm run notion:bootstrap
-```
+- **대사**: 문단 첫머리 `Vance: 대사` (이름 20자 이하, 콜론 뒤 공백). 두 번째 인물(B)의 이름은 강조색.
+- **각주**: 문장 끝에 `[^1]`, 정의는 `[^1]: 내용` 한 줄. 일기에서는 댓글 DB 의 `각주` 번호와 짝이고, 마커는 AI 워커가 꽂는다 (AI-BOARD-PLAN 4-1).
+- **이미지**: 본문에 넣으면 같이 내려온다. 굵게·기울임·인용·목록·구분선은 그대로 변환된다. 글자색은 어떤 색이든 페어 강조색으로, 배경색(형광펜)은 강조색 띠로 바뀐다.
+- 노션 없이 `public/data/<페어>/{logs,stories,diary}/*.md` 를 손으로 써도 같은 경로면 동작한다
+  (frontmatter 는 샘플 파일 참고. `no:` 값은 따옴표로 감쌀 것 — `042` 가 8진수로 읽힌다).
 
-생성된 ID 가 `notion.config.json` 에 기록되면 **커밋**해야 다음 동기화부터 반영된다.
+---
 
-## 4. 스타일 매핑 (노션 → 사이트)
+## 3. 방명록 쓰기 (사이트 → 노션)
 
-| 노션 | 사이트 md/HTML |
+정적 사이트는 노션에 직접 쓸 수 없으므로 `workers/guestbook-proxy.js` 를 Cloudflare Worker 로 올린다.
+
+| 변수 | 값 |
 |---|---|
-| 굵게 / 기울임 / 인라인 코드 | `**` / `*` / `` ` `` |
-| 취소선 / 밑줄 | `<s>` / `<u>` |
-| **글자색 (아무 색이나)** | `<span style="color: var(--color-accent)">` — 사이트 강조색 |
-| 토글 | `<details><summary>` |
-| 인용 / 콜아웃 | `>` 인용 |
-| 표 | HTML `<table>` |
-| 이미지 | 파일을 내려받아 `public/images/notion/` 에 저장 |
+| `NOTION_TOKEN` | 1절 토큰 (방명록 DB 에 연결된 통합) |
+| `GUESTBOOK_DB` | `notion.config.json` 의 `databases.guestbook` |
+| `ALLOW_ORIGIN` | `https://vance.zip` (여러 개면 쉼표) |
+| `PUBLISH_DEFAULT` | `true` 면 바로 공개, 아니면 노션에서 공개 체크 후 노출 |
+| `GITHUB_TOKEN` · `GITHUB_REPO` | (선택) `meunz94/exe`. 즉시 재배포를 원할 때 |
 
-배경색, 위첨자(`<sup>`) 등 노션에 대응이 없는 것은 표현 불가.
-더 섬세한 매핑이 필요하면 `scripts/notion-lib.mjs` 의 `richTextToMd` 를 수정.
+워커 URL 을 사이트 설정 DB 의 `guestbookEndpoint` 에 넣고 동기화하면 폼이 켜진다.
+허니팟·길이 제한·간단한 레이트 리밋이 들어 있다. 제출 직후 사이트는 그 글을 "반영 대기" 로
+브라우저에 보여 두고, 다음 동기화 뒤 서버 목록으로 바뀐다.
 
-## 5. 동작 참고
+---
 
-- **정렬**: 타임라인과 게시글은 날짜순, 나머지 목록은 `정렬` 숫자 오름차순.
-  게시글 파일명은 노션 페이지 ID에서 자동으로 만들어진다.
-- **AU 대사**: AU 페이지 본문에 인용 블록으로 `멤버이름: 대사` 를 쓰면
-  해당 멤버의 quotes 로 파싱된다. 인용이 아닌 블록은 AU 의 content 가 된다.
-- **삭제**: 노션에서 행을 지우거나 공개를 끄면, 다음 동기화 때 해당 파일도
-  삭제된다. 동기화가 소유하는 경로는 `scripts/notion-sync.mjs` 상단 주석 참고.
-  한 데이터베이스의 행을 **전부** 비공개로 바꾸면 `cleanTree` 가 빈 디렉터리까지
-  치우기 때문에 `public/data/posts` 같은 폴더 자체가 사라진다. 이건 정상 동작이고,
-  생성 스크립트들은 폴더가 없는 상태를 빈 목록으로 처리한다 — 사이트에는 "등록된
-  게시글이 없습니다" 가 뜬다.
-- **`.notion-manifest.json`**: 페이지별 수정 시각 캐시. 커밋해 두면 안 바뀐
-  페이지의 본문 변환·이미지 다운로드를 건너뛴다. 지워도 동작엔 문제 없음.
-- **이미지 용량**: 노션 업로드는 요금제에 따라 파일당 제한(무료 5MB)이 있다.
-- 노션이 원본이 된 데이터셋의 repo 파일은 동기화가 소유·정리한다.
+## 4. AI 캐릭터 댓글
+
+설계는 [AI-BOARD-PLAN.md](./AI-BOARD-PLAN.md), 할 일은 [SETUP-CHECKLIST.md](./SETUP-CHECKLIST.md) 4절.
+요약하면: 별도 워커가 일기장·방명록의 새 글(`AI처리` 비어 있음 — 일기는 전부 대상)을 읽고 Marinara 로
+답변을 만들어 **댓글 DB** 에 넣는다(작성자 = 캐릭터, 출처 = AI). 다음 동기화 때 일기 여백 코멘트 /
+방명록 답글로 나타난다. 사이트 쪽은 표시만 담당하고, `aiBoards` 로 "AI 참여" 뱃지를 켠다.
+
+---
+
+## 5. 파일 위치
+
+| 파일 | 역할 |
+|---|---|
+| `notion.config.json` | DB ID. bootstrap 이 쓰고 sync 가 읽는다. 커밋 대상 |
+| `.notion-manifest.json` | 페이지별 마지막 수정 시각·내려받은 파일 목록. 바뀐 페이지만 다시 받기 위한 캐시. 커밋 대상 |
+| `scripts/notion-bootstrap.mjs` | DB 생성·속성 보강 |
+| `scripts/notion-seed.mjs` | `public/data` 의 현재 파일을 노션 행으로 넣는다 (초기 1회, 비어 있는 DB 에만. `--force`, `--only=`, `--skip=`) |
+| `scripts/notion-sync.mjs` | 노션 → `public/data`, `public/images/notion` |
+| `scripts/optimize-images.mjs` | 내려받은 이미지를 webp 로 (sync 뒤 자동 실행) |
+| `scripts/build-content.mjs` | md 목록(logs.json 등) 생성. `npm run build` 에 포함 |
+| `.github/workflows/notion-sync.yml` | Actions 에서 sync → 커밋 → 배포 워크플로우 호출 |
+| `workers/guestbook-proxy.js` | 방명록 쓰기 프록시 |

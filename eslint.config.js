@@ -19,5 +19,17 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
+  {
+    // 옛 사이트에서 가져온 three.js 씬 — useFrame 안에서 ref 를 직접 다루는 구조라 컴파일러 규칙을 끈다
+    files: ['src/au/**/*.{ts,tsx}'],
+    rules: {
+      'react-hooks/refs': 'off',
+      'react-hooks/immutability': 'off',
+      'react-hooks/purity': 'off',
+    },
   },
 ])
