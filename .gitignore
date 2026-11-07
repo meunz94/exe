@@ -1,7 +1,7 @@
 .env
 
-# Logs
-logs
+# Logs (루트의 logs/ 만 — public/data/*/logs/ 는 글이라 커밋한다)
+/logs
 *.log
 npm-debug.log*
 
