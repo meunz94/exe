@@ -7,8 +7,8 @@
       "big": "樋片清司",
       "label": "Deceiver",
       "role": "",
-      "color": "",
-      "colorDark": "",
+      "color": "#DC1C1C",
+      "colorDark": "#DC1C1C",
       "keywords": [
         "여유로운",
         "계산적인",
@@ -86,8 +86,8 @@
       "big": "御影泉",
       "label": "Lover",
       "role": "",
-      "color": "",
-      "colorDark": "",
+      "color": "#FFE000",
+      "colorDark": "#FFE000",
       "keywords": [
         "상식적인",
         "고집쟁이",

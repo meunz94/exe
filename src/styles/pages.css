@@ -1379,7 +1379,8 @@
     font-size: 11px;
     font-weight: 400;
   }
-  .sj-section-m .prose p {
+  .sj-section-m .prose p,
+  .sj-section-m .prose li {
     font-size: 13px;
     line-height: 1.85;
   }

@@ -6,7 +6,7 @@
   },
   "4105a6bf-c773-814a-8a7a-d5c457012f9a": {
     "ds": "pairs",
-    "edited": "2026-11-07T07:25:00.000Z",
+    "edited": "2026-11-11T05:01:00.000Z",
     "files": []
   },
   "4105a6bf-c773-80e3-8f42-c9929d7a6c52": {
@@ -157,7 +157,7 @@
   },
   "4105a6bf-c773-8109-89e2-ef3a30aa5345": {
     "ds": "subjects",
-    "edited": "2026-11-07T09:00:00.000Z",
+    "edited": "2026-11-11T04:57:00.000Z",
     "files": [
       "public/images/notion/30aa5345/portrait.webp"
     ],
@@ -168,8 +168,8 @@
       "big": "樋片清司",
       "label": "Deceiver",
       "role": "",
-      "color": "",
-      "colorDark": "",
+      "color": "#DC1C1C",
+      "colorDark": "#DC1C1C",
       "keywords": [
         "여유로운",
         "계산적인",
@@ -340,7 +340,7 @@
   },
   "4105a6bf-c773-81f3-9d13-f82162988fe1": {
     "ds": "subjects",
-    "edited": "2026-11-07T09:01:00.000Z",
+    "edited": "2026-11-11T04:58:00.000Z",
     "files": [
       "public/images/notion/62988fe1/portrait.webp"
     ],
@@ -351,8 +351,8 @@
       "big": "御影泉",
       "label": "Lover",
       "role": "",
-      "color": "",
-      "colorDark": "",
+      "color": "#FFE000",
+      "colorDark": "#FFE000",
       "keywords": [
         "상식적인",
         "고집쟁이",
@@ -471,7 +471,7 @@
   },
   "4145a6bf-c773-80c5-823b-f8d96e9c208b": {
     "ds": "logs",
-    "edited": "2026-11-11T04:23:00.000Z",
+    "edited": "2026-11-11T05:16:00.000Z",
     "files": [
       "public/data/kizu/logs/001.md"
     ]

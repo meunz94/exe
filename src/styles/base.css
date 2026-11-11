@@ -392,7 +392,8 @@ textarea.field {
 }
 
 /* 마크다운 본문 */
-.prose p {
+.prose p,
+.prose li {
   font-size: 15px;
   line-height: 2;
 }
@@ -447,16 +448,106 @@ textarea.field {
 .prose img {
   margin: 12px 0;
 }
-.prose hr {
-  border: 0;
-  border-top: 1px dotted var(--line);
-  margin: 24px 0;
+.prose .prose-sep {
+  margin: 20px 0;
+  line-height: 1;
 }
+/* "-" 목록과 "1." 목록 — 같은 들여쓰기에 모노 회색 표식("–" / "1.")을 첫 줄 기준선에 건다 */
+/* 글자 크기·행간·색은 같은 자리의 문단(p) 규칙을 함께 따른다 */
 .prose ul,
 .prose ol {
-  padding-left: 20px;
+  list-style: none;
+  padding-left: 0;
+}
+/* 문단 다음 목록, 목록 다음 문단은 문단 간격만큼 띄운다 */
+.prose p + ul,
+.prose p + ol,
+.prose ul + p,
+.prose ol + p {
+  margin-top: 12px;
+}
+.prose ol {
+  counter-reset: li;
+}
+.prose ul > li,
+.prose ol > li {
+  padding-left: 24px;
+}
+.prose ul > li::before,
+.prose ol > li::before {
+  display: inline-block;
+  width: 24px;
+  margin-left: -24px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--faint);
+}
+.prose ul > li::before {
+  content: "–";
+}
+.prose ol > li {
+  counter-increment: li;
+}
+.prose ol > li::before {
+  content: counter(li) ".";
+}
+.prose li + li {
+  margin-top: 4px;
+}
+
+/* 토글 — 위아래 가는 선 사이의 한 줄, 오른쪽 + 가 열리면 × */
+.prose details {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.prose details + details {
+  border-top: 0;
+}
+.prose summary {
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.prose summary::-webkit-details-marker {
+  display: none;
+}
+.prose summary::after {
+  content: "+";
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--muted);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.prose summary:hover,
+.prose summary:hover::after,
+.prose details[open] > summary::after {
+  color: var(--accent);
+}
+.prose details[open] > summary::after {
+  transform: rotate(45deg);
+}
+.prose details > :not(summary) {
+  margin-bottom: 16px;
+}
+.prose details > summary + * {
+  margin-top: 4px;
+}
+.prose details p {
   font-size: 14px;
-  line-height: 1.9;
+}
+
+/* 대사 아랫줄 번역 — 원어보다 조금 작게, 원어 줄과의 간격은 2px 좁게 */
+.prose .tr {
+  display: block;
+  margin-top: -1px;
+  font-size: 0.9em;
+  color: var(--muted);
 }
 .prose code {
   font-family: var(--font-mono);
@@ -466,7 +557,8 @@ textarea.field {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.prose.small p {
+.prose.small p,
+.prose.small li {
   font-size: 12px;
   line-height: 1.85;
   color: var(--muted);
@@ -474,10 +566,12 @@ textarea.field {
 .prose.small p + p {
   margin-top: 12px;
 }
-.prose.body14 p {
+.prose.body14 p,
+.prose.body14 li {
   font-size: 14px;
   line-height: 2;
 }
 :root[data-theme="dark"] mark {
   background: color-mix(in srgb, var(--accent) 32%, transparent);
 }
+

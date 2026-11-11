@@ -1,10 +1,14 @@
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import { markTranslations } from "../lib/content";
 import { publicUrl } from "../lib/url";
 
 /**
  * 본문 마크다운 렌더러.
  * - `## 1. 소제목` 의 번호는 모노 회색으로
+ * - `-` 목록과 `1.` 목록은 같은 모양(모노 회색 표식 + 같은 들여쓰기)
+ * - `---` 구분선은 "···", 토글(<details>)은 + / × 로 여닫는 줄
+ * - 대사 아랫줄의 `(번역)` 은 줄바꿈 + 회색
  * - 인용문 안의 `이름: 대사` 는 이름을 대문자 라벨로 (두 번째 subject 는 강조색)
  */
 export function Markdown({
@@ -36,6 +40,12 @@ export function Markdown({
               <h2>{children}</h2>
             );
           },
+          // 구분선은 사이트 공통의 점 구분 "···"
+          hr: () => (
+            <div role="separator" className="dots prose-sep">
+              ···
+            </div>
+          ),
           img: ({ src, alt }) => <img src={publicUrl(String(src ?? ""))} alt={alt ?? ""} loading="lazy" />,
           p: ({ children, node }) => {
             // 인용문 안의 대사 라벨
@@ -60,7 +70,7 @@ export function Markdown({
           },
         }}
       >
-        {md}
+        {markTranslations(md)}
       </ReactMarkdown>
     </div>
   );
