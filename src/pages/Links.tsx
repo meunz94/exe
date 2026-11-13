@@ -43,7 +43,7 @@ export function Links() {
         /* 저장 불가 */
       }
     }
-    return [...left, ...guestbook].sort((a, b) => b.date.localeCompare(a.date));
+    return [...left, ...guestbook].sort((a, b) => b.date.localeCompare(a.date) || (b.at ?? "").localeCompare(a.at ?? ""));
   }, [pending, guestbook]);
   const replyOf = (id: string) => comments.filter((c) => c.target === "guestbook" && c.targetId === id).sort((a, b) => a.date.localeCompare(b.date));
 
@@ -51,7 +51,7 @@ export function Links() {
     const t = msg.trim();
     if (!t || status === "sending") return;
     if (hp) return;
-    const entry: GuestEntry = { id: `local-${Date.now()}`, who: name.trim() || "[익명]", date: today(), text: t, pending: true };
+    const entry: GuestEntry = { id: `local-${Date.now()}`, who: name.trim() || "[익명]", date: today(), at: new Date().toISOString(), text: t, pending: true };
     if (!site.guestbookEndpoint) {
       setStatus("error");
       return;

@@ -176,6 +176,8 @@ export interface GuestEntry {
   id: string;
   who: string;
   date: string;
+  /** 작성 시각(ISO) — 같은 날짜끼리 정렬용 */
+  at?: string;
   text: string;
   /** 사이트에서 방금 써서 아직 Notion 동기화 전인 글 */
   pending?: boolean;

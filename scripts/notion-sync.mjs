@@ -547,10 +547,11 @@ async function syncGuestbook() {
       id,
       who: getText(page, "이름") || "[익명]",
       date: getDate(page, "날짜") || page.created_time.slice(0, 10),
+      at: page.created_time, // 같은 날짜끼리 정렬용 (작성 시각)
       text: getTitle(page, "내용"),
     };
   });
-  out.sort((a, b) => b.date.localeCompare(a.date));
+  out.sort((a, b) => b.date.localeCompare(a.date) || b.at.localeCompare(a.at));
   writeJson("public/data/guestbook.json", out);
   console.log(`✓ 방명록 ${out.length}건`);
 }
