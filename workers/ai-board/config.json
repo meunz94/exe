@@ -17,7 +17,7 @@
       "maxFootnotes": 3,
       "replyToHumanComments": true,
       "guestbook": { "enabled": true },
-      "post": { "enabled": true, "afterHourKst": 21, "everyNDays": 1, "prompt": "오늘 일기를 써라." }
+      "post": { "enabled": true, "afterHourKst": 21, "everyNDays": 5, "prompt": "오늘 일기를 써라." }
     }
   ]
 }
