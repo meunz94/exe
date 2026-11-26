@@ -1,6 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import { markTranslations } from "../lib/content";
+import { boldToHtml, markTranslations } from "../lib/content";
 import { publicUrl } from "../lib/url";
 
 /**
@@ -9,6 +9,7 @@ import { publicUrl } from "../lib/url";
  * - `-` 목록과 `1.` 목록은 같은 모양(모노 회색 표식 + 같은 들여쓰기)
  * - `---` 구분선은 "···", 토글(<details>)은 + / × 로 여닫는 줄
  * - 대사 아랫줄의 `(번역)` 은 줄바꿈 + 회색
+ * - `**굵게**` 는 미리 <strong> 으로 (한글·일본어 옆에서도 굵게가 풀리지 않게)
  * - 인용문 안의 `이름: 대사` 는 이름을 대문자 라벨로 (두 번째 subject 는 강조색)
  */
 export function Markdown({
@@ -70,7 +71,7 @@ export function Markdown({
           },
         }}
       >
-        {markTranslations(md)}
+        {boldToHtml(markTranslations(md))}
       </ReactMarkdown>
     </div>
   );

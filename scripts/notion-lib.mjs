@@ -185,8 +185,10 @@ export function richTextToPlain(richText = []) {
 export function richTextToMd(richText = []) {
   return richText
     .map((t) => {
-      let s = t.plain_text;
-      if (!s.trim()) return s;
+      if (!t.plain_text.trim()) return t.plain_text;
+      // 앞뒤 공백은 서식 밖으로 (`** 말**` 처럼 공백이 안쪽에 붙으면 마크다운이 굵게로 못 읽는다)
+      const [, lead, core, trail] = t.plain_text.match(/^(\s*)([\s\S]*?)(\s*)$/);
+      let s = core;
       const a = t.annotations ?? {};
       if (a.code) {
         s = `\`${s}\``;
@@ -201,7 +203,7 @@ export function richTextToMd(richText = []) {
         if (a.color.endsWith("_background")) s = `<mark>${s}</mark>`;
         else s = `<span class="ink">${s}</span>`;
       }
-      return s;
+      return lead + s + trail;
     })
     .join("");
 }

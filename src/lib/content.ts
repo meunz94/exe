@@ -80,6 +80,18 @@ export function markTranslations(md: string): string {
   });
 }
 
+/**
+ * `**굵게**` → `<strong>`.
+ * 마크다운 규칙상 `**'인용'**에` 처럼 닫는 `**` 앞이 문장부호고 뒤가 한글·한자면 굵게로 안 읽혀
+ * 별표가 그대로 보이므로, 한 줄 안에서 짝이 맞는 굵게는 미리 HTML 로 바꿔 둔다. (코드 안은 그대로)
+ */
+export function boldToHtml(md: string): string {
+  return md
+    .split(/(```[\s\S]*?```|`[^`\n]*`)/)
+    .map((seg, i) => (i % 2 ? seg : seg.replace(/\*\*(?=[^\s*])([^*\n]*?[^\s*])\*\*/g, "<strong>$1</strong>")))
+    .join("");
+}
+
 /** 타임라인 장면 등 줄 단위 대사 목록 */
 export function parseLines(text: string): Line[] {
   return text
