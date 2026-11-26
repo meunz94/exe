@@ -483,6 +483,13 @@
       "public/data/kizu/logs/002.md"
     ]
   },
+  "4245a6bf-c773-803c-93b0-da38661ffae5": {
+    "ds": "logs",
+    "edited": "2026-11-26T04:13:00.000Z",
+    "files": [
+      "public/data/by/logs/005.md"
+    ]
+  },
   "4105a6bf-c773-81de-b123-dee1268eeb5b": {
     "ds": "stories",
     "edited": "2026-11-07T06:45:00.000Z",
@@ -630,6 +637,20 @@
     "edited": "2026-11-13T09:00:00.000Z",
     "files": [
       "public/data/by/diary/002.md"
+    ]
+  },
+  "41b5a6bf-c773-8170-954f-c58ad5ab6d1f": {
+    "ds": "diary",
+    "edited": "2026-11-17T12:01:00.000Z",
+    "files": [
+      "public/data/by/diary/003.md"
+    ]
+  },
+  "4205a6bf-c773-81e8-8b0f-f53408e2b5ad": {
+    "ds": "diary",
+    "edited": "2026-11-22T12:01:00.000Z",
+    "files": [
+      "public/data/by/diary/004.md"
     ]
   },
   "4105a6bf-c773-8197-be7e-fdca685f81b0": {
