@@ -131,11 +131,16 @@ function prop(page, name) {
 }
 
 export function getTitle(page, name) {
-  return richTextToPlain(prop(page, name)?.title ?? []);
+  return straightQuotes(richTextToPlain(prop(page, name)?.title ?? []));
 }
 
 export function getText(page, name) {
-  return richTextToPlain(prop(page, name)?.rich_text ?? []);
+  return straightQuotes(richTextToPlain(prop(page, name)?.rich_text ?? []));
+}
+
+/** 둥근 따옴표 → 곧은 따옴표 (“ ” → ", ‘ ’ → '). 「」『』 는 그대로 */
+export function straightQuotes(s) {
+  return s.replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
 }
 
 export function getDate(page, name) {
@@ -193,6 +198,7 @@ export function richTextToMd(richText = []) {
       if (a.code) {
         s = `\`${s}\``;
       } else {
+        s = straightQuotes(s);
         if (a.bold) s = `**${s}**`;
         if (a.italic) s = `*${s}*`;
         if (a.strikethrough) s = `<s>${s}</s>`;
